@@ -1,0 +1,36 @@
+
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
+*/node_modules/
+
+# Expo
+client/.expo/
+clien/dist/
+client/web-build/
+
+# Native
+client/*.orig.*
+client/*.jks
+client/*.p8
+client/*.p12
+client/*.key
+client/*.mobileprovision
+
+# Metro
+client/.metro-health-check*
+
+# debug
+*/npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+*/.env*.local
+
+# typescript
+*.tsbuildinfo
