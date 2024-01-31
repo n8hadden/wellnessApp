@@ -2,24 +2,11 @@
 
 const express = require("express");
 const cors = require("cors");
+const database = require("./utils/database");
+
 require("dotenv").config();
 
-// Setup PostgreSQL Connection
-import { Client } from 'pg';
-const client = new Client({
-	host: 'host',
-	port: 5334,
-	database: 'database-name',
-	user: 'database-user'
-	password: 'secretpasswordooohhhhhhfun'
-});
-await client.connect();
+//connect to database
+new database().connect()
 
 // Running postgres queries with error handling
-try {
-   
-} catch (err) {
-    console.error(err);
-} finally {
-    await client.end();
-}
