@@ -1,7 +1,6 @@
 const {Client} = require("pg");
 
 class Database{
-
     static client = null;
 
     connect = () => {
@@ -16,6 +15,22 @@ class Database{
 
         //connect the client
         Database.client.connect();
+    }
+
+    static setData = async (query) => {
+        await Database.client.query(query).catch(err => {
+            console.log(err);
+        });
+    }
+
+    static getData = async (query) => {
+        try{
+            return (await Database.client.query(query)).rows;
+        }
+        catch(err){
+            console.log(err);
+            return [];
+        }
     }
 }
 

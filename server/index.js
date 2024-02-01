@@ -8,5 +8,6 @@ require("dotenv").config();
 
 //connect to database
 new database().connect()
+const model = require("./models/userModels");
 
 // Running postgres queries with error handling
