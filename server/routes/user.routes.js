@@ -6,3 +6,6 @@ const router = express.router();
 const userController = require('../controller/userController');
 
 // Routes that control endpoints
+router.get("/getUsers", userController.getUsers);
+
+router.post("/createUser", userController.createUser);
