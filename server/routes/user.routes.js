@@ -1,6 +1,6 @@
 // Set up express
 const express = require('express');
-const router = express.router();
+const router = express.Router();
 
 // require the userController methods
 const userController = require('../controller/userController');
