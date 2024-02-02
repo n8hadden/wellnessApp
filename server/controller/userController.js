@@ -1,4 +1,29 @@
 const model = require("../models/userModels");
+const bcrypt = require('bcrypt');
+
+// Set the number of times to hash the passwords.
+const saltRounds = 12; 
+
+// Login the user
+async function login(req, res) {
+    const { username, password } = req.body;
+
+    const user = await model.getUserByUsername(username);
+    bcrypt.compare(password, user.password, (err, isMatch) => {
+        if (isMatch) {
+            res.status(200).json({ user });
+        } else {
+            res.status(404).json({ error: "Internal Server Error" });
+        }
+    });
+
+    try {
+       
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}
 
 // Get and show all users
 async function getUsers(req, res) {
@@ -15,6 +40,10 @@ async function getUsers(req, res) {
 // Create a user
 async function createUser(req, res)  {
     const { username, email, password } = req.body;
+
+    await bcrypt.hash(password, saltRounds).then(hash => {
+        password = hash;
+    }) 
 
     try {
         const newUser = await model.createUser(username, email, password);

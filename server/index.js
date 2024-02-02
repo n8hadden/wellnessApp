@@ -1,5 +1,4 @@
 // Declaring variables
-
 const express = require("express");
 const cors = require("cors");
 const database = require("./utils/database");
