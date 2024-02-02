@@ -6,11 +6,11 @@ const router = express.Router();
 const userController = require('../controller/userController');
 
 // Routes that control endpoints
-router.get("/getUsers", userController.getUsers);
+router.post("/getUsers", userController.getUsers);
 router.post("/createUser", userController.createUser);
-router.get("/getUserById", userController.getUserById);
-router.get("/getUserByEmail", userController.getUserByEmail);
-router.get("getUserByUsername", userController.getUserByUsername);
+router.post("/getUserById", userController.getUserById);
+router.post("/getUserByEmail", userController.getUserByEmail);
+router.post("getUserByUsername", userController.getUserByUsername);
 router.post("/login", userController.login);
 
 module.exports = router;
