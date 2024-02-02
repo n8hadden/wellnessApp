@@ -1,3 +1,4 @@
+const { query } = require("express");
 const database = require("../utils/database")
 
 async function getUsers(){
@@ -31,10 +32,20 @@ async function createUser(username, email, password){
     await database.setData(query);
 }
 
+async function getUserBySession(sessionKey){
+    let query = `SELECT username, email, password 
+    FROM users INNER JOIN sessions 
+    ON users.id = sessions.user_id
+    WHERE session_key='${query}';`;
+
+    return (await database.getData(query))[0];
+}
+
 module.exports = {
     getUsers,
     getUserById,
     getUserByUsername,
     getUserByEmail,
+    getUserBySession,
     createUser
 }

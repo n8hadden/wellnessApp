@@ -1,17 +1,52 @@
 const model = require("../models/userModels");
+const sessionModel = require("../models/sessionModels");
+
 const bcrypt = require('bcrypt');
+const randomKey = require("../utils/randomKey");
 
 // Set the number of times to hash the passwords.
 const saltRounds = 12; 
 
 // Login the user
+async function verifySession(req, res){
+    let { session } = req.body;
+    
+    if(session != undefined)
+    {
+        let user = await model.getUserBySession(session);
+
+        if(user != null){
+            res.status(200).json({
+                user: user,
+                sessionKey: session
+            });
+        }
+        else{
+            res.status(404).json({error: "session does not exist"});
+        }
+    }
+    else{
+        res.status(404).json({error: "No Session Provided"});
+    }
+}
+
+
+
 async function login(req, res) {
-    const { username, password } = req.body;
+    let { username, password} = req.body;
 
     const user = await model.getUserByUsername(username);
-    bcrypt.compare(password, user.password, (err, isMatch) => {
+    bcrypt.compare(password, user.password, async (err, isMatch) => {
         if (isMatch) {
-            res.status(200).json({ user });
+
+            session = randomKey();
+            await sessionModel.addSession(user.id, session);
+
+            res.status(200).json({
+                user: user,
+                sessionKey: session
+            });
+
         } else {
             res.status(404).json({ error: "Internal Server Error" });
         }
@@ -32,7 +67,7 @@ async function getUsers(req, res) {
 
 // Create a user
 async function createUser(req, res)  {
-    const { username, email, password } = req.body;
+    let { username, email, password } = req.body;
 
     await bcrypt.hash(password, saltRounds).then(hash => {
         password = hash;
@@ -65,7 +100,7 @@ async function getUserByEmail(req, res) {
     const { email } = req.body;
 
     try {
-        const user = await model.getUserById(email);
+        const user = await model.getUserByEmail(email);
         res.status(201).json({ user });
     } catch (err) {
         console.error(err);
@@ -75,10 +110,11 @@ async function getUserByEmail(req, res) {
 
 // Get a user by a given username
 async function getUserByUsername(req, res) {
+    console.log(req.body);
     const { username } = req.body;
 
     try {
-        const user = await model.getUserById(username);
+        const user = await model.getUserByUsername(username);
         res.status(201).json({ user });
     } catch (err) {
         console.error(err);
@@ -93,4 +129,5 @@ module.exports = {
     getUserById,
     getUserByEmail,
     getUserByUsername,
+    verifySession
 }
