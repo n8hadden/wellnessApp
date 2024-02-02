@@ -16,13 +16,6 @@ async function login(req, res) {
             res.status(404).json({ error: "Internal Server Error" });
         }
     });
-
-    try {
-       
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
 }
 
 // Get and show all users
