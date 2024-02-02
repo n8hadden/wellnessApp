@@ -94,6 +94,7 @@ async function getUserByUsername(req, res) {
 }
 
 module.exports = {
+    login,
     getUsers,
     createUser,
     getUserById,
