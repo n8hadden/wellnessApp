@@ -7,7 +7,7 @@ const tagController = require('../controller/tagController');
 
 // routes that control endpoints
 router.post("/getTags", tagController.getTags);
-router.post("/addTags", tagController.addTags);
-router.post("/removeTags", tagController.removeTags);
+router.post("/addTag", tagController.addTag);
+router.post("/removeTag", tagController.removeTag);
 
 module.exports = router;
