@@ -2,11 +2,11 @@
 const model = require('../models/tagModels');
 
 // function that gets a user and a tag and adds it to that user in the database
-async function addtag(req, res) {
+async function addTag(req, res) {
     const { userId, tagId } = req.body;
 
     try {
-        await model.addTags(userId, tagId);
+        await model.addTag(userId, tagId);
         res.status(201);
     } catch (err) {
         console.error(err);
@@ -19,7 +19,7 @@ async function removeTag(req, res) {
     const { userId, tagId } = req.body;
 
     try {
-        await model.removeTags(userId, tagId);
+        await model.removeTag(userId, tagId);
         res.status(201);
     } catch (err) {
         console.error(err);
