@@ -1,10 +1,10 @@
 const model = require('../models/tagModels');
 
 async function addTags(req, res) {
-    const { user, tags } = req.body;
+    const { user, tagIds } = req.body;
 
     try {
-        await model.addTags(user, tags);
+        await model.addTags(user, tagIds);
         res.status(201);
     } catch (err) {
         console.error(err);
@@ -13,10 +13,10 @@ async function addTags(req, res) {
 }
 
 async function removeTags(req, res) {
-    const { user, tags } = req.body;
+    const { user, tagIds } = req.body;
 
     try {
-        await model.removeTags(user, tags);
+        await model.removeTags(user, tagIds);
         res.status(201);
     } catch (err) {
         console.error(err);
@@ -26,7 +26,7 @@ async function removeTags(req, res) {
 
 async function getTags(req, res) {
     try {
-        const tags = await model.getTags();
+        const { tags } = await model.getTags();
         res.status(201).json({ tags });
     } catch (err) {
         console.error(err);
