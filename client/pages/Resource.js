@@ -10,7 +10,7 @@ export default function Page({route}) {
             <View style={styles.chats}>
 
             </View>
-            <Text style={styles.title}>Chat Page</Text>
+            <Text style={styles.title}>Resources Page</Text>
             <StatusBar style="auto" />
         </ScrollView>
     );

@@ -1,45 +1,36 @@
 import * as React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { createStackNavigator } from '@react-navigation/stack';
 
-// Screens
-import HomePage from '../pages/Home';
-import ChatPage from '../pages/Chat';
+import Home from '../pages/Home';
+import Resource from '../pages/Resource'
+import Chat from '../pages/Chat';
+import MoodQuiz from '../pages/MoodQuiz';
+
+import Navbar from './Navbar';
+
+const Stack = createStackNavigator();
 
 export default function Navigation() {
 
-  //Screen names
-  const homeName = "Home";
-  const chatName = "Chat";
-
-  const Tab = createBottomTabNavigator();
-
   return (
-    <Tab.Navigator
-      initialRouteName={homeName}
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
-          let rn = route.name;
-
-          /* Icon Focus */
-          if (rn === homeName) {
-            iconName = focused ? 'home' : 'home-outline';
-          } else if (rn === chatName) {
-            iconName = focused ? 'chatbubbles-sharp' : 'chatbubbles-outline';
-          } 
-          
-          return <Ionicons name={iconName} size={size*1.5} color={color} />;
-        },
-        tabBarActiveTintColor: '#476a6f',
-        tabBarInactiveTintColor: 'grey',
-        tabBarLabelStyle: { paddingBottom: 0, fontSize: 15 },
-        tabBarStyle: { padding: 10, height: 100, backgroundColor: 'lightgrey',  }
-      })}
-    >
-      {/* Tab screens with props */}
-      <Tab.Screen name={homeName} component={HomePage} />
-      <Tab.Screen name={chatName} component={ChatPage} />
-    </Tab.Navigator>
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={Navbar}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen 
+        name="Resource"
+        component={Resource}
+      />
+      <Stack.Screen 
+        name="Chat"
+        component={Chat}
+      />
+      <Stack.Screen 
+        name="MoodQuiz"
+        component={MoodQuiz}
+      />
+    </Stack.Navigator>
   );
 }
