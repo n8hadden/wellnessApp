@@ -9,3 +9,5 @@ const tagController = require('../controller/tagController');
 router.post("/getTags", tagController.getTags);
 router.post("/addTags", tagController.addTags);
 router.post("/removeTags", tagController.removeTags);
+
+module.exports = router;
