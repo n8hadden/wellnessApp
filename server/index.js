@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const database = require("./utils/database");
 const userRoutes = require("./routes/user.routes");
+const tagRoutes = require("./routes/tag.routes");
 const bodyParser = require("body-parser");
 
 require("dotenv").config();
@@ -15,6 +16,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use("/user", userRoutes);
+app.use("/tag", tagRoutes);
 
 //connect to database
 new database().connect()
