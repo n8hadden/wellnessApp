@@ -1,12 +1,12 @@
 // import the model from models
 const model = require('../models/tagModels');
 
-// function that gets a user and some tags and adds it to that user in the database
-async function addTags(req, res) {
-    const { user, tagIds } = req.body;
+// function that gets a user and a tag and adds it to that user in the database
+async function addtag(req, res) {
+    const { userId, tagId } = req.body;
 
     try {
-        await model.addTags(user, tagIds);
+        await model.addTags(userId, tagId);
         res.status(201);
     } catch (err) {
         console.error(err);
@@ -14,12 +14,12 @@ async function addTags(req, res) {
     }
 }
 
-// function that gets a user and some tags and removes it from that user in the database
-async function removeTags(req, res) {
-    const { user, tagIds } = req.body;
+// function that gets a user and a tag and removes it from that user in the database
+async function removeTag(req, res) {
+    const { userId, tagId } = req.body;
 
     try {
-        await model.removeTags(user, tagIds);
+        await model.removeTags(userId, tagId);
         res.status(201);
     } catch (err) {
         console.error(err);
@@ -42,7 +42,7 @@ async function getTags(req, res) {
 
 // export the methods to be used elsewhere
 module.exports = {
-    addTags,
-    removeTags, 
+    addTag,
+    removeTag, 
     getTags,
 }
