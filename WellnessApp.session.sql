@@ -1,11 +1,11 @@
 SELECT * FROM users
 
 INSERT INTO users (username, email, password, tags) VALUES (
-    'Nathan',
-    'Nathan@Nathan',
-    'Password',
+    'Bathan',
+    'Bathan@Nathan',
+    'Bassword',
     ARRAY [
-        1,2,3
+        1,3
     ]
 )
 
@@ -47,3 +47,10 @@ INSERT INTO tags (tag_name) VALUES
 ('Singer'), ('Christian')
 
 SELECT * FROM tags
+
+SELECT b.* FROM users
+a JOIN tags b ON 
+b.tag_id = ANY(a.tags) 
+WHERE user_id = 1
+
+UPDATE users SET tags = ARRAY_APPEND(tags, 1) WHERE user_id = 1;
