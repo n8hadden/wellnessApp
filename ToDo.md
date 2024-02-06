@@ -15,8 +15,14 @@
 
 - Add some alerts if people need help with suicide prevention or something.
 
+- Figure out how to get "tags" to work
+
+- ぢяㄔⅻ åばだæがإㄞまㄢ
+
 # Updates: 
 - Write stuff here when you finish something
+
+- The users system should be done now.
 
 # Online Resources: 
 - https://www.teens4teenshelp.org/
