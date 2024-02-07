@@ -8,9 +8,10 @@ const Stack = createStackNavigator();
 export default function ResourceStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen 
+      <Stack.Screen
         name="ResourceScreen"
         component={Resource}
+        options={{ headerTitle: 'Resource Page' }}
       />
     </Stack.Navigator>
   );

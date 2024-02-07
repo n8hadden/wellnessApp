@@ -4,6 +4,9 @@ import React from 'react';
 import { styles } from '../styles/HomeStyles'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+// components
+import Btn from '../components/HomeBtn';
+
 import { useNavigation } from '@react-navigation/native';
 
 const windowWidth = Dimensions.get('window').width;
@@ -38,8 +41,8 @@ export default function Page({route}) {
                 <Text style={{ color: "#f9fbfd"}}>Video Placeholder</Text>
             </View>
 
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={() => { /* handle button press */ }}>
+            {/* <View style={styles.buttonContainer}>
+                <TouchableOpacity onPress={() => {  }}>
                     <View style={styles.button}>
                         <Ionicons 
                             name="calendar" 
@@ -50,7 +53,7 @@ export default function Page({route}) {
                 </TouchableOpacity>
             </View>
             <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={() => {  navigation.navigate('MoodQuiz', {name: "Daniel"}); }}>
+                <TouchableOpacity onPress={() => { navigation.navigate('Home', {screen: 'MoodQuizScreen'}); }}>
                     <View style={styles.button}>
                         <Ionicons 
                             name="school" 
@@ -61,7 +64,7 @@ export default function Page({route}) {
                 </TouchableOpacity>
             </View>
             <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={() => { /* handle button press */ }}>
+                <TouchableOpacity onPress={() => {  }}>
                     <View style={styles.button}>
                         <Ionicons 
                             name="chatbubbles" 
@@ -72,10 +75,19 @@ export default function Page({route}) {
                         <Text style={styles.buttonText}>Chat</Text>
                     </View>
                 </TouchableOpacity>
-            </View>
-            <TouchableOpacity 
+            </View> */}
+            <Btn onPressFunc={() => { navigation.navigate('Home', {screen: 'MoodQuizScreen'}); }}>
+                <Ionicons 
+                    name="document-text" 
+                    size={40}
+                    color="#ffffff" 
+                    style={styles.icon} 
+                />
+                <Text style={styles.buttonText}>Resources</Text>
+            </Btn>
+            {/* <TouchableOpacity 
                 style={styles.buttonContainer}
-                onPress={() => { /* handle button press */ }}
+                onPress={() => { navigation.navigate('Home', {screen: 'MoodQuizScreen'}); }}
             >
                 <View>
             
@@ -89,7 +101,8 @@ export default function Page({route}) {
                         <Text style={styles.buttonText}>Resources</Text>
                     </View>
                 </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+            
         </ScrollView>
     );
 }
