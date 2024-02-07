@@ -2,17 +2,17 @@ import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-// Screens
-import HomePage from '../pages/Home';
-import ResourcePage from '../pages/Resource'
-import ChatPage from '../pages/Chat';
+// Stack Navigations 
+import HomeStack from './HomeStack';
+import ResourceStack from './ResourceStack'
+import ChatStack from './ChatStack';
 
 export default function Navbar() {
 
-  //Screen names
-  const homeName = "Home";
-  const resourceName = "Community";
-  const chatName = "Peers";
+  // Tab route names
+  const homeTab = "Home";
+  const resourceTab = "Resource";
+  const chatTab = "Chat";
 
   const Tab = createBottomTabNavigator();
 
@@ -25,11 +25,11 @@ export default function Navbar() {
                 let rn = route.name;
 
                 /* Icon Focus */
-                if (rn === homeName) {
+                if (rn === homeTab) {
                     iconName = focused ? 'home' : 'home-outline';
-                } else if (rn === resourceName) {
+                } else if (rn === resourceTab) {
                     iconName = focused ? 'newspaper' : 'newspaper-outline';
-                } else if (rn === chatName) {
+                } else if (rn === chatTab) {
                     iconName = focused ? 'chatbubbles-sharp' : 'chatbubbles-outline';
                 }
                 
@@ -42,9 +42,9 @@ export default function Navbar() {
         })}
     >
         {/* Tab screens with props */}
-        <Tab.Screen name="Home" component={HomePage} /* options={{headerShown: false}} */ />
-        <Tab.Screen name="Community" component={ResourcePage} />
-        <Tab.Screen name="Peers" component={ChatPage} />
+        <Tab.Screen name={homeTab} component={HomeStack} options={{headerShown: false}} />
+        <Tab.Screen name={resourceTab} component={ResourceStack} options={{headerShown: false}} />
+        <Tab.Screen name={chatTab} component={ChatStack} options={{headerShown: false}} />
     </Tab.Navigator>
   );
 }

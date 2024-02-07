@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
-
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 10,
     alignItems: 'center',
-    justifyContent: 'center',
     padding: 20,
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   },
   question: {
     fontSize: 20,
@@ -13,16 +13,16 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
   },
   moodButton: {
-    width: 200,
+    width: 100,
     height: 50,
     borderRadius: 25,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: '#E0E0E0',
     marginBottom: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
   selectedMoodButton: {
-    backgroundColor: '#ffcc80',
+    backgroundColor: '#FFCC80',
   },
   moodButtonText: {
     fontSize: 16,
@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
     width: 200,
     height: 50,
     borderRadius: 25,
-    backgroundColor: '#4caf50',
+    backgroundColor: '#4CAF50',
     marginTop: 20,
     justifyContent: 'center',
     alignItems: 'center',
@@ -40,6 +40,6 @@ export const styles = StyleSheet.create({
   submitButtonText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#ffffff',
+    color: '#FFFFFF',
   },
 });
