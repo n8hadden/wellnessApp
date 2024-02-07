@@ -7,7 +7,7 @@ async function addTag(req, res) {
 
     try {
         await model.addTag(userId, tagId);
-        res.status(201);
+        res.status(201).json({"message": "The tag was added successfully."});
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Internal Server Error"});
@@ -20,7 +20,7 @@ async function removeTag(req, res) {
 
     try {
         await model.removeTag(userId, tagId);
-        res.status(201);
+        res.status(201).json({"message": "The tag was removed successfully"});
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Internal Server Error" });
@@ -29,10 +29,13 @@ async function removeTag(req, res) {
 
 // function that gets a userId and returns all the tags associated with the user
 async function getTags(req, res) {
-    const { userId } = req.body;
+    const userId = req.body;
+
+    console.log(userId);
 
     try {
-        const { tags } = await model.getTags(userId);
+        const tags  = await model.getTags(userId);
+        console.log(tags);
         res.status(201).json({ tags });
     } catch (err) {
         console.error(err);
