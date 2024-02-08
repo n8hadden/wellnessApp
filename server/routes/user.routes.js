@@ -14,4 +14,5 @@ router.post("/getUserByUsername", userController.getUserByUsername);
 router.post("/login", userController.login);
 router.post("/verify", userController.verifySession)
 
+// export the router
 module.exports = router;

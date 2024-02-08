@@ -10,4 +10,5 @@ router.post("/getTags", tagController.getTags);
 router.post("/addTag", tagController.addTag);
 router.post("/removeTag", tagController.removeTag);
 
+// export the router
 module.exports = router;

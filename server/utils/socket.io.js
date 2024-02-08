@@ -1,39 +1,58 @@
-const {Server} = require("socket.io");
+// Importing the Server class from the socket.io module
+const { Server } = require("socket.io");
 
-class IO{
+// Definition of the IO class
+class IO {
+    // Initializing properties
     endpoints = [];
     io = null;
 
-    constructor(httpServer){
+    // Constructor function that takes an HTTP server as an argument
+    constructor(httpServer) {
+        // Creating a new instance of the Server class and assigning it to the io property
         this.io = new Server(httpServer);
     }
 
-    connect(){
+    // Method to handle connection events
+    connect() {
+        // Event listener for when a client connects
         this.io.on("connection", (socket) => {
-            this.endpoints.forEach(x => {
-                socket.on(x.endpoint, (data) => x.callback(io, socket))
+            // Attaching event listeners for each registered endpoint
+            this.endpoints.forEach(endpoint => {
+                // When the endpoint event is received, execute the associated callback function
+                socket.on(endpoint.endpoint, (data) => endpoint.callback(this.io, socket, data))
             })
         });
     }
 
-    use(router){
+    // Method to register routes from a router
+    use(router) {
+        // Extracting routes from the router
         const routes = router.routes;
+        // Adding each route to the endpoints array
         routes.forEach(route => {
             this.endpoints.push(route)
         });
     }
 }
 
-class Router{
+// Definition of the Router class
+class Router {
+    // Initializing routes array
     routes = []
-    
-    On(endpoint, callback){
+
+    // Method to register an event listener for a specific endpoint
+    On(endpoint, callback) {
+        // Pushing the endpoint and callback function to the routes array
         this.routes.push({
-            endpoint, callback
+            endpoint,
+            callback
         })
     }
 }
 
+// Exporting the IO and Router classes to make them accessible to other modules
 module.exports = {
-    IO, Router
+    IO,
+    Router
 }
