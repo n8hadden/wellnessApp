@@ -12,11 +12,13 @@ export default function HomeStack() {
       <Stack.Screen
         name="HomeScreen"
         component={Home}
+        options={{ headerTitle: 'Home Screen' }}
         // options={{ headerShown: false }}
       />
       <Stack.Screen 
         name="MoodQuizScreen"
         component={MoodQuiz}
+        options={{ headerTitle: 'Mood Quiz' }}
       />
     </Stack.Navigator>
   );

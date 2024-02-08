@@ -50,7 +50,7 @@ export default function Page({route}) {
                 </TouchableOpacity>
             </View>
             <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={() => {  navigation.navigate('MoodQuiz', {name: "Daniel"}); }}>
+            <TouchableOpacity onPress={() => {  navigation.navigate('Home', {screen: "MoodQuizScreen"}); }}>
                     <View style={styles.button}>
                         <Ionicons 
                             name="school" 
