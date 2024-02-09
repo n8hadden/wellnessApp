@@ -1,9 +1,9 @@
 SELECT * FROM users
 
 INSERT INTO users (username, email, password, tags) VALUES (
-    'Bathan',
-    'Bathan@Nathan',
-    'Bassword',
+    'Jathan',
+    'Jathan@Nathan',
+    'Jassword',
     ARRAY [
         1,3
     ]
@@ -54,3 +54,27 @@ b.tag_id = ANY(a.tags)
 WHERE user_id = 1
 
 UPDATE users SET tags = ARRAY_APPEND(tags, 1) WHERE user_id = 1;
+
+CREATE TABLE IF NOT EXISTS chatgroups (
+    chat_id INTEGER,
+    user_id INTEGER
+)
+
+CREATE TABLE IF NOT EXISTS message (
+    msg_id SERIAL PRIMARY KEY,
+    sender_id INTEGER,
+    chat_id INTEGER
+)
+
+SELECT * FROM message;
+SELECT * FROM chatgroups
+
+TRUNCATE TABLE message
+
+INSERT INTO chatgroups (chat_id, user_id) VALUES 
+(1, 1), (1, 4), (1, 2), (2, 3), (1, 2)
+
+INSERT INTO message (sender_id, content, group_id) VALUES 
+(1, 'Hello', 1), (1, 'Whats up?', 1), (2, 'Not much...', 2)
+
+SELECT * FROM message WHERE group_id=1

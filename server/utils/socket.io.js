@@ -11,7 +11,7 @@ class IO{
     connect(){
         this.io.on("connection", (socket) => {
             this.endpoints.forEach(x => {
-                socket.on(x.endpoint, (data) => x.callback(io, socket))
+                socket.on(x.endpoint, (data) => x.callback(this.io, socket))
             })
         });
     }
