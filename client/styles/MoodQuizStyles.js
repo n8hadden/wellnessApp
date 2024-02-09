@@ -1,29 +1,54 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
 export const styles = StyleSheet.create({
+  body: {
+    flex: 1,
+    backgroundColor: '#eedaf3',
+  },
   question: {
     fontSize: 25,
     fontWeight: 'bold',
-    marginBottom: 20,
     marginTop: 10,
     textAlign: 'center',
   },
-  container: {
+  qbody: {
     flex: 1,
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
+    borderTopRightRadius: 10, 
+    borderTopLeftRadius: 10,
+    backgroundColor: "white",
+    width: "85%",
+    marginHorizontal: "7.5%",
+    marginTop: 20,
+  },
+  container: {
+    flexWrap: 'wrap',
+    flexDirection: 'row',
     justifyContent: 'center',
     padding: 20,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    width: '85%', // Set the width to match the qbody width
+    marginHorizontal: '7.5%', // Adjust the horizontal margin to match the qbody
   },
   moodButton: {
-    width: '48%',
+    flexBasis: '29%',
     height: 50,
     borderRadius: 25,
-    backgroundColor: '#E0E0E0',
+    backgroundColor: '#e8e6e1',
     marginBottom: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    marginHorizontal: '2%',
   },
   selectedMoodButton: {
     backgroundColor: '#FFCC80',
+    borderColor: 'black',
+    borderWidth: 2,
   },
   moodButtonText: {
     fontSize: 16,
@@ -39,6 +64,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
+    marginBottom: 20
   },
   submitButtonText: {
     fontSize: 20,
@@ -48,11 +74,23 @@ export const styles = StyleSheet.create({
   sliderContainer: {
     width: '100%',
     alignItems: 'center',
-    marginTop: 10,
+    flex: 1,
+    justifyContent: 'center',
+    paddingVertical: 10, // Adjust the vertical padding to make it smaller
+    paddingHorizontal: 20,
+    backgroundColor: 'white',
+    width: '85%', // Set the width to match the qbody width
+    marginHorizontal: '7.5%', // Adjust the horizontal margin to match the qbody
+    borderBottomRightRadius: 10, 
+    borderBottomLeftRadius: 10,
   },
   slider: {
     width: '50%',
     height: 40,
+  },
+  sliderText: {
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   sliderValue: {
     fontSize: 16,
