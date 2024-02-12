@@ -33,12 +33,12 @@ export default function Navbar() {
                     iconName = focused ? 'chatbubbles-sharp' : 'chatbubbles-outline';
                 }
                 
-                return <Ionicons name={iconName} size={size*1.5} color={color} />;
+                return <Ionicons name={iconName} size={size*1.25} color={color} />;
             },
             tabBarActiveTintColor: '#476a6f',
             tabBarInactiveTintColor: 'grey',
-            tabBarLabelStyle: { paddingBottom: 0, fontSize: 15 },
-            tabBarStyle: { padding: 10, height: 100, backgroundColor: 'lightgrey',  }
+            tabBarLabelStyle: { fontSize: 15, height: 15 },
+            tabBarStyle: {  paddingTop: 10, height: 85, backgroundColor: 'lightgrey',  },
         })}
     >
         {/* Tab screens with props */}
