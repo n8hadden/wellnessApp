@@ -8,7 +8,8 @@ export default function Page({route}) {
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <View>
-                <Text>Chat Room</Text>
+                
+                
             </View>
             <StatusBar style="auto" />
         </ScrollView>

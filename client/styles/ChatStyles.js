@@ -1,10 +1,11 @@
 import { Dimensions, StyleSheet } from 'react-native';
 
-windowWidth = Dimensions.get('window').width;
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export const styles = StyleSheet.create({
     container: {
-        display: 'flex',
+        // display: 'flex',
         alignItems: 'center',
         rowGap: 10,
         paddingBottom: 30,
@@ -27,27 +28,34 @@ export const styles = StyleSheet.create({
         color: 'black',
         marginVertical: 5
     },
-    /* tagContain_1: {
-        flex: 1.8,
+    /* ChatRoomScreen Header Styles */
+    rh_contain1: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#f5f5f5',
+        height: windowHeight * 0.11,
+        paddingTop: windowHeight * 0.04,
+        flexDirection: 'row',
+        columnGap: 8,
     },
-    tagContain_2: {
+    rh_img: {
+        width: 37,
+        height: 37,
+        borderRadius: 40, 
+    },
+    rh_text: {
+        color: 'black',
+        fontSize: 19,
+    },
+    rh_contain2: {
         flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        height: windowHeight * 0.11,
+        paddingTop: windowHeight * 0.04,
+        marginLeft: 5,
     },
-    tagContain_3: {
-        flex: 1,
-    },
-    tagText_1: {
-        color: 'white',
-        textAlign: 'left',
-        fontSize: 20,
-    },
-    tagText: {
-        color: 'white',
-        textAlign: 'center',
-        alignSelf: 'center',
-        fontSize: 20,
-    }, */
-
     /* ChatRoomScreen Styles */
-    
+
 });

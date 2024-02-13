@@ -56,12 +56,6 @@ export default function Page({route}) {
                 text="Mood Quiz"
             />
             <Btn 
-                onPress={() => { navigation.navigate('Chat', {screen: 'ChatRoomScreen'}); }}
-                iconImg="chatbubbles"
-                iconColor="#ffffff"
-                text="Chat"
-            />
-            <Btn 
                 onPress={() => { navigation.navigate('Home'); }}
                 iconImg="document-text"
                 iconColor="#ffffff"

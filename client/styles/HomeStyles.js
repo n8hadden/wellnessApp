@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#C1B8C8', 
   },
   dailyaffirm: {
-    display: 'flex',
+    // display: 'flex',
     width: windowWidth * 0.85,
     height: 100,
     borderRadius: 15,
@@ -38,7 +38,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   tempvidContainer: { /*  */
-    display: 'flex',
+    // display: 'flex',
     height: 150,
     width: windowWidth * 0.85,
     borderRadius: 15, 
@@ -53,7 +53,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#91ADC2',
     flexDirection: 'row', // add this to layout children horizontally
     borderRadius: 10,
-    display: 'flex',
+    // display: 'flex',
     alignItems: 'center',
   },
   btnContent: {
@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
   },
   icon: {
     marginLeft: 20,
-    display: 'flex',
+    // display: 'flex',
     textAlign: 'center',
   },
   btnText: {
