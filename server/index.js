@@ -4,7 +4,8 @@ const cors = require("cors");
 const database = require("./utils/database"); 
 const userRoutes = require("./routes/user.routes"); 
 const tagRoutes = require("./routes/tag.routes"); 
-const chatRoutes = require("./routes/chat.routes"); 
+const chatSocketRoutes = require("./routes/chat.socket.routes"); 
+const chatRoutes = require("./routes/chat.routes");
 
 const bodyParser = require("body-parser"); 
 const {IO} = require("./utils/socket.io");
@@ -42,9 +43,10 @@ app.use("/user", userRoutes);
 
 // Mounting tag routes to the "/tag" endpoint
 app.use("/tag", tagRoutes);
+app.use("/chat", chatRoutes);
 
 // Registering chat routes using the io instance
-io.use(chatRoutes);
+io.use(chatSocketRoutes);
 
 // Connecting to the database
 new database().connect();
