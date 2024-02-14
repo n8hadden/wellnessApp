@@ -30,11 +30,14 @@ export const styles = StyleSheet.create({
     },
     /* ChatRoomScreen Header Styles */
     rh_contain1: {
-        alignItems: 'center',
-        justifyContent: 'center',
         backgroundColor: '#f5f5f5',
         height: windowHeight * 0.11,
         paddingTop: windowHeight * 0.04,
+    },
+    rh_contain3: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: windowHeight * 0.08,
         flexDirection: 'row',
         columnGap: 8,
     },
