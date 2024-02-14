@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Dimensions, StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import React, { useState } from 'react';
 import { styles } from '../styles/MoodQuizStyles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -8,7 +8,6 @@ import Slider from '@react-native-community/slider';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-// Define an array of mood buttons with their properties
 const moodButtons = [
   { mood: 'happy', bgColor: '#FFD700', label: 'Happy' },
   { mood: 'sad', bgColor: '#87CEEB', label: 'Sad' },
@@ -20,15 +19,13 @@ const moodButtons = [
   { mood: 'calm', bgColor: '#98FB98', label: 'Calm' },
 ];
 
-export default function Page({ route }) {
-  // State variables to keep track of selected moods and slider values
+export default function Page() {
   const [selectedMoods, setSelectedMoods] = useState([]);
   const [sliderValues, setSliderValues] = useState({});
+  const [finalThoughts, setFinalThoughts] = useState('');
 
-  // Function to handle mood selection
   const handleMoodSelection = (mood) => {
     if (selectedMoods.includes(mood)) {
-      // If the mood is already selected, remove it from the selectedMoods array and delete its corresponding slider value
       setSelectedMoods(selectedMoods.filter((selectedMood) => selectedMood !== mood));
       setSliderValues((prevSliderValues) => {
         const updatedSliderValues = { ...prevSliderValues };
@@ -36,7 +33,6 @@ export default function Page({ route }) {
         return updatedSliderValues;
       });
     } else {
-      // If the mood is not selected, add it to the selectedMoods array and initialize its slider value to 1
       setSelectedMoods([...selectedMoods, mood]);
       setSliderValues((prevSliderValues) => ({
         ...prevSliderValues,
@@ -45,7 +41,6 @@ export default function Page({ route }) {
     }
   };
 
-  // Function to handle slider value change
   const handleSliderValueChange = (mood, value) => {
     setSliderValues((prevSliderValues) => ({
       ...prevSliderValues,
@@ -53,14 +48,16 @@ export default function Page({ route }) {
     }));
   };
 
+  const handleFinalThoughtsChange = (text) => {
+    setFinalThoughts(text);
+  };
+
   return (
+    
     <ScrollView style={styles.body}>
-      {/* Question body */}
       <View style={styles.qbody}>
         <Text style={styles.question}>How are you feeling today?</Text>
       </View>
-
-      {/* Mood buttons */}
       <View style={styles.container}>
         {moodButtons.map((button) => (
           <TouchableOpacity
@@ -76,8 +73,6 @@ export default function Page({ route }) {
           </TouchableOpacity>
         ))}
       </View>
-
-      {/* Slider and slider values */}
       <View style={styles.sliderContainer}>
         {selectedMoods.map((mood) => (
           <React.Fragment key={mood}>
@@ -97,20 +92,29 @@ export default function Page({ route }) {
           </React.Fragment>
         ))}
       </View>
-
-      {/* Submit button */}
+     
+        <Text style={styles.question}>Your Thoughts</Text>
+        <View style={styles.thoughtBody}>
+        <TextInput
+          multiline
+          numberOfLines={4}
+          placeholder="Enter your final thoughts..."
+          value={finalThoughts}
+          onChangeText={(text) => handleFinalThoughtsChange(text)}
+        />
+      </View>
       <TouchableOpacity
         style={styles.submitButton}
         onPress={() => {
           // Handle the submission logic here
           console.log('Selected moods:', selectedMoods);
           console.log('Slider values:', sliderValues);
+          console.log('Final thoughts:', finalThoughts);
         }}
         disabled={selectedMoods.length === 0} // Disable the button if no mood is selected
       >
         <Text style={styles.submitButtonText}>Submit</Text>
       </TouchableOpacity>
-
       <StatusBar style="auto" />
     </ScrollView>
   );

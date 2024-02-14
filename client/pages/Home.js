@@ -39,7 +39,7 @@ export default function Page({route}) {
             </View>
 
             <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={() => { /* handle button press */ }}>
+                <TouchableOpacity onPress={() => {  navigation.navigate('Home', {screen: "MoodCalendarScreen"}); }}>
                     <View style={styles.button}>
                         <Ionicons 
                             name="calendar" 

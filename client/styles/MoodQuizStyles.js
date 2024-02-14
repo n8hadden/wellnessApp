@@ -25,6 +25,17 @@ export const styles = StyleSheet.create({
     marginHorizontal: "7.5%",
     marginTop: 20,
   },
+  thoughtBody: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    backgroundColor: "white",
+    width: "85%",
+    marginHorizontal: "7.5%",
+    marginTop: 20,
+    padding: 10,
+  },
   container: {
     flexWrap: 'wrap',
     flexDirection: 'row',
@@ -64,7 +75,6 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-    marginBottom: 20
   },
   submitButtonText: {
     fontSize: 20,
@@ -76,8 +86,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
-    paddingVertical: 10, // Adjust the vertical padding to make it smaller
-    paddingHorizontal: 20,
+    padding: 10,
     backgroundColor: 'white',
     width: '85%', // Set the width to match the qbody width
     marginHorizontal: '7.5%', // Adjust the horizontal margin to match the qbody
@@ -97,4 +106,9 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 5,
   },
+
+  finalThoughts: {
+  marginHorizontal: "7.5%",
+
+  }
 });
