@@ -21,7 +21,6 @@ async function setDailyAffirm(user_id, affirm_id) {
     await database.setData(query);
 }
 
-<<<<<<< HEAD
 async function getAffirm(affirm_id){
     let query = `SELECT * FROM affirmations where aff_id = ${affirm_id};`
     return (await database.getData(query))[0];
