@@ -25,6 +25,20 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "expo": {
+      "android": {
+        "permissions": [
+          "CALENDAR"
+        ]
+      }
+    },
+    "ios": {
+      "infoPlist": {
+        "NSCalendarsUsageDescription": "Can PVOC access your calendar?"
+      }
     }
   }
 }
+  
+
