@@ -6,11 +6,11 @@ import { styles } from '../styles/ChatStyles'
 export default function Page({route}) {
 
     return (
-        <ScrollView style={styles.body}>
-            <View contentContainerStyle={styles.container}>
-                
-                
+        <ScrollView contentContainerStyle={styles.container}>
+            <View style={styles.chats}>
+
             </View>
+            <Text style={styles.title}>Chat Page</Text>
             <StatusBar style="auto" />
         </ScrollView>
     );
