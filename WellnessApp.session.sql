@@ -77,4 +77,36 @@ INSERT INTO chatgroups (chat_id, user_id) VALUES
 INSERT INTO message (sender_id, content, group_id) VALUES 
 (1, 'Hello', 1), (1, 'Whats up?', 1), (2, 'Not much...', 2)
 
-SELECT * FROM message WHERE group_id=1
+SELECT * FROM message WHERE group_id=1;
+
+SELECT 1 FROM chatgroups WHERE chat_id = 10 AND user_id = 2 LIMIT 1
+
+CREATE TABLE IF NOT EXISTS daily_affirmations (
+    user_id INTEGER UNIQUE,
+    aff_id INTEGER
+)
+
+
+INSERT INTO daily_affirmations (user_id, aff_id, tmr_timestamp) 
+VALUES (2, 1, 1000000000)
+ON CONFLICT(user_id)
+DO
+UPDATE SET aff_id = 1, tmr_timestamp = 1000000000;
+
+ALTER TABLE daily_affirmations ADD tmr_timestamp BIGINT
+ALTER  TABLE daily_affirmations DROP COLUMN tmr_timestamp
+
+SELECT * from daily_affirmations
+
+SELECT * from affirmations
+INSERT INTO affirmations (tag_id, affirmation) VALUES 
+(1, 'Your art is really cool!')
+
+/*gets all possable afformations for a user */
+
+SELECT b.* FROM users
+a JOIN affirmations b ON 
+b.tag_id = ANY(a.tags) 
+WHERE user_id = 1 
+ORDER BY RANDOM() 
+LIMIT 1;
