@@ -30,7 +30,7 @@ async function getRandomAffirm(user_id){
     let query = 
     `SELECT b.* FROM users
     a JOIN affirmations b ON 
-    b.tag_id = ANY(a.tags) 
+    b.tag_id = ANY(a.tags) OR b.tag_id = 0 
     WHERE user_id = ${user_id} 
     ORDER BY RANDOM() 
     LIMIT 1;`
