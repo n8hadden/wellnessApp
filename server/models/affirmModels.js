@@ -9,7 +9,7 @@ async function getDailyAffirm(user_id) {
 }
 
 async function setDailyAffirm(user_id, afferm_id) {
-    const newDate = dateHelper.getDate24HRAhead(date.Now());
+    const newDate = dateHelper.getDate24HRAhead(Date.now());
 
     let query = `
     INSERT INTO daily_affirmations (user_id, aff_id, tmr_timestamp) 
@@ -22,15 +22,25 @@ async function setDailyAffirm(user_id, afferm_id) {
 }
 
 async function getAffermation(afferm_id){
-    let query = `SELECT * FROM affermations where aff_id = ${afferm_id};`
+    let query = `SELECT * FROM affirmations where aff_id = ${afferm_id};`
     return (await database.getData(query))[0];
 }
 
-async function getRandomAffermation(){
+async function getRandomAffermation(user_id){
+    let query = 
+    `SELECT b.* FROM users
+    a JOIN affirmations b ON 
+    b.tag_id = ANY(a.tags) 
+    WHERE user_id = ${user_id} 
+    ORDER BY RANDOM() 
+    LIMIT 1;`
 
+    return (await database.getData(query))[0];
 }
 
 module.exports = {
     getDailyAffirm,
-    setDailyAffirm
+    setDailyAffirm,
+    getAffermation,
+    getRandomAffermation
 }
