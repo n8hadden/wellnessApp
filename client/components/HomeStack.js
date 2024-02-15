@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Dimensions } from 'react-native';
 
-const windowHeight = Dimensions.get('window').height;
-
+// pages
 import Home from '../pages/Home';
 import MoodQuiz from '../pages/MoodQuiz';
+
+// components
 import Header from './Header';
 
 const Stack = createStackNavigator();
@@ -17,14 +17,14 @@ export default function HomeStack() {
         name="HomeScreen"
         component={Home}
         options={{
-          header: () => <Header pageName="Home" navBtn={false} />
+          header: () => <Header headerName="Chat" navBtn={false} />
         }}
       />
       <Stack.Screen 
         name="MoodQuizScreen"
         component={MoodQuiz}
         options={{
-          header: () => <Header pageName="Mood Quiz" />
+          header: () => <Header headerName="Mood Quiz" />
         }}
       />
       {/* {<Stack.Screen 

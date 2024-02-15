@@ -4,27 +4,32 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export const styles = StyleSheet.create({
-    /* default header styling */
-    h_contain: {
-        height: windowHeight * 0.11, 
-        backgroundColor: 'white', 
+    contain: {
+        height: windowHeight * 0.1,
     },
-    h_text_contain: {
+    img_text_contain: {
         justifyContent: 'center',
         alignItems: 'center',
         height: '100%',
         paddingTop: windowHeight * 0.04,
+        flexDirection: 'row',
+        columnGap: 7,
     }, 
-    h_text: {
-        fontSize: 22,
+    text: {
+        fontSize: 20,
         color: 'black',
         fontWeight: '500',
     },
-    h_btn: {
+    btn: {
         height: '100%',
         justifyContent: 'center',
         position: 'absolute',
         paddingTop: windowHeight * 0.04,
         left: 10,
+    },
+    groupImg: {
+        width: 37,
+        height: 37,
+        borderRadius: 40, 
     },
 });

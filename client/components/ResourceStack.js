@@ -4,6 +4,7 @@ import { Dimensions } from 'react-native';
 
 const windowHeight = Dimensions.get('window').height;
 
+import Header from './Header';
 import Resource from '../pages/Resource';
 
 const Stack = createStackNavigator();
@@ -14,9 +15,8 @@ export default function ResourceStack() {
       <Stack.Screen
         name="ResourceScreen"
         component={Resource}
-        options={{ 
-          headerTitle: 'Resource Page',
-          headerStyle: { height: windowHeight },
+        options={{
+          header: () => <Header headerName="Resources" navBtn={false} />
         }}
       />
     </Stack.Navigator>

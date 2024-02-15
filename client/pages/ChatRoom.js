@@ -6,8 +6,8 @@ import { styles } from '../styles/ChatStyles'
 export default function Page({route}) {
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <View>
+        <ScrollView style={styles.body}>
+            <View contentContainerStyle={styles.container}>
                 
                 
             </View>
