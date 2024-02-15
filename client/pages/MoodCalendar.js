@@ -1,10 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
-import { Dimensions, StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
-import { styles } from '../styles/CalendarStyles';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Modal, StatusBar } from 'react-native';
 import moment from 'moment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { styles } from '../styles/CalendarStyles';
 
 LocaleConfig.locales['en'] = {
   monthNames: [
@@ -44,14 +43,14 @@ LocaleConfig.defaultLocale = 'en';
 export default function Page() {
   const [selectedDate, setSelectedDate] = useState(moment().format('YYYY-MM-DD'));
   const [initialDate, setInitialDate] = useState(null);
-
-  const handleDateSelect = (date) => {
-    setSelectedDate(date.dateString);
-  };
+  const [showNotesModal, setShowNotesModal] = useState(false);
+  const [note, setNote] = useState('');
+  const [submittedData, setSubmittedData] = useState({});
 
   useEffect(() => {
     loadInitialDate();
-  }, []);
+    loadSubmittedData(selectedDate);
+  }, [selectedDate]);
 
   const loadInitialDate = async () => {
     try {
@@ -68,14 +67,44 @@ export default function Page() {
     }
   };
 
-  const isInitialMonth = moment(selectedDate).isSame(moment(initialDate), 'month') && moment(selectedDate).isSame(moment(initialDate), 'year');
+  const loadSubmittedData = async (date) => {
+    try {
+      const data = await AsyncStorage.getItem(date);
+      if (data) {
+        setSubmittedData(JSON.parse(data));
+      } else {
+        setSubmittedData({});
+      }
+    } catch (error) {
+      console.log('Error loading submitted data from storage:', error);
+    }
+  };
+
+  const handleDateSelect = async (date) => {
+    if (selectedDate === date.dateString) {
+      const savedNote = await AsyncStorage.getItem(date.dateString);
+      setNote(savedNote || '');
+      setShowNotesModal(true);
+    } else {
+      setSelectedDate(date.dateString);
+    }
+  };
 
   const handleMonthChange = (month) => {
     setSelectedDate(moment(month.dateString).format('YYYY-MM-DD'));
   };
 
+  const handleCloseNotes = () => {
+    setShowNotesModal(false);
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerText}>
+          {moment(selectedDate).format('dddd, MMMM D, YYYY')}
+        </Text>
+      </View>
       <View style={styles.calendarContainer}>
         <Calendar
           style={styles.calendar}
@@ -84,9 +113,9 @@ export default function Page() {
           onDayPress={(day) => handleDateSelect(day)}
           hideExtraDays={true}
           disableMonthChange={true}
-          onMonthChange={handleMonthChange} // Update the selected date when the month changes
-          disableArrowLeft={isInitialMonth} // Disable the left arrow only for the initial month
-          disableArrowRight={false} // Enable the right arrow
+          onMonthChange={handleMonthChange}
+          disableArrowLeft={moment(selectedDate).isSame(moment(initialDate), 'month')}
+          disableArrowRight={false}
           markedDates={{
             [selectedDate]: { selected: true, selectedColor: 'blue' },
           }}
@@ -94,10 +123,36 @@ export default function Page() {
             selectedDayBackgroundColor: 'blue',
             todayTextColor: 'blue',
             arrowColor: 'blue',
+            textDayFontFamily: 'Arial',
+            textMonthFontFamily: 'Arial',
+            textDayHeaderFontFamily: 'Arial',
+            textDayFontSize: 16,
+            textMonthFontSize: 16,
+            textDayHeaderFontSize: 16,
           }}
         />
       </View>
-      <Text style={styles.title}>{moment(selectedDate).format('dddd, MMMM D, YYYY')}</Text>
+      <Modal visible={showNotesModal} transparent={true} animationType="fade">
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          }}>
+          <View style={{ backgroundColor: '#fff', padding: 20 }}>
+            <Text style={{ fontSize: 24, marginBottom: 10 }}>Notes for {selectedDate}</Text>
+            <Text>{note}</Text>
+            <Text>Submitted Data:</Text>
+            {Object.entries(submittedData).map(([key, value]) => (
+              <Text key={key}>{`${key}: ${value}`}</Text>
+            ))}
+            <TouchableOpacity onPress={handleCloseNotes} style={{ marginTop: 10 }}>
+              <Text style={{ fontSize: 18, color: 'black' }}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
       <StatusBar style="auto" />
     </ScrollView>
   );

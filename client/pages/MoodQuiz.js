@@ -1,9 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
-import { Dimensions, StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import React, { useState } from 'react';
+import { ScrollView, Text, View, TouchableOpacity, TextInput, StatusBar } from 'react-native';
 import { styles } from '../styles/MoodQuizStyles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Slider from '@react-native-community/slider';
+import { Dimensions } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -44,7 +46,7 @@ export default function Page() {
   const handleSliderValueChange = (mood, value) => {
     setSliderValues((prevSliderValues) => ({
       ...prevSliderValues,
-      [mood]: value,
+      [mood]: Math.floor(value),
     }));
   };
 
@@ -52,8 +54,31 @@ export default function Page() {
     setFinalThoughts(text);
   };
 
+  const handleSave = async () => {
+    const trimmedFinalThoughts = finalThoughts.trim();
+    const currentDate = new Date(); // Get the current date
+    const data = {
+      date: currentDate,
+      moods: selectedMoods,
+      sliders: sliderValues,
+      thoughts: trimmedFinalThoughts,
+    };
+
+    try {
+      await AsyncStorage.setItem(currentDate.toISOString(), JSON.stringify(data));
+      console.log('Data saved successfully for date:', currentDate);
+      console.log('Data saved:', data); // Added console log to show what data is being saved
+    } catch (error) {
+      console.error('Error saving data:', error);
+    }
+
+    // Clear the form after saving
+    setSelectedMoods([]);
+    setSliderValues({});
+    setFinalThoughts('');
+  };
+
   return (
-    
     <ScrollView style={styles.body}>
       <View style={styles.qbody}>
         <Text style={styles.question}>How are you feeling today?</Text>
@@ -92,9 +117,8 @@ export default function Page() {
           </React.Fragment>
         ))}
       </View>
-     
-        <Text style={styles.question}>Your Thoughts</Text>
-        <View style={styles.thoughtBody}>
+      <Text style={styles.question}>Your Thoughts</Text>
+      <View style={styles.thoughtBody}>
         <TextInput
           multiline
           numberOfLines={4}
@@ -105,12 +129,7 @@ export default function Page() {
       </View>
       <TouchableOpacity
         style={styles.submitButton}
-        onPress={() => {
-          // Handle the submission logic here
-          console.log('Selected moods:', selectedMoods);
-          console.log('Slider values:', sliderValues);
-          console.log('Final thoughts:', finalThoughts);
-        }}
+        onPress={handleSave}
         disabled={selectedMoods.length === 0} // Disable the button if no mood is selected
       >
         <Text style={styles.submitButtonText}>Submit</Text>
