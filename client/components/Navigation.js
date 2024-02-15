@@ -5,12 +5,14 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 // Screens
 import HomePage from '../pages/Home';
 import ChatPage from '../pages/Chat';
+import Resources from '../pages/Resources';
 
 export default function Navigation() {
 
   //Screen names
   const homeName = "Home";
   const chatName = "Chat";
+  const resourceName = "Resources"
 
   const Tab = createBottomTabNavigator();
 
@@ -39,6 +41,7 @@ export default function Navigation() {
     >
       {/* Tab screens with props */}
       <Tab.Screen name={homeName} component={HomePage} />
+      <Tab.Screen name={resourceName} component={Resources} />
       <Tab.Screen name={chatName} component={ChatPage} />
     </Tab.Navigator>
   );

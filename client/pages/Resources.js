@@ -1,10 +1,33 @@
-import {  StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
+import {  StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import React from 'react';
 import { styles } from '../styles/ResourcesStyles'
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export default function Resources() {
     return (
         <ScrollView contentContainerStyle={styles.container}>
+
+            
+
+            <Text style={styles.title1}>Featured videos</Text>
+
+            
+            <View style={styles.video1}>
+            <Text>Grounding technique</Text>
+            </View>
+            <View style={styles.video2}>
+            <Text>Grounding technique</Text>
+
+            </View>
+            
+            <View style={styles.video3}>
+            <Text>Grounding technique</Text>
+
+            </View>
+        
+
             
             <View style={styles.resource1}>
                 <TouchableOpacity onPress={() => { /* handle button press */ }}>
