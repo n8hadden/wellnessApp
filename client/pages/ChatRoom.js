@@ -3,14 +3,14 @@ import { Dimensions, StyleSheet, Text, View, Image, ScrollView  } from 'react-na
 import React from 'react';
 import { styles } from '../styles/ChatStyles'
 
-export default function Chat() {
+export default function Page({route}) {
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <View style={styles.chats}>
-
+        <ScrollView style={styles.body}>
+            <View contentContainerStyle={styles.container}>
+                
+                
             </View>
-            <Text style={styles.title}></Text>
             <StatusBar style="auto" />
         </ScrollView>
     );

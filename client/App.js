@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-import Navigation from './components/Navigation';
+import Navbar from './components/Navbar';
 
 export default function App() {
   const MyTheme = {
@@ -14,9 +14,9 @@ export default function App() {
 
   return (
     <NavigationContainer theme={MyTheme}>
-      <Navigation>
-
-      </Navigation>
+      <Navbar>
+        
+      </Navbar>
     </NavigationContainer>
   );
 }
