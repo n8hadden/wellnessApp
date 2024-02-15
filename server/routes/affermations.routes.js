@@ -2,8 +2,8 @@
 const express = require('express');
 const router = express.Router();
 
-const controller = require("../controller/chatController");
+const controller = require("../controller/affermController");
 
-router.get('/getMessages', controller.getMessages);
+router.get('/get', controller.getAffirmation);
 
 module.exports = router;
