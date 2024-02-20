@@ -6,7 +6,7 @@ const userRoutes = require("./routes/user.routes");
 const tagRoutes = require("./routes/tag.routes"); 
 const chatSocketRoutes = require("./routes/chat.socket.routes"); 
 const chatRoutes = require("./routes/chat.routes");
-const affermationRoutes = require("./routes/affirmations.routes");
+const affirmationRoutes = require("./routes/affirmations.routes");
 
 const bodyParser = require("body-parser"); 
 const {IO} = require("./utils/socket.io");
@@ -44,7 +44,7 @@ app.use(bodyParser.json());
 app.use("/user", userRoutes);
 app.use("/tag", tagRoutes);
 app.use("/chat", chatRoutes);
-app.use("/affermation", affermationRoutes)
+app.use("/affirmation", affirmationRoutes)
 
 // Registering chat routes using the io instance
 io.use(chatSocketRoutes);
