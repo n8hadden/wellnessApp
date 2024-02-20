@@ -4,11 +4,13 @@
             "previewLimit": 50,
             "server": "mahmud.db.elephantsql.com",
             "port": 5432,
+	    
             "driver": "PostgreSQL",
             "name": "WellnessApp",
             "database": "gkqdfqqj",
             "username": "gkqdfqqj",
             "password": "ddMaHDTAXC1Uy2BbLeNsfpqVeJY_hcJx"
+            "askForPassword": true
         }
     ]
 }
