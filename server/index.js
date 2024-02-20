@@ -6,7 +6,7 @@ const userRoutes = require("./routes/user.routes");
 const tagRoutes = require("./routes/tag.routes"); 
 const chatSocketRoutes = require("./routes/chat.socket.routes"); 
 const chatRoutes = require("./routes/chat.routes");
-const affermationRoutes = require("./routes/affermations.routes");
+const affermationRoutes = require("./routes/affirmations.routes");
 
 const bodyParser = require("body-parser"); 
 const {IO} = require("./utils/socket.io");
