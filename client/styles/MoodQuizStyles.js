@@ -1,23 +1,3 @@
-<<<<<<< HEAD
-import { StyleSheet } from 'react-native';
-
-export const styles = StyleSheet.create({
-  question: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    marginTop: 10,
-    textAlign: 'center',
-  },
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  moodButton: {
-    width: '48%',
-=======
 import { StyleSheet, Dimensions } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
@@ -68,7 +48,6 @@ export const styles = StyleSheet.create({
   },
   moodButton: {
     flexBasis: '29%',
->>>>>>> mood_quiz
     height: 50,
     borderRadius: 25,
     backgroundColor: '#e8e6e1',
@@ -105,9 +84,6 @@ export const styles = StyleSheet.create({
   sliderContainer: {
     width: '100%',
     alignItems: 'center',
-<<<<<<< HEAD
-    marginTop: 10,
-=======
     flex: 1,
     justifyContent: 'center',
     padding: 10,
@@ -116,30 +92,24 @@ export const styles = StyleSheet.create({
     marginHorizontal: '7.5%', // Adjust the horizontal margin to match the qbody
     borderBottomRightRadius: 10, 
     borderBottomLeftRadius: 10,
->>>>>>> mood_quiz
   },
   slider: {
     width: '50%',
     height: 40,
   },
-<<<<<<< HEAD
-=======
   sliderText: {
     fontSize: 16,
     fontWeight: 'bold',
   },
->>>>>>> mood_quiz
+
   sliderValue: {
     fontSize: 16,
     fontWeight: 'bold',
     marginTop: 5,
   },
-<<<<<<< HEAD
-=======
 
   finalThoughts: {
   marginHorizontal: "7.5%",
 
   }
->>>>>>> mood_quiz
 });
