@@ -13,6 +13,7 @@ async function OnChat(io, socket, data){
     
         await models.addMessage(content, sender, id);
 
+        console.log(content + " chat content");
         io.to(group).emit("new_chat", {content, sender, group});
     }
     catch(e){
