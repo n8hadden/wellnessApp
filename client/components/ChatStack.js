@@ -1,8 +1,5 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Dimensions } from 'react-native';
-
-const windowHeight = Dimensions.get('window').height;
 
 import ChatRoom from '../pages/ChatRoom';
 import ChatTag from '../pages/ChatTag';

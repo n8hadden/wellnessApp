@@ -27,7 +27,7 @@ export default function Message({ message, username, profileImg }) {
                         }
                     </View>
                     <View style={styles.peer_message}>
-                        <Text style={styles.peer_message_text}>{message}</Text>
+                        <Text style={styles.peer_message_text}>dfj</Text>
                     </View>
 
                 </View>

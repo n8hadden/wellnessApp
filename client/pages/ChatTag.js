@@ -22,8 +22,8 @@ export default function Page({route}) {
             <TagContainer
                 tagName="Platypus Talk" // will add [info] to database
                 tagColor="#64b6ac" // will add [info] to database
-                tagId="1" // will add [info] to database
-                onPress={() => navigation.navigate('Chat', {screen: 'ChatRoomScreen'})}
+                onPress={() => navigation.navigate('ChatRoomScreen', { tagId: 'df' } )}
+                // onPress={() => navigation.navigate('Chat', {screen: 'ChatRoomScreen', tagId: '1'})}
             />
             <TagContainer
                 tagName="Comp Sci"

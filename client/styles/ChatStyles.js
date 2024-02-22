@@ -76,6 +76,7 @@ export const styles = StyleSheet.create({
     },
     peer_messages: {
         rowGap: 7,
+        // flex-basis isn't avaiable to directly solve this problem of (peer_message: width) being as large as (peer_username: width)
         maxWidth: windowWidth * (0.9 - 0.125) - 10 - windowWidth * 0.1, // windowWidth * [(peer_container: width) - (profileImg: width)] - (peer_container: columnGap) - (white space)
     },
     peer_username: {
@@ -91,6 +92,7 @@ export const styles = StyleSheet.create({
     peer_message: {
         backgroundColor: '#64b6ac',
         padding: 10,
+        width: 'auto',
         borderTopRightRadius: 20,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
