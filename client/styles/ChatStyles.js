@@ -55,31 +55,44 @@ export const styles = StyleSheet.create({
         borderRadius: 10,
     },
     messages: {
-        width: windowWidth * 0.875,
         marginTop: 10,
         alignSelf: 'center',
     },  
     /* Peer Message Styles */
     peer_container: {
-        backgroundColor: 'blue',
         flex: 2,
         flexDirection: 'row',
+        columnGap: 5,
+        width: windowWidth * 0.9
     },
     profileImg: {
-        height: 50,
-        width: 50,
+        height: windowWidth * 0.11,
+        width: windowWidth * 0.11,
         borderRadius: 30,
     },
     peer_messages: {
+        rowGap: 5,
+        maxWidth: windowWidth * (1.0 - 0.11) - windowWidth * 0.1,
+    },
+    peer_username: {
+        height: 25,
         marginLeft: 10,
+        justifyContent: 'center',
+    },
+    peer_username_text: {
+        color: 'black',
+        fontSize: 14,
+        fontWeight: '500',
     },
     peer_message: {
+        // width: '90%',
         backgroundColor: 'red',
-        padding: 7,
-        fontSize: 40,
-        borderRadius: 30,
-        borderTopRightRadius: 30,
-        borderBottomLeftRadius: 30,
-        borderBottomRightRadius: 30,
+        padding: 10,
+        borderTopRightRadius: 20,
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
+    },
+    peer_message_text: {
+        fontSize: 14,
     },
 });
