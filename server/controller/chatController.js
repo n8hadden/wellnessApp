@@ -9,11 +9,16 @@ async function OnChat(io, socket, data){
     
         await models.addMessage(content, sender, group);
 
-        io.sockets.emit("new_chat", {content, sender, group});
+        io.to(group).emit("new_chat", {content, sender, group});
     }
     catch(e){
         console.log(e);
     }
+}
+
+async function joinChat(io, socket, data){
+    const {group} = data;
+    socket.join(group);
 }
 
 async function getMessages(req, res){
@@ -34,5 +39,6 @@ async function getMessages(req, res){
 
 module.exports = {
     OnChat,
-    getMessages
+    getMessages,
+    joinChat
 }

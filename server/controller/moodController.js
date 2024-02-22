@@ -23,6 +23,7 @@ function getHighestRatedMood(data) {
 
   // Currently highest rated mood
   let cur = data[0];
+
   for (let i = 1; i < data.length; i++) {
     const mood = data[i];
     // Priority Queue Value (index: lowest)
@@ -37,8 +38,12 @@ function getHighestRatedMood(data) {
     } else if ((mood.moodScore === cur.moodScore) && index < pque.indexOf(cur.moodType)) {
       cur = mood;
     }
-
   }
+
   return cur;
+}
+
+module.exports = {
+  getMoodInfo
 }
 
