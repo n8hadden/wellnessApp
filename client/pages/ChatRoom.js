@@ -46,8 +46,14 @@ export default function Page({ route }) {
                 <StatusBar style="auto" />
             </ScrollView>
             <View style={styles.inputContain}>
-                <View style={styles.input}>
-                    <Text>Hello world!</Text>
+                <View style={styles.textInputContain}>
+                    <TextInput
+                        style={styles.textInput}
+                        onChangeText={onChangeNumber}
+                        value={number}
+                        placeholder="useless placeholder"
+                        keyboardType="numeric"
+                    />
                 </View>
                 <TouchableOpacity>
                     <Ionicons 

@@ -49,11 +49,14 @@ export const styles = StyleSheet.create({
         marginTop: windowHeight * 0.7,
         // backgroundColor: 'rgba(0,0,0,0.5)'
     },
-    input: {
+    textInputContain: {
         width: windowWidth * 0.7,
         height: windowHeight * 0.055,
         backgroundColor: 'white',
         borderRadius: 10,
+    },
+    textInputContain: {
+
     },
     messages: {
         marginTop: 10,
