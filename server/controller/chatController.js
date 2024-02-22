@@ -23,6 +23,7 @@ async function OnChat(io, socket, data){
 
 async function joinChat(io, socket, data){
     const {group} = data;
+    console.log(group + " group");
     socket.join(group);
 }
 
