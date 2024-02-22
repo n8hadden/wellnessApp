@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     cr_contain: {
         flex: 2,
         flexDirection: 'column',
-        backgroundColor: '#D5B9B2',
+        backgroundColor: '#335c81',
         height: windowHeight * 0.8, // height excluding header/footer
     },
     scrollContain: {
@@ -47,6 +47,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         columnGap: 10,
         marginTop: windowHeight * 0.7,
+        // backgroundColor: 'rgba(0,0,0,0.5)'
     },
     input: {
         width: windowWidth * 0.7,
@@ -57,22 +58,25 @@ export const styles = StyleSheet.create({
     messages: {
         marginTop: 10,
         alignSelf: 'center',
+        flexDirection: 'column',
+        rowGap: 10,
+        marginBottom: windowHeight * 0.1,
     },  
     /* Peer Message Styles */
     peer_container: {
         flex: 2,
         flexDirection: 'row',
-        columnGap: 5,
+        columnGap: 10,
         width: windowWidth * 0.9
     },
     profileImg: {
-        height: windowWidth * 0.11,
-        width: windowWidth * 0.11,
+        height: windowWidth * 0.125,
+        width: windowWidth * 0.125,
         borderRadius: 30,
     },
     peer_messages: {
-        rowGap: 5,
-        maxWidth: windowWidth * (1.0 - 0.11) - windowWidth * 0.1,
+        rowGap: 7,
+        maxWidth: windowWidth * (0.9 - 0.125) - 10 - windowWidth * 0.1, // windowWidth * [(peer_container: width) - (profileImg: width)] - (peer_container: columnGap) - (white space)
     },
     peer_username: {
         height: 25,
@@ -85,14 +89,34 @@ export const styles = StyleSheet.create({
         fontWeight: '500',
     },
     peer_message: {
-        // width: '90%',
-        backgroundColor: 'red',
+        backgroundColor: '#64b6ac',
         padding: 10,
         borderTopRightRadius: 20,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
     },
     peer_message_text: {
+        fontSize: 14,
+    },
+    /* User Message Styling */
+    user_container: {
+        flex: 1,
+        flexDirection: 'row-reverse',
+        columnGap: 10,
+        width: windowWidth * 0.9
+    },
+    user_messages: {
+        rowGap: 7,
+        maxWidth: windowWidth * 0.9 - windowWidth * 0.2, // windowWidth * (user_container: width) - (white space)
+    },
+    user_message: {
+        backgroundColor: '#f7d08a',
+        padding: 10,
+        borderTopLeftRadius: 20,
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
+    },
+    user_message_text: {
         fontSize: 14,
     },
 });

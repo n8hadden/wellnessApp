@@ -20,20 +20,22 @@ export default function Page({route}) {
             {/* Search Bar - To Be Implemented */}
 
             <TagContainer
-                tagName="Comp Sci"
-                tagColor="#525b76"
+                tagName="Platypus Talk" // will add [info] to database
+                tagColor="#64b6ac" // will add [info] to database
+                tagId="1" // will add [info] to database
                 onPress={() => navigation.navigate('Chat', {screen: 'ChatRoomScreen'})}
             />
-            {/* how to pass props through navigation.navigate()? */}
+            <TagContainer
+                tagName="Comp Sci"
+                tagColor="#525b76"
+            />
             <TagContainer
                 tagName="Basketball"
                 tagColor="#197278"
-                onPress={() => navigation.navigate('Chat', {screen: 'ChatRoomScreen'})}
             />
             <TagContainer
                 tagName="Bird Watching"
                 tagColor="#5f634f"
-                onPress={() => navigation.navigate('Chat', {screen: 'ChatRoomScreen'})}
             />
             <TouchableOpacity 
                 onPress={() => showSuggestion ? setShowSuggestion(false) : setShowSuggestion(true) }

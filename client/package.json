@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@expo/metro-runtime": "~3.1.1",
+    "@react-native-community/blur": "^4.4.0",
     "@react-native-community/slider": "^4.5.0",
     "@react-navigation/bottom-tabs": "^6.5.11",
     "@react-navigation/stack": "^6.3.21",

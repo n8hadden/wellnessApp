@@ -14,7 +14,7 @@ export default function Message({ message, username, profileImg }) {
                   * Need to set a restriction that only when a new user (username) is present, 
                   * then you add the profile picture, otherwise, keep sending messages under the same user 
                   */}
-                <Image 
+                <Image
                     source={{ uri: profileImg }} 
                     style={styles.profileImg} 
                 />
@@ -25,9 +25,6 @@ export default function Message({ message, username, profileImg }) {
                             :
                             <></>
                         }
-                    </View>
-                    <View style={styles.peer_message}>
-                        <Text style={styles.peer_message_text}>{message}</Text>
                     </View>
                     <View style={styles.peer_message}>
                         <Text style={styles.peer_message_text}>{message}</Text>
