@@ -21,7 +21,7 @@ export default function ChatStack() {
         name="ChatRoomScreen"
         component={ChatRoom}
         options={{
-          header: () => <Header headerName="Platypus Talk" profileImg="https://sdzwildlifeexplorers.org/sites/default/files/2019-11/platypus-bill.jpg" />
+          header: () => <Header headerName="Artist" profileImg="https://sdzwildlifeexplorers.org/sites/default/files/2019-11/platypus-bill.jpg" />
         }}
       />
     </Stack.Navigator>

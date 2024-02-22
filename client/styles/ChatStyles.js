@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     cr_contain: {
         flex: 2,
         flexDirection: 'column',
-        backgroundColor: '#335c81',
+        backgroundColor: 'rgb(51,92,129)', // #335c81',
         height: windowHeight * 0.8, // height excluding header/footer
     },
     scrollContain: {
@@ -55,7 +55,7 @@ export const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 10,
     },
-    textInputContain: {
+    textInput: {
 
     },
     messages: {

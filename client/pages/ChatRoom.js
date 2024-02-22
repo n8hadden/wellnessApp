@@ -1,8 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import { Dimensions, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity  } from 'react-native';
-import React from 'react';
+
+import { Dimensions, StyleSheet, TextInput, Text, View, Image, ScrollView, TouchableOpacity  } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
 import { styles } from '../styles/ChatStyles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import socket from '../components/socket';
 // import { BlurView } from '@react-native-community/blur';
 
 import PeerMessage from '../components/PeerMessage';
@@ -12,7 +14,25 @@ const windowHeight = Dimensions.get('window').height;
 
 export default function Page({ route }) {
 
-    const { tagId } = route.params;
+    const { tagName } = route.params;
+    const myInputRef = useRef(null);
+
+    const [inputValue, setInputValue] = useState('');
+
+    const handleInputChange = (text) => {
+        // Use this function if you want to perform some action on every input change
+        setInputValue(text);
+    };
+
+
+    useEffect(() => {
+        // socket.emit("join", tagName);
+        
+        socket.on("new_chat", (data) => {
+            const {content, sender, group} = data;
+            console.log(content + " new chat");
+        })
+    }, [socket]);
 
     return (
         <>
@@ -48,14 +68,22 @@ export default function Page({ route }) {
             <View style={styles.inputContain}>
                 <View style={styles.textInputContain}>
                     <TextInput
+                        value={inputValue} // Use this if you want to control the value of the TextInput
+                        onChangeText={handleInputChange}
                         style={styles.textInput}
-                        onChangeText={onChangeNumber}
-                        value={number}
+                        ref={myInputRef}
                         placeholder="useless placeholder"
-                        keyboardType="numeric"
                     />
                 </View>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                    const userObject = {
+                        content: inputValue,
+                        sender: 1,
+                        group: tagName,
+                    }
+                    socket.emit("chat", userObject);
+                    console.log(userObject);
+                }}>
                     <Ionicons 
                         name="chevron-up-circle" /* icon image prop */
                         size={windowHeight * 0.055} /* size of icon */

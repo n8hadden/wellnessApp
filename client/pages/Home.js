@@ -2,6 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import { Dimensions, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { styles } from '../styles/HomeStyles'
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 
 // components
 import Btn from '../components/HomeBtn';
@@ -27,49 +29,6 @@ export default function Page({route}) {
                 <Text style={styles.introText}>Message</Text>
             </View>
 
-            <View style={styles.dailyaffirm}>
-                <Text>Daily Affrimation</Text>
-            </View>
-            
-            <View style={styles.tempvid}>
-                <Text style={{ color: "#f9fbfd"}}>Video Placeholder</Text>
-            </View>
-
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={() => {  navigation.navigate('Home', {screen: "MoodCalendarScreen"}); }}>
-                    <View style={styles.button}>
-                        <Ionicons 
-                            name="calendar" 
-                            size={40} color="#ffffff" style={styles.icon} 
-                        />
-                        <Text style={styles.buttonText}>Mood Calendar</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={() => {  navigation.navigate('Home', {screen: "MoodQuizScreen"}); }}>
-                    <View style={styles.button}>
-                        <Ionicons 
-                            name="school" 
-                            size={40} color="#ffffff" style={styles.icon} 
-                        />
-                        <Text style={styles.buttonText}>Mood Test</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={() => { /* handle button press */ }}>
-                    <View style={styles.button}>
-                        <Ionicons 
-                            name="chatbubbles" 
-                            size={40} 
-                            color="#ffffff" 
-                            style={styles.icon} 
-                        />
-                        <Text style={styles.buttonText}>Chat</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
             <TouchableOpacity 
                 onPress={() => {  }}
             >
