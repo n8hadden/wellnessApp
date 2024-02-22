@@ -6,6 +6,7 @@ async function OnChat(io, socket, data){
         const {content, sender, group} = data;
         
         const id = await tagModels.getId(group);
+        console.log(id + " id");
 
         if(!await models.isUserInGroup(id, sender))
         await models.addToGroup(id, sender);
