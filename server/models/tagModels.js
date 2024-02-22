@@ -36,7 +36,7 @@ async function addTag(userId, tagId){
 }
 
 async function getId(tagName){
-    let query = `SELECT * FROM tags where tag_name like ${tagName}`
+    let query = `SELECT * FROM tags where tag_name like '${tagName}'`
 
     return (await database.getData(query)).tag_id;
 }
