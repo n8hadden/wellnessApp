@@ -4,6 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../pages/Home';
 import MoodQuiz from '../pages/MoodQuiz';
 import MoodCalendar from '../pages/MoodCalendar';
+import SignIn from "../pages/SignIn";
+import SignUp from "../pages/SignUp";
 
 const Stack = createStackNavigator();
 
@@ -25,6 +27,16 @@ export default function HomeStack() {
         name="MoodCalendarScreen"
         component={MoodCalendar}
         options={{ headerTitle: 'Mood Calendar' }}
+      />
+      <Stack.Screen 
+        name="SignInScreen"
+        component={SignIn}
+        options={{ headerTitle: 'Login' }}
+      />
+      <Stack.Screen 
+        name="SignUpScreen"
+        component={SignUp}
+        options={{ headerTitle: 'Sign Up' }}
       />
     </Stack.Navigator>
   );
