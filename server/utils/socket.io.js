@@ -18,6 +18,7 @@ class IO {
         // Event listener for when a client connects
         this.io.on("connection", (socket) => {
             // Attaching event listeners for each registered endpoint
+            console.log("Socket Connected");
             this.endpoints.forEach(endpoint => {
                 // When the endpoint event is received, execute the associated callback function
                 socket.on(endpoint.endpoint, (data) => endpoint.callback(this.io, socket, data))
