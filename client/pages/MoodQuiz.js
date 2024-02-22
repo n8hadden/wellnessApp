@@ -14,11 +14,9 @@ const moodButtons = [
   { mood: 'happy', bgColor: '#FFD700', label: 'Happy' },
   { mood: 'sad', bgColor: '#87CEEB', label: 'Sad' },
   { mood: 'mad', bgColor: '#FF0000', label: 'Mad' },
-  { mood: 'joyful', bgColor: '#FE83A0', label: 'Joyful' },
-  { mood: 'depressed', bgColor: '#708090', label: 'Depressed' },
-  { mood: 'loved', bgColor: '#FFC0CB', label: 'Loved' },
-  { mood: 'weird', bgColor: '#A74D60', label: 'Weird' },
-  { mood: 'calm', bgColor: '#98FB98', label: 'Calm' },
+  { mood: 'scared', bgColor: '#FE83A0', label: 'Scared' },
+  { mood: 'enjoyed', bgColor: '#708090', label: 'Enjoyed' },
+  { mood: 'awkward', bgColor: '#FFC0CB', label: 'Awkward' },
 ];
 
 export default function Page() {
@@ -72,7 +70,6 @@ export default function Page() {
       console.error('Error saving data:', error);
     }
 
-    // Clear the form after saving
     setSelectedMoods([]);
     setSliderValues({});
     setFinalThoughts('');
