@@ -140,8 +140,8 @@ SELECT * FROM moods WHERE mood_type like 'Sad' AND mood_score <= 2 LIMIT 1
 
 INSERT INTO moods  (mood_name, mood_color, mood_score, mood_type) 
 VALUES ('Gloomy', '#FFD700', 3, 'Sad'), ('Depressed', '#5555FF', 5, 'Sad');
-ALTER TABLE calendar_days DROP day
-ALTER TABLE calendar_days ADD day VARCHAR(32)
+ALTER TABLE calendar_days DROP note
+ALTER TABLE calendar_days ADD note VARCHAR(255)
 
 INSERT INTO moods (mood_name, mood_color, mood_score, mood_type)
 VALUES ()
