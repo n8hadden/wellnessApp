@@ -1,15 +1,16 @@
 const models = require("../models/messageModels");
+const tagModels = require("../models/tagModels");
 
 async function OnChat(io, socket, data){
     try{
         const {content, sender, group} = data;
         
-        //convert group name to id
+        const id = await tagModels.getId(group);
 
-        if(!await models.isUserInGroup(group, sender))
-        await models.addToGroup(group, sender);
+        if(!await models.isUserInGroup(id, sender))
+        await models.addToGroup(id, sender);
     
-        await models.addMessage(content, sender, group);
+        await models.addMessage(content, sender, id);
 
         io.to(group).emit("new_chat", {content, sender, group});
     }

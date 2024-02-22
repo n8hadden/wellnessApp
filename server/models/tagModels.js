@@ -35,9 +35,16 @@ async function addTag(userId, tagId){
     await database.setData(query);
 }
 
+async function getId(tagName){
+    let query = `SELECT * FROM tags where tag_name like ${tagName}`
+
+    return (await database.getData(query)).tag_id;
+}
+
 // Exporting the functions to be used by other modules
 module.exports = {
     getTags,
     addTag,
-    removeTag
+    removeTag,
+    getId
 }

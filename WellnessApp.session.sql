@@ -145,3 +145,5 @@ ALTER TABLE calendar_days ADD note VARCHAR(255)
 
 INSERT INTO moods (mood_name, mood_color, mood_score, mood_type)
 VALUES ()
+
+SELECT * FRoM tags
