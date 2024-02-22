@@ -83,6 +83,7 @@ export const styles = StyleSheet.create({
         height: 25,
         marginLeft: 10,
         justifyContent: 'center',
+        width: 'auto',
     },
     peer_username_text: {
         color: 'black',
@@ -92,12 +93,13 @@ export const styles = StyleSheet.create({
     peer_message: {
         backgroundColor: '#64b6ac',
         padding: 10,
-        width: 'auto',
         borderTopRightRadius: 20,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
+        alignSelf:"left",
     },
     peer_message_text: {
+        // flex: 1,
         fontSize: 14,
     },
     /* User Message Styling */
