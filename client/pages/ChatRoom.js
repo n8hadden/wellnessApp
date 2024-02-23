@@ -1,6 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
 
-import { Dimensions, StyleSheet, TextInput, Text, View, Image, ScrollView, TouchableOpacity  } from 'react-native';
+import {
+    View,
+    KeyboardAvoidingView,
+    TextInput,
+    StyleSheet,
+    Text,
+    Platform,
+    TouchableWithoutFeedback,
+    TouchableOpacity,
+    Button,
+    Keyboard,
+    Dimensions,
+    ScrollView,
+} from 'react-native';
+// import { Dimensions, KeyboardAvoidingView, Platform, StyleSheet, TextInput, Text, View, Image, ScrollView, TouchableOpacity  } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { styles } from '../styles/ChatStyles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -20,10 +34,8 @@ export default function Page({ route }) {
     const [inputValue, setInputValue] = useState('');
 
     const handleInputChange = (text) => {
-        // Use this function if you want to perform some action on every input change
         setInputValue(text);
     };
-
 
     useEffect(() => {
         // socket.emit("join", tagName);
@@ -35,7 +47,12 @@ export default function Page({ route }) {
     }, [socket]);
 
     return (
-        <>
+        <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 0 : -500}
+            style={{
+                flex: 1,
+            }}
+        >
             <ScrollView style={styles.cr_contain}>
                 <View style={styles.messages}>
                     <PeerMessage
@@ -68,11 +85,11 @@ export default function Page({ route }) {
             <View style={styles.inputContain}>
                 <View style={styles.textInputContain}>
                     <TextInput
-                        value={inputValue} // Use this if you want to control the value of the TextInput
+                        value={inputValue} 
                         onChangeText={handleInputChange}
                         style={styles.textInput}
                         ref={myInputRef}
-                        placeholder="useless placeholder"
+                        placeholder="placeholder"
                     />
                 </View>
                 <TouchableOpacity onPress={() => {
@@ -88,9 +105,112 @@ export default function Page({ route }) {
                         name="chevron-up-circle" /* icon image prop */
                         size={windowHeight * 0.055} /* size of icon */
                         color="#3d3b3c" /* icon color prop */
+                        style={{ 
+                            flex: 1,
+                            justifyContent: 'flex-end',
+                        }}
                     />
-                </TouchableOpacity>
+                </TouchableOpacity> 
+                {/* <Button 
+                    title='Button'
+                    onPress={() => {
+                        const userObject = {
+                            content: inputValue,
+                            sender: 1,
+                            group: tagName,
+                        }
+                        socket.emit("chat", userObject);
+                        console.log(userObject);
+                    }}
+                ></Button> */}
             </View>
-        </>
+        </KeyboardAvoidingView>
     );
 }
+
+// import React from 'react';
+// import {
+//   View,
+//   KeyboardAvoidingView,
+//   TextInput,
+//   StyleSheet,
+//   Text,
+//   Platform,
+//   TouchableWithoutFeedback,
+//   TouchableOpacity,
+//   Button,
+//   Keyboard,
+//   Dimensions,
+//   ScrollView,
+// } from 'react-native';
+// import Ionicons from 'react-native-vector-icons/Ionicons';
+
+// const KeyboardAvoidingComponent = () => {
+//   const windowHeight = Dimensions.get('window').height;
+//   return (
+//     <KeyboardAvoidingView
+//       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+//       style={styles.container}
+//       keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : -500} // Adjust as needed
+//     >
+//       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+//         <View>
+//           <ScrollView contentContainerStyle={styles.scrollContainer}>
+//             <View style={styles.inner}>
+//               <Text style={styles.header}>Header</Text>
+//               <TextInput placeholder="Username" style={styles.textInput} />
+//               <View style={styles.btnContainer}>
+//                 <Button title="Submit" onPress={() => null} />
+//               </View>
+//             </View>
+//           </ScrollView>
+//           <View style={styles.inputContain}>
+//               <View style={styles.textInputContain}>
+//                 <TextInput
+//                   placeholder="useless placeholder"
+//                 />
+//               </View>
+//               <TouchableOpacity>
+//                 <Ionicons 
+//                   name="chevron-up-circle" /* icon image prop */
+//                   size={windowHeight * 0.055} /* size of icon */
+//                   color="#3d3b3c" /* icon color prop */
+//                 />
+//               </TouchableOpacity>
+//           </View>
+//         </View>
+//       </TouchableWithoutFeedback>
+//     </KeyboardAvoidingView>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     justifyContent: 'flex-end',
+//   },
+//   // scrollContainer: {
+//   //   flexGrow: 1,
+//   // },
+//   // inner: {
+//   //   padding: 24,
+//   //   flex: 1,
+//   //   justifyContent: 'space-around',
+//   // },
+//   // header: {
+//   //   fontSize: 36,
+//   //   marginBottom: 48,
+//   // },
+//   // textInput: {
+//   //   height: 40,
+//   //   borderColor: '#000000',
+//   //   borderBottomWidth: 1,
+//   //   marginBottom: 36,
+//   // },
+//   btnContainer: {
+//     backgroundColor: 'white',
+//     marginTop: 12,
+//   },
+// });
+
+// export default KeyboardAvoidingComponent;

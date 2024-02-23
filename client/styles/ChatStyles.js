@@ -39,6 +39,7 @@ export const styles = StyleSheet.create({
         height: 200,
     },
     inputContain : {
+        
         position: 'absolute',
         height: windowHeight * 0.1,
         width: windowWidth,
@@ -54,9 +55,14 @@ export const styles = StyleSheet.create({
         height: windowHeight * 0.055,
         backgroundColor: 'white',
         borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     textInput: {
-
+        width: '85%',
+        color: 'black',
+        flex: 1,
+        justifyContent: 'flex-end',
     },
     messages: {
         marginTop: 10,
