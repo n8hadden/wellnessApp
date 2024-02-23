@@ -11,7 +11,14 @@ async function getMoodInfo(mood) {
     return await database.getData(query);
 }
 
+async function getMoodId(mood){
+    let query = `SELECT * FROM moods WHERE mood_name LIKE ${mood}`;
+
+    return (await database.getData(query))[0].mood_id;
+}
+
 // Exporting the getMoodInfo function so it can be used in other modules
 module.exports = {
     getMoodInfo,
+    getMoodId
 }

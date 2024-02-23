@@ -16,6 +16,18 @@ async function getMoodInfo(req, res) {
   }
 }
 
+async function getMoodId(req, res) {
+  const {mood} = req.data;
+
+  try{
+    const  id = await model.getMoodID(mood);
+    res.status(200).json({id});
+  } catch {
+    console.log(err);
+    res.status(404).json({message:"No Mood Found with that Name!"})
+  }
+}
+
 function getHighestRatedMood(data) {
   // Priority queue
   // Lower index is higher priority
@@ -44,6 +56,7 @@ function getHighestRatedMood(data) {
 }
 
 module.exports = {
-  getMoodInfo
+  getMoodInfo,
+  getMoodId
 }
 
