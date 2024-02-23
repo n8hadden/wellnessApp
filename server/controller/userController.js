@@ -33,10 +33,13 @@ async function verifySession(req, res){
 
 
 async function login(req, res) {
-    let { username, password} = req.body;
+    let { username, password } = req.body;
 
     const user = await model.getUserByUsername(username);
+    console.log(user);
+
     bcrypt.compare(password, user.password, async (err, isMatch) => {
+        console.log(isMatch);
         if (isMatch) {
 
             session = randomKey();

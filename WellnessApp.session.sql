@@ -149,29 +149,3 @@ VALUES ()
 SELECT * FROM tags where tag_name like 'Artist'
 
 SELECT * FRoM tags
-
-SELECT * FROM 
-
-
-
-select * from moods
-
-insert into moods (mood_name, mood_color, mood_score, mood_type)
-values ('thrilled', '#ffe600', 3, 'happy'), ('ecstatic', '#fcee6a', 5, 'happy')
-
-update moods 
-set mood_name = 'Cared'
-WHERE mood_id = 15
-
-INSERT INTO moods (mood_name, mood_color, mood_score, mood_type)
-VALUES ('Fuming', '#FF3232', 3, 'Mad'), ('Enraged', '#BC0000', 5, 'Mad')
-
-INSERT INTO moods (mood_name, mood_color, mood_score, mood_type)
-VALUES ('terrified', '#414141', 3, 'Scared'), ('Panicked', '#000000', 5, 'Scared')
-
-
-INSERT INTO moods (mood_name, mood_color, mood_score, mood_type)
-VALUES ('cared', '#FF6EF5', 3, 'Enjoyed'), ('Loved', '#FF00ED', 5, 'Enjoyed')
-
-INSERT INTO moods (mood_name, mood_color, mood_score, mood_type)
-VALUES ('Embarrassed', '#66FF00', 3, 'Akward'), ('Outcast', '#00B738', 5, 'Akward')

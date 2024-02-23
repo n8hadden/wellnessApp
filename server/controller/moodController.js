@@ -17,7 +17,7 @@ async function getMoodInfo(req, res) {
 }
 
 async function getMoodId(req, res) {
-  const {mood} = req.data;
+  const { mood } = req.data;
 
   try{
     const  id = await model.getMoodID(mood);
