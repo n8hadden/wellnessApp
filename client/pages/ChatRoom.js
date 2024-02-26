@@ -1,12 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-
-import { Dimensions, StyleSheet, TextInput, Text, View, Image, ScrollView, TouchableOpacity  } from 'react-native';
+import { Dimensions, TextInput, View, ScrollView, TouchableOpacity  } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
-import { styles } from '../styles/ChatStyles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import socket from '../components/socket';
-// import { BlurView } from '@react-native-community/blur';
+import { styles } from '../styles/ChatStyles'; 
 
+// components
+import socket from '../components/socket';
 import PeerMessage from '../components/PeerMessage';
 import UserMessage from '../components/UserMessage';
 
@@ -20,10 +19,8 @@ export default function Page({ route }) {
     const [inputValue, setInputValue] = useState('');
 
     const handleInputChange = (text) => {
-        // Use this function if you want to perform some action on every input change
         setInputValue(text);
     };
-
 
     useEffect(() => {
         // socket.emit("join", tagName);
