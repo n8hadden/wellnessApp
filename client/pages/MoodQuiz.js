@@ -4,7 +4,6 @@ import { styles } from '../styles/MoodQuizStyles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Slider from '@react-native-community/slider';
 import { Dimensions } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -54,18 +53,31 @@ export default function Page() {
 
   const handleSave = async () => {
     const trimmedFinalThoughts = finalThoughts.trim();
-    const currentDate = new Date(); // Get the current date
+    const currentDate = new Date().toISOString(); // Get the current date and format as ISO string
     const data = {
-      date: currentDate,
-      moods: selectedMoods,
-      sliders: sliderValues,
-      thoughts: trimmedFinalThoughts,
+      day: currentDate, // Assuming "day" in your database corresponds to the date
+      user_id: 1, // Assuming you have a user ID, replace with actual user ID
+      mood_id: 1,
+      note: trimmedFinalThoughts,
     };
 
     try {
-      await AsyncStorage.setItem(currentDate.toISOString(), JSON.stringify(data));
-      console.log('Data saved successfully for date:', currentDate);
-      console.log('Data saved:', data); // Added console log to show what data is being saved
+      console.log(data)
+      const response = await fetch('https://wellness-server.onrender.com/calendar/addDay', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({data}),
+      });
+      console.log(await response.json())
+      // console.log(await response.ok)
+      // if (response.ok) {
+      //   console.log('Data saved successfully for date:', currentDate);
+      //   console.log('Data saved:', data);
+      // } else {
+      //   console.error('Failed to save data:', response);
+      // }
     } catch (error) {
       console.error('Error saving data:', error);
     }

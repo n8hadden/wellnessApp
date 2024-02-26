@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Linking, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { styles } from "../styles/SignUpStyles";
 import { Ionicons } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SignUp({ navigation }) {
   const [username, setUsername] = useState('');
@@ -24,16 +23,8 @@ export default function SignUp({ navigation }) {
       if (response.ok) {
         // SignUp successful
         console.log('SignUp successful');
-
-        if (data.sessionKey) {
-          // Save token to local storage
-          await AsyncStorage.setItem('session', data.sessionKey);
-
-          // Console log the session key
-          console.log('Session key:', data.sessionKey);
-        } else {
-          console.error('Session key is undefined');
-        }
+        // Navigate to SignInScreen upon successful signup
+        navigation.navigate("Home", { screen: "SignInScreen" });
       } else {
         // SignUp failed
         console.error('SignUp failed:', data.message); // Log the error message
@@ -50,49 +41,49 @@ export default function SignUp({ navigation }) {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-    <View style={styles.container}>
-      <Text style={styles.title}>Create Your Peer Voices Account</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
-        <Text style={styles.buttonText}>Sign Up</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.signInButton} onPress={() => { navigation.navigate("Home", { screen: "SignInScreen" }) }}>
-        <Text style={styles.buttonText}>Already have an Account?</Text>
-      </TouchableOpacity>
-      <View style={styles.socialIcons}>
-        <TouchableOpacity style={styles.socialIcon} onPress={() => { handleOpenURL('https://www.instagram.com/peer_voices_of_orange_county/') }}>
-          <Ionicons name="logo-instagram" size={40} color="#E1306C" />
+      <View style={styles.container}>
+        <Text style={styles.title}>Create Your Peer Voices Account</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Username"
+          value={username}
+          onChangeText={setUsername}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+        <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
+          <Text style={styles.buttonText}>Sign Up</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.socialIcon} onPress={() => { handleOpenURL('https://www.youtube.com/@peervoices1669') }}>
-          <Ionicons name="logo-youtube" size={40} color="#FF0000" />
+        <TouchableOpacity style={styles.signInButton} onPress={() => { navigation.navigate("Home", { screen: "SignInScreen" }) }}>
+          <Text style={styles.buttonText}>Already have an Account?</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.socialIcon} onPress={() => { handleOpenURL('https://www.facebook.com/peervoicesorangecounty') }}>
-          <Ionicons name="logo-facebook" size={40} color="#3b5998" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.socialIcon} onPress={() => { handleOpenURL('https://www.tiktok.com/@peervoices') }}>
-          <Ionicons name="logo-tiktok" size={40} color="#69C9D0" />
-        </TouchableOpacity>
+        <View style={styles.socialIcons}>
+          <TouchableOpacity style={styles.socialIcon} onPress={() => { handleOpenURL('https://www.instagram.com/peer_voices_of_orange_county/') }}>
+            <Ionicons name="logo-instagram" size={40} color="#E1306C" />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.socialIcon} onPress={() => { handleOpenURL('https://www.youtube.com/@peervoices1669') }}>
+            <Ionicons name="logo-youtube" size={40} color="#FF0000" />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.socialIcon} onPress={() => { handleOpenURL('https://www.facebook.com/peervoicesorangecounty') }}>
+            <Ionicons name="logo-facebook" size={40} color="#3b5998" />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.socialIcon} onPress={() => { handleOpenURL('https://www.tiktok.com/@peervoices') }}>
+            <Ionicons name="logo-tiktok" size={40} color="#69C9D0" />
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
     </TouchableWithoutFeedback>
   );
 }
