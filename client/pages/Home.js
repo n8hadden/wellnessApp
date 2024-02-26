@@ -19,8 +19,6 @@ export default function Page({route}) {
 
     const navigation = useNavigation();
 
-    // https://wellness/affermation/get
-
     useEffect(() => {
         console.log(affirmation);
     }, [affirmation]);

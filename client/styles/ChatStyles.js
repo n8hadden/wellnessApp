@@ -47,16 +47,17 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         columnGap: 10,
         marginTop: windowHeight * 0.7,
-        // backgroundColor: 'rgba(0,0,0,0.5)'
     },
     textInputContain: {
         width: windowWidth * 0.7,
         height: windowHeight * 0.055,
-        backgroundColor: 'white',
+        backgroundColor: 'rgba(225,225,225,0.95)',
         borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     textInput: {
-
+        width: windowWidth * 0.65,
     },
     messages: {
         marginTop: 10,

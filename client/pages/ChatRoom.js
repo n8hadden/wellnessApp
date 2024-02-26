@@ -69,7 +69,7 @@ export default function Page({ route }) {
                         onChangeText={handleInputChange}
                         style={styles.textInput}
                         ref={myInputRef}
-                        placeholder="useless placeholder"
+                        placeholder="Message"
                     />
                 </View>
                 <TouchableOpacity onPress={() => {
