@@ -13,8 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 const windowWidth = Dimensions.get('window').width;
 const testName = 'Daniel';
 
-export default function Page({route}) {
-
+export default function Page({ route }) {
     const [affirmation, setAffirmation] = useState(null);
 
     const navigation = useNavigation();
