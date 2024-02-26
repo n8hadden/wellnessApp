@@ -48,10 +48,12 @@ async function login(req, res) {
 
             await sessionModel.addSession(user.user_id, session);
 
-            res.status(200).json({
-                user: user,
-                sessionKey: session
-            });
+            const data = {
+                user,
+                session
+            }
+
+            res.status(200).json(data);
 
         } else {
             res.status(404).json({ error: "Internal Server Error" });
