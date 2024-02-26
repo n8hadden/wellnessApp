@@ -33,7 +33,7 @@ export default function Resources() {
                     width={windowWidth * .9}
                     style={styles.video}
                     // play={playing}
-                    videoId={'PenqlboX5FU'}
+                    videoId={'grfXR6FAsI8'}
                 />
             </View>
 
@@ -49,7 +49,7 @@ export default function Resources() {
             </View>
 
             <Text style={styles.header}>Other Resources</Text>
-            <View /* style={styles.resource1} */>
+            <View style={styles.buttonContainer} >
                 <TouchableOpacity onPress={() => { /* handle button press */ }}>
                     <View style={styles.button}>
                         <Text style={styles.buttonText} onPress={() => Linking.openURL('https://www.teens4teenshelp.org/resources')}>Teen4Teens</Text>
@@ -57,28 +57,28 @@ export default function Resources() {
                 </TouchableOpacity>
             </View>
 
-            <View /*style={styles.resource2}*/>
+            <View style={styles.buttonContainer}>
                 <TouchableOpacity onPress={() => { /* handle button press */ }}>
                     <View style={styles.button}>
-                        <Text style={styles.buttonText} onPress={() => Linking.openURL('https://www.therapistaid.com/')}>therapistaid</Text>
+                        <Text style={styles.buttonText} onPress={() => Linking.openURL('https://www.therapistaid.com/')}>Therapistaid</Text>
                     </View>
                 </TouchableOpacity>
             </View>
-            <View /*style={styles.resource3}*/>
+            <View style={styles.buttonContainer}>
                 <TouchableOpacity onPress={() => { /* handle button press */ }}>
                     <View style={styles.button}>
                         <Text style={styles.buttonText} onPress={() => Linking.openURL('https://www.nami.org/Your-Journey/Kids-Teens-and-Young-Adults/Teens')}>Nami Hotline</Text>
                     </View>
                 </TouchableOpacity>
             </View>
-            <View /*style={styles.resource4}*/>
+            <View style={styles.buttonContainer}>
                 <TouchableOpacity onPress={() => { /* handle button press */ }}>
                     <View style={styles.button}>
                         <Text style={styles.buttonText} onPress={() => Linking.openURL('https://988lifeline.org/help-yourself/for-deaf-hard-of-hearing/')}>988 suicide and crisis lifeline</Text>
                     </View>
                 </TouchableOpacity>
             </View>
-            <View style={{ marginBottom: 20}}>
+            <View style={styles.buttonContainer/*{ marginBottom: 20}*/}>
                 <TouchableOpacity onPress={() => { /* handle button press */ }} style={{}}>
                     <View style={styles.button}>
                         <Text style={styles.buttonText} onPress={() => Linking.openURL('https://www.crisistextline.org/')}>Text Crisis Line</Text>
