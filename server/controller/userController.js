@@ -46,7 +46,7 @@ async function login(req, res) {
 
             console.log(user, session);
 
-            await sessionModel.addSession(user.id, session);
+            await sessionModel.addSession(user.user_id, session);
 
             res.status(200).json({
                 user: user,
