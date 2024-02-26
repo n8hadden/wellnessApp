@@ -44,7 +44,7 @@ async function login(req, res) {
 
             session = randomKey();
 
-            console.log(user.id, session);
+            console.log(user, session);
 
             await sessionModel.addSession(user.id, session);
 
