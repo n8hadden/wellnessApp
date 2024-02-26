@@ -4,16 +4,25 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
+    header: {
+        marginVertical: 15,
+        fontSize: 24,
     },
-    title1: {
-        fontSize:20,
-        
+    title: {
+        textAlign: "center",
+        paddingTop: 15,
+        paddingBottom: 10,
+        fontWeight: 'bold',
+        fontSize: 16,
     },
-    video1:{
-        width: windowWidth * 0.85,
-        flex: .15,
+    button: {
+        flexDirection: 'row', // layout image and text horizontally
+        alignItems: 'center', // center items vertically
+        justifyContent: 'center', // center items horizontally
+        padding: 10,
     },
+    buttonText: {
+        fontSize: 18, // or your desired size
+        marginLeft: 15,
+    }
 })
