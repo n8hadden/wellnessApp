@@ -16,7 +16,7 @@ async function getUsers(){
 // Function to retrieve a user by their ID from the database
 async function getUserById(id){
     // Constructing the SQL query to select a user by their ID
-    let query = `SELECT * FROM users WHERE id = ${id}`;
+    let query = `SELECT * FROM users WHERE user_id = ${id}`;
 
     // Executing the SQL query using the database utility function and returning the result
     return (await database.getData(query))[0];
