@@ -20,6 +20,8 @@ export default function Page({route}) {
         <ScrollView contentContainerStyle={styles.container}>
             {/* Search Bar - To Be Implemented */}
 
+            
+
             <TagContainer
                 tagName="Artist" // will add [info] to database
                 tagColor="#64b6ac" // will add [info] to database
