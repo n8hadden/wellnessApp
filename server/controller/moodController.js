@@ -17,6 +17,8 @@ async function getMoodInfo(req, res) {
 }
 
 async function getMoodId(req, res) {
+  console.log(req.data);
+  
   const { mood } = req.data;
 
   try{
