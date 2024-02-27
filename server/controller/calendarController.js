@@ -23,6 +23,8 @@ async function addDay(req, res) {
     // Extracting data from the request body
     const { data } = req.body;
 
+    console.log(data);
+
     try {
         // Calling the addDay function from the calendarModels module to add the day to the calendar
         await model.addDay(data);
