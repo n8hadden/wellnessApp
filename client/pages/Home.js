@@ -1,11 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import { Dimensions, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Alert } from 'react-native';
 import { styles } from '../styles/HomeStyles'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+import { io } from 'socket.io-client';
+import { baseURL } from '../util';
+
+import axios from 'axios';
 
 // components
 import Btn from '../components/HomeBtn';
@@ -20,9 +24,11 @@ const user_name = 'Daniel';
 export default function Page({ route }) {
 
     const [weatherIcon, setWeatherIcon] = useState(null);
-    const [currentDateTime, setCurrentDateTime] = useState(new Date());
+    // const [currentDateTime, setCurrentDateTime] = useState(new Date());
     const [affirmation, setAffirmation] = useState(null);
     const navigation = useNavigation();
+
+    const socket = useRef();
 
     const currentDate = new Date();
     const monthNames = [
@@ -45,44 +51,64 @@ export default function Page({ route }) {
   
     const formattedDate = `${monthNames[currentDate.getMonth()]} ${currentDate.getDate()}, ${currentDate.getFullYear()}`;  
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-        setCurrentDateTime(new Date());
-        }, 1000); // Update every second
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //     setCurrentDateTime(new Date());
+    //     }, 1000); // Update every second
 
-        return () => clearInterval(interval); // Clean up interval on unmount
+    //     return () => clearInterval(interval); // Clean up interval on unmount
+    // }, []);
+
+    useEffect(() => {
+        // socket.current = io(`${baseURL}/`);
+
+        // // socket.current.on("getNewMessage", (newMessage) => {
+        // //     setMessages((prev) => [...prev, newMessage]);
+        // // });
+
+        // const getAffirmation = async () => {
+        //     await axios
+        //         .post(`${baseURL}/affirmation/get/`)
+        //         .then((res) => {
+        //             console.log(res.data);
+        //             // if(res.data.messages.length) setMessages(res.data.messages);
+        //         })
+        //         .catch(err => {
+        //             console.log(err);
+        //         });
+        // }
+        // getAffirmation();
+
+        const handleaffirmation = async () => {
+            try {
+                const response = await fetch('https://wellness-server.onrender.com/affirmation/get', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        affirmation: affirmText,
+                    }),
+                });
+                if (response.ok) {
+                    const userData = await response.json();
+                    setAffirmation(userData.affirmation);
+                    console.log(userData);
+                } else {
+                    Alert.alert('Error', 'Invalid username or password. Please try again.');
+                }
+            } catch (error) {
+              console.error('Error:', error);
+              Alert.alert('Error', 'An error occurred. Please try again later.');
+            }
+        };
+        handleaffirmation();
     }, []);
 
     useEffect(() => {
         console.log(affirmation);
     }, [affirmation]);
 
-    const handleaffirmation = async () => {
-        try {
-            // Make an HTTP request to the /user/login endpoint
-            const response = await fetch('https://wellness-server.onrender.com/affirmation/get', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    user_id: 1, // user_id: user_id,
-                }),
-            });
-            if (response.ok) {
-                const userData = await response.json();
-                setAffirmation(userData.affirmation);
-                // console.log(userData);
-            } else {
-                Alert.alert('Error', 'Invalid username or password. Please try again.');
-            }
-        } catch (error) {
-          console.error('Error:', error);
-          Alert.alert('Error', 'An error occurred. Please try again later.');
-        }
-    };
-
-    handleaffirmation();
     
     return (
         <ScrollView contentContainerStyle={styles.container}>

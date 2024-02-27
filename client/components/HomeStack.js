@@ -20,7 +20,7 @@ export default function HomeStack() {
         name="HomeScreen"
         component={Home}
         options={{
-          header: () => <Header headerName="Chat" navBtn={false} />
+          header: () => <Header headerName="Home" navBtn={false} />
         }}
       />
       <Stack.Screen 
