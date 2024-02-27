@@ -2,6 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import { Dimensions, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
 import { Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { styles } from '../styles/HomeStyles'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -19,108 +21,82 @@ import { CardStyleInterpolators } from '@react-navigation/stack';
 import { color } from 'react-native-elements/dist/helpers';
 
 const windowWidth = Dimensions.get('window').width;
-const user_name = 'Daniel';
 
 export default function Page({ route }) {
 
     const [weatherIcon, setWeatherIcon] = useState(null);
-    // const [currentDateTime, setCurrentDateTime] = useState(new Date());
     const [affirmation, setAffirmation] = useState(null);
+    const [userId, setUserId] = useState(null);
+    const [userName, setUserName] = useState(null);
     const navigation = useNavigation();
 
     const socket = useRef();
 
-    const currentDate = new Date();
-    const monthNames = [
-        "January", "February", "March",
-        "April", "May", "June", "July",
-        "August", "September", "October",
-        "November", "December"
-    ];
-
-    const weatherNames = [
-        "weather-cloudy", "weather-fog", "weather-hail", 
-        "weather-lightning", "weather-lightning-rainy", "weather-night", 
-        "weather-night-partly-cloudy", "weather-partly-cloudy", "weather-partly-lightning", 
-        "weather-partly-rainy", "weather-partly-snowy", "weather-partly-snowy-rainy",
-        "weather-pouring", "weather-rainy", "weather-snowy",
-        "weather-snowy-heavy", "weather-snowy-rainy", "weather-sunny", 
-        "weather-sunset", "weather-sunset-down", "weather-sunset-up", 
-        "weather-windy"
-    ]
-  
-    const formattedDate = `${monthNames[currentDate.getMonth()]} ${currentDate.getDate()}, ${currentDate.getFullYear()}`;  
-
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //     setCurrentDateTime(new Date());
-    //     }, 1000); // Update every second
-
-    //     return () => clearInterval(interval); // Clean up interval on unmount
-    // }, []);
-
-    useEffect(() => {
-        // socket.current = io(`${baseURL}/`);
-
-        // // socket.current.on("getNewMessage", (newMessage) => {
-        // //     setMessages((prev) => [...prev, newMessage]);
-        // // });
-
-        // const getAffirmation = async () => {
-        //     await axios
-        //         .post(`${baseURL}/affirmation/get/`)
-        //         .then((res) => {
-        //             console.log(res.data);
-        //             // if(res.data.messages.length) setMessages(res.data.messages);
-        //         })
-        //         .catch(err => {
-        //             console.log(err);
-        //         });
-        // }
-        // getAffirmation();
-
-        const handleaffirmation = async () => {
-            try {
-                const response = await fetch('https://wellness-server.onrender.com/affirmation/get', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        affirmation: affirmText,
-                    }),
-                });
-                if (response.ok) {
-                    const userData = await response.json();
-                    setAffirmation(userData.affirmation);
-                    console.log(userData);
-                } else {
-                    Alert.alert('Error', 'Invalid username or password. Please try again.');
-                }
-            } catch (error) {
-              console.error('Error:', error);
-              Alert.alert('Error', 'An error occurred. Please try again later.');
-            }
-        };
-        handleaffirmation();
-    }, []);
+    const handleaffirmation = async () => {      
+        const id = await AsyncStorage.getItem('userId');
+        console.log(id, " id");
+        if(id == undefined)
+            return;
+        try {
+            fetch('https://wellness-server.onrender.com/user/getUserById', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id: id,
+                }),
+            })
+            .then(res => res.json())
+            .then(async res => {
+                const user = res;
+                setUserName(user.username);
+                console.log("username: ");
+                console.log(user);
+            })
+            .catch(err => console.error(err));
+        } catch (error) {
+            console.error('Error:', error);
+            Alert.alert('Error', 'An error occurred. Please try again later.');
+        }
+        try {
+            fetch('https://wellness-server.onrender.com/affirmation/get', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    user_id: id,
+                }),
+            })
+            .then(res => res.json())
+            .then(async res => {
+                const affirmation = res;
+                setAffirmation(affirmation.affirmation);
+            })
+            .catch(err => console.error(err));
+        } catch (error) {
+            console.error('Error:', error);
+            Alert.alert('Error', 'An error occurred. Please try again later.');
+        }
+    };
+    handleaffirmation();
 
     useEffect(() => {
-        console.log(affirmation);
+        console.log("Affirmation: " + affirmation);
     }, [affirmation]);
-
     
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.introContainer}>
-                <Text style={styles.introText}>Goodmorning, {user_name}</Text>
-                <Text style={styles.introText}>{/* Date, Weather */}{formattedDate}</Text>
+                <Text style={styles.introText}>Goodmorning, {userName}</Text>
+                <Text style={styles.introText}>{/* Date, Weather */}</Text>
                 <View style={styles.introImage}>
-                    <MaterialCommunityIcons 
+                    {/* <MaterialCommunityIcons 
                         name={weatherNames[0]}
                         size={120} 
                         color="white" 
-                    />
+                    /> */}
                 </View>
             </View>
 
@@ -162,6 +138,24 @@ export default function Page({ route }) {
                 iconImg="document-text"
                 iconColor="#ffffff"
                 text="Resources"
+            />
+            <Btn 
+                onPress={() => { navigation.navigate('Home'); }}
+                iconImg="document-text"
+                iconColor="#ffffff"
+                text="Resources"
+            />
+            <Btn 
+                onPress={() => { navigation.navigate('Home', {screen: 'SignInScreen'}); }}
+                iconImg="document-text"
+                iconColor="#ffffff"
+                text="Sign In"
+            />
+            <Btn 
+                onPress={() => { navigation.navigate('Home', {screen: 'SignUpScreen'}); }}
+                iconImg="document-text"
+                iconColor="#ffffff"
+                text="Sign Up"
             />
         </ScrollView>
     );

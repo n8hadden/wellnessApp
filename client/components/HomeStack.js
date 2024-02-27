@@ -23,26 +23,26 @@ export default function HomeStack() {
           header: () => <Header headerName="Home" navBtn={false} />
         }}
       />
-      <Stack.Screen 
+      <Stack.Screen
         name="MoodQuizScreen"
         component={MoodQuiz}
         options={{
           header: () => <Header headerName="Mood Quiz" />
         }}
       />
-      <Stack.Screen 
+      <Stack.Screen
         name="MoodCalendarScreen"
         component={MoodCalendar}
         options={{
           header: () => <Header headerName="Mood Calendar" />
         }}
       />
-      <Stack.Screen 
+      <Stack.Screen
         name="SignInScreen"
         component={SignIn}
         options={{ headerTitle: 'Login' }}
       />
-      <Stack.Screen 
+      <Stack.Screen
         name="SignUpScreen"
         component={SignUp}
         options={{ headerTitle: 'Sign Up' }}

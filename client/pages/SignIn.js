@@ -26,6 +26,7 @@ export default function SignIn({ navigation }) {
 
       if (response.ok) {
         const userData = await response.json();
+        console.log("response.ok");
         console.log(userData);
         if (userData && userData.user.user_id && userData.session) {
           // Save session key and user id in AsyncStorage
