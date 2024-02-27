@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Dimensions, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity  } from 'react-native';
 import React, { useState } from 'react';
 import { styles } from '../styles/ChatStyles'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import socket from '../components/socket';
 
@@ -15,48 +16,27 @@ export default function Page({route}) {
 
     const navigation = useNavigation();
     const [showSuggestion, setShowSuggestion] = useState(false);
+    const [userTags, setUserTags] = useState([]);
 
     // const handleTags = async () => {      
     //     const id = await AsyncStorage.getItem('userId');
-    //     console.log(id, " id");
+    //     console.log(id, " id in ChatTag.js");
     //     if(id == undefined)
     //         return;
     //     try {
-    //         fetch('https://wellness-server.onrender.com/user/getUserById', {
+    //         fetch('https://wellness-server.onrender.com/tag/getTags', {
     //             method: 'POST',
     //             headers: {
     //                 'Content-Type': 'application/json',
     //             },
     //             body: JSON.stringify({
-    //                 id: id,
+    //                 userId: id,
     //             }),
     //         })
     //         .then(res => res.json())
     //         .then(async res => {
-    //             const user = res;
-    //             setUserName(user.username);
-    //             console.log("username: ");
-    //             console.log(user);
-    //         })
-    //         .catch(err => console.error(err));
-    //     } catch (error) {
-    //         console.error('Error:', error);
-    //         Alert.alert('Error', 'An error occurred. Please try again later.');
-    //     }
-    //     try {
-    //         fetch('https://wellness-server.onrender.com/affirmation/get', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify({
-    //                 user_id: id,
-    //             }),
-    //         })
-    //         .then(res => res.json())
-    //         .then(async res => {
-    //             const affirmation = res;
-    //             setAffirmation(affirmation.affirmation);
+    //             const tags = res;
+    //             setUserTags(tags);
     //         })
     //         .catch(err => console.error(err));
     //     } catch (error) {
