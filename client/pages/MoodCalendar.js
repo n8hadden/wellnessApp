@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Modal, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Modal, StatusBar, Dimensions  } from 'react-native';
 import moment from 'moment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from '../styles/CalendarStyles';
+import { useNavigation } from '@react-navigation/native';
 
 LocaleConfig.locales['en'] = {
   monthNames: [
@@ -40,16 +41,22 @@ LocaleConfig.locales['en'] = {
 
 LocaleConfig.defaultLocale = 'en';
 
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
 export default function Page() {
   const [selectedDate, setSelectedDate] = useState(moment().format('YYYY-MM-DD'));
   const [initialDate, setInitialDate] = useState(null);
   const [showNotesModal, setShowNotesModal] = useState(false);
   const [note, setNote] = useState('');
   const [submittedData, setSubmittedData] = useState({});
+  const [currentMood, setCurrentMood] = useState('');
+  const navigation = useNavigation();
 
   useEffect(() => {
     loadInitialDate();
     loadSubmittedData(selectedDate);
+    loadMood(selectedDate);
   }, [selectedDate]);
 
   const loadInitialDate = async () => {
@@ -80,6 +87,15 @@ export default function Page() {
     }
   };
 
+  const loadMood = async (date) => {
+    try {
+      const mood = await AsyncStorage.getItem(`mood_${date}`);
+      setCurrentMood(mood || '');
+    } catch (error) {
+      console.log('Error loading mood from storage:', error);
+    }
+  };
+
   const handleDateSelect = async (date) => {
     if (selectedDate === date.dateString) {
       const savedNote = await AsyncStorage.getItem(date.dateString);
@@ -99,7 +115,9 @@ export default function Page() {
   };
 
   return (
+    
     <ScrollView contentContainerStyle={styles.container}>
+
       <View style={styles.headerContainer}>
         <Text style={styles.headerText}>
           {moment(selectedDate).format('dddd, MMMM D, YYYY')}
@@ -132,6 +150,20 @@ export default function Page() {
           }}
         />
       </View>
+      <View style={styles.additionalArea}>
+  {currentMood ? (
+    <>
+      <Text style={styles.moodText}>{currentMood}</Text>
+    </>
+  ) : (
+    <>
+      <Text style={styles.noMoodText}>No mood recorded today</Text>
+      <TouchableOpacity style={styles.recordMoodButton} onPress={() => {  navigation.navigate('Home', {screen: "MoodQuizScreen"}); }}>
+        <Text style={styles.recordMoodButtonText}>Record Your Mood</Text>
+      </TouchableOpacity>
+    </>
+  )}
+</View>
       <Modal visible={showNotesModal} transparent={true} animationType="fade">
         <View
           style={{

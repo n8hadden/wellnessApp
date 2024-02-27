@@ -1,5 +1,4 @@
 import { StatusBar } from 'expo-status-bar';
-
 import {
     View,
     KeyboardAvoidingView,
@@ -15,12 +14,13 @@ import {
     ScrollView,
 } from 'react-native';
 // import { Dimensions, KeyboardAvoidingView, Platform, StyleSheet, TextInput, Text, View, Image, ScrollView, TouchableOpacity  } from 'react-native';
+// import { Dimensions, TextInput, View, ScrollView, TouchableOpacity  } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
-import { styles } from '../styles/ChatStyles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import socket from '../components/socket';
-// import { BlurView } from '@react-native-community/blur';
+import { styles } from '../styles/ChatStyles'; 
 
+// components
+import socket from '../components/socket';
 import PeerMessage from '../components/PeerMessage';
 import UserMessage from '../components/UserMessage';
 
@@ -89,7 +89,7 @@ export default function Page({ route }) {
                         onChangeText={handleInputChange}
                         style={styles.textInput}
                         ref={myInputRef}
-                        placeholder="placeholder"
+                        placeholder="Message"
                     />
                 </View>
                 <TouchableOpacity onPress={() => {
@@ -127,90 +127,3 @@ export default function Page({ route }) {
         </KeyboardAvoidingView>
     );
 }
-
-// import React from 'react';
-// import {
-//   View,
-//   KeyboardAvoidingView,
-//   TextInput,
-//   StyleSheet,
-//   Text,
-//   Platform,
-//   TouchableWithoutFeedback,
-//   TouchableOpacity,
-//   Button,
-//   Keyboard,
-//   Dimensions,
-//   ScrollView,
-// } from 'react-native';
-// import Ionicons from 'react-native-vector-icons/Ionicons';
-
-// const KeyboardAvoidingComponent = () => {
-//   const windowHeight = Dimensions.get('window').height;
-//   return (
-//     <KeyboardAvoidingView
-//       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-//       style={styles.container}
-//       keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : -500} // Adjust as needed
-//     >
-//       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-//         <View>
-//           <ScrollView contentContainerStyle={styles.scrollContainer}>
-//             <View style={styles.inner}>
-//               <Text style={styles.header}>Header</Text>
-//               <TextInput placeholder="Username" style={styles.textInput} />
-//               <View style={styles.btnContainer}>
-//                 <Button title="Submit" onPress={() => null} />
-//               </View>
-//             </View>
-//           </ScrollView>
-//           <View style={styles.inputContain}>
-//               <View style={styles.textInputContain}>
-//                 <TextInput
-//                   placeholder="useless placeholder"
-//                 />
-//               </View>
-//               <TouchableOpacity>
-//                 <Ionicons 
-//                   name="chevron-up-circle" /* icon image prop */
-//                   size={windowHeight * 0.055} /* size of icon */
-//                   color="#3d3b3c" /* icon color prop */
-//                 />
-//               </TouchableOpacity>
-//           </View>
-//         </View>
-//       </TouchableWithoutFeedback>
-//     </KeyboardAvoidingView>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'flex-end',
-//   },
-//   // scrollContainer: {
-//   //   flexGrow: 1,
-//   // },
-//   // inner: {
-//   //   padding: 24,
-//   //   flex: 1,
-//   //   justifyContent: 'space-around',
-//   // },
-//   // header: {
-//   //   fontSize: 36,
-//   //   marginBottom: 48,
-//   // },
-//   // textInput: {
-//   //   height: 40,
-//   //   borderColor: '#000000',
-//   //   borderBottomWidth: 1,
-//   //   marginBottom: 36,
-//   // },
-//   btnContainer: {
-//     backgroundColor: 'white',
-//     marginTop: 12,
-//   },
-// });
-
-// export default KeyboardAvoidingComponent;
