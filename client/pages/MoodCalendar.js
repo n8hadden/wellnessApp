@@ -46,7 +46,7 @@ LocaleConfig.defaultLocale = 'en';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-export default function Page() {
+export default function MoodCalendar() {
   const [selectedDate, setSelectedDate] = useState(moment().format('YYYY-MM-DD'));
   const [initialDate, setInitialDate] = useState(null);
   const [showNotesModal, setShowNotesModal] = useState(false);

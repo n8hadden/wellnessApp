@@ -25,7 +25,7 @@ import { useUser } from '../context/UserContext';
 
 const windowWidth = Dimensions.get('window').width;
 
-export default function Page({ route }) {
+export default function Home({ route }) {
 
     const clearAsyncStorage = async () => {
         try {
@@ -80,6 +80,7 @@ export default function Page({ route }) {
             })
             .then(res => res.json())
             .then(async res => {
+                // console.log(res)
                 const affirmation = res;
                 setAffirmation(affirmation.affirmation);
             })

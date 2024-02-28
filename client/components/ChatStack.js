@@ -23,8 +23,8 @@ export default function ChatStack() {
     if (user) {
       setUserTags([
         {
-          tag_id: 9,
-          tag_name: "Bird Watching",
+          tag_id: x,
+          tag_name: "Bird Watching", //CAUSING PROBLEMS
         },
         {
           tag_id: 5,
@@ -47,16 +47,24 @@ export default function ChatStack() {
           header: () => <Header headerName="Chat" navBtn={false} />
         }}
       />
-      { userTags && userTags.map((tag, index) => (
-        <Stack.Screen 
-          key={`ChatRoomScreen_${tag.tag_id}`} 
-          name={`ChatRoomScreen_${tag.tag_id}`}
-          component={ChatRoom}
-          options={{
-            header: () => <Header headerName={tag.tag_name} isGroup={true} profileImg="https://sdzwildlifeexplorers.org/sites/default/files/2019-11/platypus-bill.jpg" />
-          }}
-        />
-      ))}
+      { userTags && userTags.map((tag, index) => {
+        console.log("usertags causing problems, why '9'?");
+        console.log(userTags);
+        return (
+          <Stack.Screen 
+            key={`ChatRoomScreen_${tag.tag_id}`} 
+            name={`ChatRoomScreen_${tag.tag_id}`}
+            // component={ChatRoom}
+            options={{
+              header: () => <Header  headerName={tag.tag_name} />
+            }}
+          >
+            {({ route }) => (
+              <ChatRoom route={route} />
+            )}
+          </Stack.Screen>
+        )
+      })}
     </Stack.Navigator>
   );
 }

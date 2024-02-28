@@ -19,7 +19,7 @@ import ChatRoom from '../pages/ChatRoom';
 import TagContainer from '../components/ChatTagBtn'; 
 import SearchBar from '../components/SearchBar';
 
-export default function Page({route}) {
+export default function ChatTag({route}) {
 
     const navigation = useNavigation();
     const [showSuggestion, setShowSuggestion] = useState(false);
@@ -99,7 +99,7 @@ export default function Page({route}) {
                 <ScrollView contentContainerStyle={styles.container}>
                     {userTags && userTags.map((tag, index) => (
                         <TagContainer
-                            key={tag.tag_id}
+                            key={`ChatTag_${tag.tag_id}`}
                             tagName={tag.tag_name}
                             onPress={() => {
                                 console.log(index, tag)

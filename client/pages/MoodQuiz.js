@@ -19,7 +19,7 @@ const moodButtons = [
   { mood: 'awkward', bgColor: '#FFC0CB', label: 'Awkward' },
 ];
 
-export default function Page() {
+export default function MoodQuiz() {
   const [selectedMoods, setSelectedMoods] = useState([]);
   const [sliderValues, setSliderValues] = useState({});
   const [finalThoughts, setFinalThoughts] = useState('');
