@@ -1,7 +1,7 @@
 const database = require('../utils/database');
 
 async function getMessages(groupId){
-    let query = `SELECT * FROM messages WHERE group_id=${groupId}`;
+    let query = `SELECT * FROM message WHERE group_id=${groupId}`;
 
     return (await database.getData(query))
 }
