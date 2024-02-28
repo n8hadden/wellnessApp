@@ -37,7 +37,6 @@ export default function Page({route}) {
                     {
                     text: 'OK',
                     onPress: () => {
-                        console.log('OK Pressed');
                         navigation.navigate('Home', { screen: 'SignInScreen' });
                     },
                     },
@@ -87,26 +86,6 @@ export default function Page({route}) {
                 },
             ]);
         }
-            // try {
-            //     fetch('https://wellness-server.onrender.com/tag/getTags', {
-            //         method: 'POST',
-            //         headers: {
-            //             'Content-Type': 'application/json',
-            //         },
-            //         body: JSON.stringify({
-            //             userId: user.user_id,
-            //         }),
-            //     })
-            //     .then(res => res.json())
-            //     .then(async res => {
-            //         const tags = res;
-            //         setUserTags(tags.tags);
-            //     })
-            //     .catch(err => console.error(err));
-            // } catch (error) {
-            //     console.error('Error:', error);
-            //     Alert.alert('Error', 'An error occurred. Please try again later.');
-            // }
     }
 
     useEffect(() => {
@@ -125,7 +104,7 @@ export default function Page({route}) {
                             onPress={() => {
                                 console.log(index, tag)
                                 socket.emit("join", {group: tag.tag_name});
-                                navigation.navigate(`ChatRoomScreen_${tag.tag_id}`, { tagId: 'df', tagName: tag.tag_name } );
+                                navigation.navigate(`ChatRoomScreen_${tag.tag_id}`, { tagId: tag.tag_id, tagName: tag.tag_name } );
                             }}
                         />
                     ))}

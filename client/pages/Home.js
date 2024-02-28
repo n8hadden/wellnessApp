@@ -92,7 +92,7 @@ export default function Page({ route }) {
     handleaffirmation();
 
     useEffect(() => {
-        console.log("Affirmation: " + affirmation);
+        // console.log("Affirmation: " + affirmation);
     }, [affirmation]);
     
     return (

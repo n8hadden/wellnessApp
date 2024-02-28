@@ -21,7 +21,6 @@ export default function ChatStack() {
 
   const handleTags = () => {
     if (user) {
-      console.log("Chat Stack Called")
       setUserTags([
         {
           tag_id: 9,
@@ -50,8 +49,8 @@ export default function ChatStack() {
       />
       { userTags && userTags.map((tag, index) => (
         <Stack.Screen 
-        key={tag.tag_id} // Make sure to provide a unique key
-        name={`ChatRoomScreen_${tag.tag_id}`} // Use a unique name for each screen
+          // key={tag.tag_id} 
+          name={`ChatRoomScreen_${tag.tag_id}`}
           component={ChatRoom}
           options={{
             header: () => <Header headerName={tag.tag_name} profileImg="https://sdzwildlifeexplorers.org/sites/default/files/2019-11/platypus-bill.jpg" />

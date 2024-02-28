@@ -6,7 +6,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 // style(s)
 import { styles } from '../styles/HeaderStyles';
 
-export default function Header({ headerName, navBtn, profileImg }) {
+export default function Header({ headerName, navBtn, profileImg, isGroup }) {
 
     const navigation = useNavigation();
 
@@ -15,12 +15,18 @@ export default function Header({ headerName, navBtn, profileImg }) {
             <View
                 style={styles.img_text_contain} 
             >
-                { profileImg != undefined ?
+                { isGroup != undefined ?
                     <TouchableOpacity>
-                        <Image 
-                            source={{ uri: profileImg }} 
-                            style={styles.groupImg} 
-                        />
+                        { profileImg ?
+                            <Image 
+                                source={{ uri: profileImg }} 
+                                style={styles.groupImg} 
+                            />
+                            :
+                            <View 
+                                style={[styles.groupImg, { backgroundColor: '#6dc0d5' }]} // default color (switch for tag.color)
+                            />
+                        }
                     </TouchableOpacity>
                     :
                     <></>

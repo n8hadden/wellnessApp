@@ -28,7 +28,7 @@ const windowHeight = Dimensions.get('window').height;
 
 export default function Page({ route }) {
 
-    const { tagName } = route.params;
+    const { tagName, tagId } = route.params;
     const myInputRef = useRef(null);
 
     const [inputValue, setInputValue] = useState('');
@@ -105,22 +105,10 @@ export default function Page({ route }) {
                         color="#3d3b3c" 
                         style={{ 
                             flex: 1,
-                            justifyContent: 'flex-end',
+                            justifyContent: 'center',
                         }}
                     />
                 </TouchableOpacity> 
-                {/* <Button 
-                    title='Button'
-                    onPress={() => {
-                        const userObject = {
-                            content: inputValue,
-                            sender: 1,
-                            group: tagName,
-                        }
-                        socket.emit("chat", userObject);
-                        console.log(userObject);
-                    }}
-                ></Button> */}
             </View>
         </KeyboardAvoidingView>
     );
