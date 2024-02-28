@@ -8,7 +8,7 @@ const router = express.Router();
 const controller = require("../controller/chatController");
 
 // Defining a GET route '/getMessages' which will be handled by the getMessages function from the chatController module
-router.get('/getMessages', controller.getMessages);
+router.post('/getMessages', controller.getMessages);
 
 // Exporting the router object so it can be used in other parts of the application
 module.exports = router;
