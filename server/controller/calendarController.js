@@ -21,6 +21,10 @@ async function getDays(req, res) {
 // Function to handle adding a day to the calendar
 async function addDay(req, res) {
     // Extracting data from the request body
+
+    console.log(req.body);
+    res.json({message: "testing"}); 
+    /*
     const { day, user_id, mood_id, note } = req.body;
 
     try {
@@ -33,6 +37,7 @@ async function addDay(req, res) {
         console.error(err);
         res.status(500).json({ error: "Internal Server Error" });
     }
+    */
 }
 
 // Exporting the functions to be used in other modules
