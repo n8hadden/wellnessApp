@@ -17,7 +17,7 @@ const Stack = createStackNavigator();
 
 export default function ChatStack() {
   const { user, setUser } = useUser();
-  const [userTags, setUserTags] = useState([{}]);
+  const [userTags, setUserTags] = useState([]);
 
   const handleTags = () => {
     if (user) {
@@ -49,11 +49,11 @@ export default function ChatStack() {
       />
       { userTags && userTags.map((tag, index) => (
         <Stack.Screen 
-          // key={tag.tag_id} 
+          key={`ChatRoomScreen_${tag.tag_id}`} 
           name={`ChatRoomScreen_${tag.tag_id}`}
           component={ChatRoom}
           options={{
-            header: () => <Header headerName={tag.tag_name} profileImg="https://sdzwildlifeexplorers.org/sites/default/files/2019-11/platypus-bill.jpg" />
+            header: () => <Header headerName={tag.tag_name} isGroup={true} profileImg="https://sdzwildlifeexplorers.org/sites/default/files/2019-11/platypus-bill.jpg" />
           }}
         />
       ))}
