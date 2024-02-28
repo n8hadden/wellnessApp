@@ -150,3 +150,5 @@ VALUES ()
 SELECT * FROM tags where tag_name like 'Artist'
 
 SELECT * FRoM tags
+
+SELECT * FROM calendar_days
