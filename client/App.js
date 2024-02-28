@@ -1,6 +1,9 @@
 import * as React from 'react';
+import { useContext } from 'react';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-import Navigation from './components/Navigation';
+import Navbar from './components/Navbar';
+ 
+import { UserProvider } from './context/UserContext';
 
 export default function App() {
   const MyTheme = {
@@ -13,10 +16,12 @@ export default function App() {
   };
 
   return (
-    <NavigationContainer theme={MyTheme}>
-      <Navigation>
-
-      </Navigation>
-    </NavigationContainer>
+    <UserProvider>
+      <NavigationContainer theme={MyTheme}>
+        <Navbar>
+          
+        </Navbar>
+      </NavigationContainer>
+    </UserProvider>
   );
 }
