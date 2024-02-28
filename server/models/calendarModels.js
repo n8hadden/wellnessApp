@@ -7,12 +7,12 @@ async function getDays(user_id) {
     return await database.getData(query);
 }
 
-async function addDay(data) {
+async function addDay(day, user_id, mood_id, note) {
     const query = `INSERT INTO calendar_days 
     (day, user_id, mood_id, note)
-    VALUES ('${data.day}', ${data.user_id}, ${data.mood_id}, '${data.note}')`;
+    VALUES ('${day}', ${user_id}, ${mood_id}, '${note}')`;
 
-    return await database.setData(query);
+    return (await database.setData(query));
 }
 
 module.exports = {

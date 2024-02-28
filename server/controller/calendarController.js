@@ -21,13 +21,11 @@ async function getDays(req, res) {
 // Function to handle adding a day to the calendar
 async function addDay(req, res) {
     // Extracting data from the request body
-    const { data } = req.body;
-
-    console.log(data);
+    const { day, user_id, mood_id, note } = req.body;
 
     try {
         // Calling the addDay function from the calendarModels module to add the day to the calendar
-        await model.addDay(data);
+        await model.addDay(day, user_id, mood_id, note);
         // Sending a success message as a JSON response
         res.status(201).json({ message: "Day added to database" });
     } catch (err) {
