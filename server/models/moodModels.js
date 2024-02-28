@@ -12,7 +12,7 @@ async function getMoodInfo(mood) {
 }
 
 async function getMoodId(mood){
-    let query = `SELECT * FROM moods WHERE mood_name LIKE ${mood}`;
+    let query = `SELECT * FROM moods WHERE mood_name LIKE '${mood}'`;
 
     return (await database.getData(query))[0].mood_id;
 }

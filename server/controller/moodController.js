@@ -17,12 +17,14 @@ async function getMoodInfo(req, res) {
 }
 
 async function getMoodId(req, res) {
-  const { mood } = req.data;
+  console.log(req);
+  
+  const { mood } = req.body;
 
   try{
-    const  id = await model.getMoodID(mood);
+    const  id = await model.getMoodId(mood);
     res.status(200).json({id});
-  } catch {
+  } catch(err) {
     console.log(err);
     res.status(404).json({message:"No Mood Found with that Name!"})
   }
