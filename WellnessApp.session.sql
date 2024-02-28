@@ -13,6 +13,7 @@ CREATE Table  IF NOT EXISTS sessions (
     user_id INTEGER PRIMARY KEY,
     session_key VARCHAR(256) UNIQUE
 )
+
 SELECT * FROM sessions
 
 INSERT INTO sessions  (user_id, session_key) 
@@ -144,6 +145,10 @@ VALUES ('Gloomy', '#FFD700', 3, 'Sad'), ('Depressed', '#5555FF', 5, 'Sad');
 ALTER TABLE calendar_days DROP note
 ALTER TABLE calendar_days ADD note VARCHAR(255)
 
+UPDATE moods
+SET mood_name = 'joyful'
+WHERE mood_id = 5
+
 INSERT INTO moods (mood_name, mood_color, mood_score, mood_type)
 VALUES ()
 
@@ -152,3 +157,7 @@ SELECT * FROM tags where tag_name like 'Artist'
 SELECT * FRoM tags
 
 SELECT * FROM calendar_days
+SELECT * FROM tags
+
+INSERT INTO tags(tag_name)
+VALUES ("Crocheting", "Bird Watching", "Gardening", "Hiking", "Cooking", "Yoga", "Photography", "Traveling", "Knitting", "Musician", "Video Games", "Cycling", "Running", "Podcasts", "Communal Activism", "Fitness Training")
