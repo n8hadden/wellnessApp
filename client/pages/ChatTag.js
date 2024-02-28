@@ -24,9 +24,6 @@ export default function Page({route}) {
 
     const { user, setUser } = useUser();
 
-    console.log("user");
-    console.log(user);
-
     useFocusEffect(
         useCallback(() => {
             if (user == null || user == undefined) {
@@ -47,27 +44,6 @@ export default function Page({route}) {
             }
         }, [user, navigation]) // Make sure to include user and navigation in the dependencies array
     );
-
-    // if (user == null || user == undefined) {
-    //     useFocusEffect(
-    //         useCallback(() => {
-    //             Alert.alert(
-    //                 'Requires An Account',
-    //                 'Please Sign In And/Or Create An Account',
-    //                 [
-    //                     {
-    //                         text: 'OK',
-    //                         onPress: () => {
-    //                             console.log('OK Pressed');
-    //                             navigation.navigate('Home', {screen: 'SignInScreen'});
-    //                         },
-    //                     },
-    //                 ],
-    //                 { cancelable: false }
-    //             );
-    //         }, [])
-    //     )
-    // }
 
     // const handleTags = async () => {      
     //     const id = await AsyncStorage.getItem('userId');
