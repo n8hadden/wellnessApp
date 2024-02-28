@@ -133,7 +133,8 @@ ALTER TABLE moods ADD mood_type VARCHAR(32)
 INSERT INTO moods  (mood_name, mood_color, mood_score, mood_type) 
 VALUES ('Happy', '#FFD700', 1, 'Happy'), ('Sad', '#5555FF', 1, 'Sad'), ('Mad', '#FF9900', 1, 'Mad'), ('Scared', '#555500', 1, 'Scared'), ('Enjoyed', '#5555FF', 1, 'Enjoyed'), ('Awkward', '#5555FF', 1, 'Awkward');
 
-SELECT * FROM moods
+SELECT *
+FROM moods
 SELECT * FROM calendar_days
 
 SELECT * FROM moods WHERE mood_type like 'Sad' AND mood_score <= 2 LIMIT 1
