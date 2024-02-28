@@ -27,49 +27,47 @@ const windowWidth = Dimensions.get('window').width;
 
 export default function Page({ route }) {
 
+    const clearAsyncStorage = async () => {
+        try {
+            await AsyncStorage.clear();
+            console.log('AsyncStorage cleared successfully.');
+        } catch (error) {
+            console.error('Error clearing AsyncStorage:', error);
+        }
+    };
+
+    function confirmLogOut() {
+        Alert.alert(
+            'Confirm Logout',
+            'Are you sure you want to logout?',
+            [
+              {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel'
+              },
+              { text: 'Yes', onPress: () => {
+                setUser(null);  
+                clearAsyncStorage(); // ask Edward if this is ok to do
+                navigation.navigate('Home');
+              }},
+            ],
+            { cancelable: false }
+        );
+    }
+
     const [weatherIcon, setWeatherIcon] = useState(null);
     const [affirmation, setAffirmation] = useState(null);
-    // const [userId, setUserId] = useState(null); // deprecated
-    // const [userName, setUserName] = useState(null); // deprecated
     const navigation = useNavigation();
 
     const socket = useRef();
 
     const { user, setUser } = useUser();
-    console.log("Context: ");
-    console.log(user);
 
     const handleaffirmation = async () => {      
         const id = await AsyncStorage.getItem('userId');
         if(id == undefined)
             return;
-        // try { /* Don't really need this anymore because I [Daniel] implemented a useContext hook for storing user information locally */
-        //     fetch('https://wellness-server.onrender.com/user/getUserById', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //             _id: id,
-        //         }),
-        //     })
-        //     .then(res => res.json())
-        //     .then(async res => {
-        //         const user = res && res.user; // Check if res and res.user exist
-        //         if (!user) {
-        //             console.log("User not found");
-        //             return;
-        //         }
-        //         setUserName(user.username);
-        //     })
-        //     .catch(err => {
-        //         console.log("the error");
-        //         console.error(err);
-        //     });
-        // } catch (error) {
-        //     console.error('Error:', error);
-        //     Alert.alert('Error', 'An error occurred. Please try again later.');
-        // }
         try { 
             fetch('https://wellness-server.onrender.com/affirmation/get', {
                 method: 'POST',
@@ -178,8 +176,7 @@ export default function Page({ route }) {
             { user ? 
                 <Btn 
                     onPress={() => { 
-                        setUser(null);  
-                        navigation.navigate('Home');
+                        confirmLogOut();
                     }}
                     iconImg="log-out"
                     iconColor="#ffffff"

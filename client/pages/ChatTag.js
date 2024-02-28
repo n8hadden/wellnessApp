@@ -23,7 +23,7 @@ export default function Page({route}) {
 
     const navigation = useNavigation();
     const [showSuggestion, setShowSuggestion] = useState(false);
-    const [userTags, setUserTags] = useState([]);
+    const [userTags, setUserTags] = useState([{}]);
 
     const { user, setUser } = useUser();
 
@@ -50,7 +50,6 @@ export default function Page({route}) {
 
     // const handleTags = async () => {      
     //     const id = await AsyncStorage.getItem('userId');
-    //     console.log(id, " id in ChatTag.js");
     //     if(id == undefined)
     //         return;
     //     try {
@@ -66,7 +65,7 @@ export default function Page({route}) {
     //         .then(res => res.json())
     //         .then(async res => {
     //             const tags = res;
-    //             setUserTags(tags);
+    //             setUserTags(tags.tags);
     //         })
     //         .catch(err => console.error(err));
     //     } catch (error) {
@@ -74,14 +73,64 @@ export default function Page({route}) {
     //         Alert.alert('Error', 'An error occurred. Please try again later.');
     //     }
     // };
-    // handleTags();
+
+    const handleTags = () => {
+        if (user) {
+            setUserTags([
+                {
+                    tag_id: 9,
+                    tag_name: "Bird Watching",
+                },
+                {
+                    tag_id: 5,
+                    tag_name: "Computer Science",
+                },
+            ]);
+        }
+            // try {
+            //     fetch('https://wellness-server.onrender.com/tag/getTags', {
+            //         method: 'POST',
+            //         headers: {
+            //             'Content-Type': 'application/json',
+            //         },
+            //         body: JSON.stringify({
+            //             userId: user.user_id,
+            //         }),
+            //     })
+            //     .then(res => res.json())
+            //     .then(async res => {
+            //         const tags = res;
+            //         setUserTags(tags.tags);
+            //     })
+            //     .catch(err => console.error(err));
+            // } catch (error) {
+            //     console.error('Error:', error);
+            //     Alert.alert('Error', 'An error occurred. Please try again later.');
+            // }
+    }
+
+    useEffect(() => {
+        handleTags();
+    }, [user]);
 
     return (
         <>
             <SearchBar />
-            { user != null || user != undefined ?
+            { user ?
                 <ScrollView contentContainerStyle={styles.container}>
-                    <TagContainer
+                    {userTags && userTags.map((tag, index) => (
+                        <TagContainer
+                            key={tag.tag_id}
+                            tagName={tag.tag_name}
+                            onPress={() => {
+                                console.log(index, tag)
+                                socket.emit("join", {group: tag.tag_name});
+                                navigation.navigate(`ChatRoomScreen_${tag.tag_id}`, { tagId: 'df', tagName: tag.tag_name } );
+                            }}
+                        />
+                    ))}
+
+                    {/* <TagContainer
                         tagName="Comp Sci"
                         tagColor="#525b76"
                     />
@@ -101,7 +150,7 @@ export default function Page({route}) {
                     <TagContainer
                         tagName="Bird Watching"
                         tagColor="#5f634f"
-                    />
+                    /> */}
                     <TouchableOpacity 
                         onPress={() => showSuggestion ? setShowSuggestion(false) : setShowSuggestion(true) }
                     >
