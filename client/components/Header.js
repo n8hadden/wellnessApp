@@ -2,6 +2,8 @@ import React from 'react';
 import { TouchableOpacity, Text, Image, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
+// style(s)
 import { styles } from '../styles/HeaderStyles';
 
 export default function Header({ headerName, navBtn, profileImg }) {

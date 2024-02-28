@@ -1,15 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import { Dimensions, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { styles } from '../styles/ProfileStyles';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
 import Grid from '@mui/material/Grid'; // Grid version 1
 
+// style(s)
+import { styles } from '../styles/ProfileStyles';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;

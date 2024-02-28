@@ -3,23 +3,24 @@ import { Dimensions, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity
 import React, { useState, useEffect, useRef } from 'react';
 import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import { styles } from '../styles/HomeStyles'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { CardStyleInterpolators } from '@react-navigation/stack';
+import { color } from 'react-native-elements/dist/helpers';
 
 import { io } from 'socket.io-client';
 import { baseURL } from '../util';
 
 import axios from 'axios';
 
-// components
+// style(s)
+import { styles } from '../styles/HomeStyles';
+
+// component(s)
 import Btn from '../components/HomeBtn';
 
-import { useNavigation } from '@react-navigation/native';
-import { CardStyleInterpolators } from '@react-navigation/stack';
-import { color } from 'react-native-elements/dist/helpers';
-
+// user context hook
 import { useUser } from '../context/UserContext';
 
 const windowWidth = Dimensions.get('window').width;

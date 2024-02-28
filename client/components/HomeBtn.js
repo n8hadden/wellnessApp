@@ -1,7 +1,9 @@
 import { View, TouchableOpacity, Text } from 'react-native';
 import React from 'react';
-import { styles } from '../styles/HomeStyles'
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
+// style(s)
+import { styles } from '../styles/HomeStyles'
 
 export default function Btn({ onPress, iconImg, iconColor, text }) {
 
@@ -12,9 +14,9 @@ export default function Btn({ onPress, iconImg, iconColor, text }) {
         >
             <View style={styles.btnContent}>
                 <Ionicons 
-                    name={iconImg} /* icon image prop */
-                    size={40} /* size of icon */
-                    color={iconColor} /* icon color prop */
+                    name={iconImg} 
+                    size={40}
+                    color={iconColor}
                     style={styles.icon} 
                 />
                 <Text style={styles.btnText}>{text}</Text> 

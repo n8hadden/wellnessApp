@@ -13,13 +13,13 @@ import {
     Dimensions,
     ScrollView,
 } from 'react-native';
-// import { Dimensions, KeyboardAvoidingView, Platform, StyleSheet, TextInput, Text, View, Image, ScrollView, TouchableOpacity  } from 'react-native';
-// import { Dimensions, TextInput, View, ScrollView, TouchableOpacity  } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
+// style(s)
 import { styles } from '../styles/ChatStyles'; 
 
-// components
+// component(s)
 import socket from '../components/socket';
 import PeerMessage from '../components/PeerMessage';
 import UserMessage from '../components/UserMessage';
@@ -37,9 +37,7 @@ export default function Page({ route }) {
         setInputValue(text);
     };
 
-    useEffect(() => {
-        // socket.emit("join", tagName);
-        
+    useEffect(() => {        
         socket.on("new_chat", (data) => {
             const {content, sender, group} = data;
             console.log(content + " new chat");
@@ -102,9 +100,9 @@ export default function Page({ route }) {
                     console.log(userObject);
                 }}>
                     <Ionicons 
-                        name="chevron-up-circle" /* icon image prop */
-                        size={windowHeight * 0.055} /* size of icon */
-                        color="#3d3b3c" /* icon color prop */
+                        name="chevron-up-circle" 
+                        size={windowHeight * 0.055} 
+                        color="#3d3b3c" 
                         style={{ 
                             flex: 1,
                             justifyContent: 'flex-end',

@@ -1,6 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { Dimensions, StyleSheet, Text, View, Image, ScrollView  } from 'react-native';
 import React from 'react';
+
+// style(s)
 import { styles } from '../styles/ChatStyles'
 
 export default function Page({route}) {

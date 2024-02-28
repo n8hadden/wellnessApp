@@ -1,9 +1,10 @@
 import { View, TouchableOpacity, Text } from 'react-native';
 import React from 'react';
+
+// style(s)
 import { styles } from '../styles/ChatStyles'
 
 export default function Btn({ onPress, tagName, tagColor, search, suggestion }) {
-
     return (
         <>
             { search ? 

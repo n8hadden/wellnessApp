@@ -3,8 +3,10 @@ import { Calendar, LocaleConfig } from 'react-native-calendars';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Modal, StatusBar, Dimensions  } from 'react-native';
 import moment from 'moment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { styles } from '../styles/CalendarStyles';
 import { useNavigation } from '@react-navigation/native';
+
+// style(s)
+import { styles } from '../styles/CalendarStyles';
 
 LocaleConfig.locales['en'] = {
   monthNames: [

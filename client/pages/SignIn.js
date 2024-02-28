@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Linking, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// style(s)
 import { styles } from "../styles/SignInStyles";
 
+// user context hook
 import { useUser } from '../context/UserContext'
 
 export default function SignIn({ navigation }) {

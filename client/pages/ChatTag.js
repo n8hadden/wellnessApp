@@ -1,18 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
 import { Dimensions, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import React, { useContext, useState, useCallback, useEffect } from 'react';
-import { styles } from '../styles/ChatStyles'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { useFocusEffect } from '@react-navigation/native';
 import socket from '../components/socket';
 
+// user context hook
 import { useUser } from '../context/UserContext';
 
-// pages
+// style(s)
+import { styles } from '../styles/ChatStyles';
+
+// page(s)
 import ChatRoom from '../pages/ChatRoom';
 
-// components
+// component(s)
 import TagContainer from '../components/ChatTagBtn'; 
 import SearchBar from '../components/SearchBar';
 

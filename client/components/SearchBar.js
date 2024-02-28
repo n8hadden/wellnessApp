@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { View, TextInput, FlatList, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, TextInput, FlatList, StyleSheet } from 'react-native';
 import { Dimensions } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
+// component(s)
 import TagContainer from '../components/ChatTagBtn'; 
 
 const windowWidth = Dimensions.get('window').width;

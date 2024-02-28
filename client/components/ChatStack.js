@@ -1,8 +1,11 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
+// page(s)
 import ChatRoom from '../pages/ChatRoom';
 import ChatTag from '../pages/ChatTag';
+
+// component(s)
 import Header from './Header';
 
 const Stack = createStackNavigator();

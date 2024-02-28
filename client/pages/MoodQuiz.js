@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { ScrollView, Text, View, TouchableOpacity, TextInput, StatusBar } from 'react-native';
-import { styles } from '../styles/MoodQuizStyles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Slider from '@react-native-community/slider';
 import { Dimensions } from 'react-native';
 
+// style(s)
+import { styles } from '../styles/MoodQuizStyles';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
