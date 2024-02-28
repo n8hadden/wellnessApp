@@ -56,9 +56,10 @@ export default function ChatStack() {
             header: () => <Header headerName={tag.tag_name} isGroup={true} profileImg="https://sdzwildlifeexplorers.org/sites/default/files/2019-11/platypus-bill.jpg" />
           }}
         >
-          {({routes}) => {
+          {(props) => <ChatRoom {...props} />}
+          {/* {({routes}) => {
             <ChatRoom key={index} route={routes} />
-          }}
+          }} */}
         </Stack.Screen>
       ))}
     </Stack.Navigator>
