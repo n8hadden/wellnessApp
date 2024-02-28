@@ -25,7 +25,7 @@ import { useUser } from '../context/UserContext';
 
 const windowWidth = Dimensions.get('window').width;
 
-export default function Page({ route }) {
+export default function Home({ route }) {
 
     const clearAsyncStorage = async () => {
         try {

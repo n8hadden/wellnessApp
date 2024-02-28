@@ -5,7 +5,7 @@ import React from 'react';
 // style(s)
 import { styles } from '../styles/ChatStyles'
 
-export default function Page({route}) {
+export default function Resource({route}) {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>

@@ -26,7 +26,7 @@ import UserMessage from '../components/UserMessage';
 
 const windowHeight = Dimensions.get('window').height;
 
-export default function Page({ route }) {
+export default function ChatRoom({ route }) {
 
     const { tagName, tagId } = route.params;
     const myInputRef = useRef(null);

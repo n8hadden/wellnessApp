@@ -49,13 +49,17 @@ export default function ChatStack() {
       />
       { userTags && userTags.map((tag, index) => (
         <Stack.Screen 
-          key={`ChatRoomScreen_${tag.tag_id}`} 
-          name={`ChatRoomScreen_${tag.tag_id}`}
-          component={ChatRoom}
+          key={`ChatRoom_${tag.tag_id}`}
+          name={`ChatRoom_${tag.tag_id}`}
+          // component={ChatRoom}
           options={{
             header: () => <Header headerName={tag.tag_name} isGroup={true} profileImg="https://sdzwildlifeexplorers.org/sites/default/files/2019-11/platypus-bill.jpg" />
           }}
-        />
+        >
+          {({routes}) => {
+            <ChatRoom key={index} route={routes} />
+          }}
+        </Stack.Screen>
       ))}
     </Stack.Navigator>
   );
