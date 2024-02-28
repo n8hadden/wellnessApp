@@ -20,50 +20,56 @@ import { useNavigation } from '@react-navigation/native';
 import { CardStyleInterpolators } from '@react-navigation/stack';
 import { color } from 'react-native-elements/dist/helpers';
 
+import { useUser } from '../context/UserContext';
+
 const windowWidth = Dimensions.get('window').width;
 
 export default function Page({ route }) {
 
     const [weatherIcon, setWeatherIcon] = useState(null);
     const [affirmation, setAffirmation] = useState(null);
-    const [userId, setUserId] = useState(null);
-    const [userName, setUserName] = useState(null);
+    // const [userId, setUserId] = useState(null); // deprecated
+    // const [userName, setUserName] = useState(null); // deprecated
     const navigation = useNavigation();
 
     const socket = useRef();
 
+    const { user, setUser } = useUser();
+    console.log("Context: ");
+    console.log(user);
+
     const handleaffirmation = async () => {      
-        const stringId = await AsyncStorage.getItem('userId');
-        const id = parseInt(stringId);
-        console.log(id, " id");
+        const id = await AsyncStorage.getItem('userId');
         if(id == undefined)
             return;
-        try {
-            fetch('https://wellness-server.onrender.com/user/getUserById', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    _id: "1",
-                }),
-            })
-            .then(res => res.json())
-            .then(async res => {
-                const user = res;
-                setUserName(user.username);
-                console.log("username: ");
-                console.log(user);
-            })
-            .catch(err => {
-                console.log("the error")
-                console.error(err)
-            });
-        } catch (error) {
-            console.error('Error:', error);
-            Alert.alert('Error', 'An error occurred. Please try again later.');
-        }
-        try {
+        // try { /* Don't really need this anymore because I [Daniel] implemented a useContext hook for storing user information locally */
+        //     fetch('https://wellness-server.onrender.com/user/getUserById', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({
+        //             _id: id,
+        //         }),
+        //     })
+        //     .then(res => res.json())
+        //     .then(async res => {
+        //         const user = res && res.user; // Check if res and res.user exist
+        //         if (!user) {
+        //             console.log("User not found");
+        //             return;
+        //         }
+        //         setUserName(user.username);
+        //     })
+        //     .catch(err => {
+        //         console.log("the error");
+        //         console.error(err);
+        //     });
+        // } catch (error) {
+        //     console.error('Error:', error);
+        //     Alert.alert('Error', 'An error occurred. Please try again later.');
+        // }
+        try { 
             fetch('https://wellness-server.onrender.com/affirmation/get', {
                 method: 'POST',
                 headers: {
@@ -92,30 +98,37 @@ export default function Page({ route }) {
     
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <View style={styles.introContainer}>
-                <Text style={styles.introText}>Goodmorning, {userName}</Text>
-                <Text style={styles.introText}>{/* Date, Weather */}</Text>
-                <View style={styles.introImage}>
-                    {/* <MaterialCommunityIcons 
-                        name={weatherNames[0]}
-                        size={120} 
-                        color="white" 
-                    /> */}
-                </View>
-            </View>
+            {
+                user ? 
+                <>
+                    <View style={styles.introContainer}>
+                        <Text style={styles.introText}>Goodmorning, {user ? user.username : <></>}</Text>
+                        <Text style={styles.introText}>Forecast: Cloudy Weather</Text>
+                        <View style={styles.introImage}>
+                            <MaterialCommunityIcons 
+                                name="weather-cloudy"
+                                size={120} 
+                                color="white" 
+                            />
+                        </View>
+                    </View>
 
-            <TouchableOpacity 
-                onPress={() => {  }}
-            >
-                <View style={styles.dailyaffirm}>
-                    <Text style={{
-                        fontSize: 23,
-                        fontWeight: 500,
-                        color: 'white',
-                        textAlign: 'center',
-                    }}>Daily Affirmation: {affirmation}</Text>
-                </View>
-            </TouchableOpacity>
+                    <TouchableOpacity 
+                        onPress={() => {  }}
+                    >
+                        <View style={styles.dailyaffirm}>
+                            <Text style={{
+                                fontSize: 23,
+                                fontWeight: 500,
+                                color: 'white',
+                                textAlign: 'center',
+                            }}>Daily Affirmation: {affirmation}</Text>
+                        </View>
+                    </TouchableOpacity>
+                </>
+                : // if user == false
+                <></>
+            }
 
             <TouchableOpacity 
                 onPress={() => {  }}
@@ -124,7 +137,25 @@ export default function Page({ route }) {
                     <Text style={{ color: "#f9fbfd"}}>Video Placeholder</Text>
                 </View>
             </TouchableOpacity>
-
+            
+            { !user ? 
+                <>
+                    <Btn 
+                        onPress={() => { navigation.navigate('Home', {screen: 'SignInScreen'}); }}
+                        iconImg="log-in"
+                        iconColor="#ffffff"
+                        text="Sign In"
+                    />
+                    <Btn 
+                        onPress={() => { navigation.navigate('Home', {screen: 'SignUpScreen'}); }}
+                        iconImg="create"
+                        iconColor="#ffffff"
+                        text="Sign Up"
+                    />
+                </>
+                : 
+                <></>
+            }
             <Btn 
                 onPress={() => { navigation.navigate('Home', {screen: 'MoodCalendarScreen'}); }}
                 iconImg="calendar"
@@ -143,24 +174,19 @@ export default function Page({ route }) {
                 iconColor="#ffffff"
                 text="Resources"
             />
-            <Btn 
-                onPress={() => { navigation.navigate('Home'); }}
-                iconImg="document-text"
-                iconColor="#ffffff"
-                text="Resources"
-            />
-            <Btn 
-                onPress={() => { navigation.navigate('Home', {screen: 'SignInScreen'}); }}
-                iconImg="document-text"
-                iconColor="#ffffff"
-                text="Sign In"
-            />
-            <Btn 
-                onPress={() => { navigation.navigate('Home', {screen: 'SignUpScreen'}); }}
-                iconImg="document-text"
-                iconColor="#ffffff"
-                text="Sign Up"
-            />
+            { user ? 
+                <Btn 
+                    onPress={() => { 
+                        setUser(null);  
+                        navigation.navigate('Home');
+                    }}
+                    iconImg="log-out"
+                    iconColor="#ffffff"
+                    text="Log Out"
+                />
+                :
+                <></>
+            }
         </ScrollView>
     );
 }

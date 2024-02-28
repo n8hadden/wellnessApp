@@ -4,9 +4,13 @@ import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from "../styles/SignInStyles";
 
+import { useUser } from '../context/UserContext'
+
 export default function SignIn({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const { setUser } = useUser();
 
   const handleSignIn = async () => {
     console.log("Handle sign-in function called.");
@@ -32,6 +36,7 @@ export default function SignIn({ navigation }) {
           // Save session key and user id in AsyncStorage
           await AsyncStorage.setItem('sessionKey', JSON.stringify(userData.session));
           await AsyncStorage.setItem('userId', JSON.stringify(userData.user.user_id));
+          setUser(userData.user) // adds user information to user useState and useContext
           navigation.navigate('Home', { screen: "HomeScreen" });
         }
       } else {

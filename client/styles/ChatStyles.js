@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         rowGap: 10,
         paddingBottom: 30,
+        paddingTop: 10,
     },
     /* ChatTagScreen Styles */
     tagContainer: {
@@ -22,6 +23,7 @@ export const styles = StyleSheet.create({
     tagText: {
         color: 'white',
         fontSize: 20,
+        width: '70%',
     },
     suggestText: {
         color: 'black',
@@ -39,7 +41,6 @@ export const styles = StyleSheet.create({
         height: 200,
     },
     inputContain : {
-        
         position: 'absolute',
         height: windowHeight * 0.1,
         width: windowWidth,
