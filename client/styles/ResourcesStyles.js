@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 18, // or your desired size
-        marginLeft: 15,
+        color: 'white',
     },
 
     buttonContainer:  {
@@ -31,9 +31,8 @@ export const styles = StyleSheet.create({
         flex: 1,
         borderRadius: 10,
         padding: 10,
-        width: 300,
+        width: windowWidth * 0.7,
         margin: 10,
         
-
     },
 })

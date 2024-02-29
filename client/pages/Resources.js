@@ -79,7 +79,7 @@ export default function Resources() {
                 </TouchableOpacity>
             </View>
             <View style={styles.buttonContainer/*{ marginBottom: 20}*/}>
-                <TouchableOpacity onPress={() => { /* handle button press */ }} style={{}}>
+                <TouchableOpacity onPress={() => { /* handle button press */ }}>
                     <View style={styles.button}>
                         <Text style={styles.buttonText} onPress={() => Linking.openURL('https://www.crisistextline.org/')}>Text Crisis Line</Text>
                     </View>
