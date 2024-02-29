@@ -15,17 +15,22 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 16,
     },
-    button: {
-        flexDirection: 'row', // layout image and text horizontally
-        alignItems: 'center', // center items vertically
-        justifyContent: 'center', // center items horizontally
-        padding: 10,
-    },
+    // button: {
+    //     flexDirection: 'row', // layout image and text horizontally
+    //     alignItems: 'center', // center items vertically
+    //     justifyContent: 'center', // center items horizontally
+    //     padding: 10,
+    // },
     buttonText: {
         fontSize: 18, // or your desired size
         color: 'white',
+        flexDirection: 'row', // layout image and text horizontally
+        textAlign: 'center',
+        justifyContent: 'center', // center items horizontally
+        paddingVertical: 10,
+        paddingBottom: 15,
+        paddingTop: 15,
     },
-
     buttonContainer:  {
         backgroundColor: '#4DAA57',
         flex: 1,

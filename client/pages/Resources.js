@@ -49,43 +49,29 @@ export default function Resources() {
             </View>
 
             <Text style={styles.header}>Other Resources</Text>
-            <View onPress={() => {}}  style={styles.buttonContainer} >
-                <TouchableOpacity onPress={() => Linking.openURL('https://www.teens4teenshelp.org/resources')}>
-                    <View style={styles.button}>
-                        <Text style={styles.buttonText} >Teen4Teens</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-
-            <View  style={styles.buttonContainer}>
-                <TouchableOpacity onPress={() => Linking.openURL('https://www.therapistaid.com/')}>
-                    <View style={styles.button}>
-                        <Text style={styles.buttonText}>Therapistaid</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={() => Linking.openURL('https://www.nami.org/Your-Journey/Kids-Teens-and-Young-Adults/Teens')}>
-                    <View style={styles.button}>
-                        <Text style={styles.buttonText} >Nami Hotline</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={() => Linking.openURL('https://988lifeline.org/help-yourself/for-deaf-hard-of-hearing/')}>
-                    <View style={styles.button}>
-                        <Text style={styles.buttonText} >988 suicide and crisis lifeline</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.buttonContainer/*{ marginBottom: 20}*/}>
-                <TouchableOpacity onPress={() => { /* handle button press */ }}>
-                    <View style={styles.button}>
-                        <Text style={styles.buttonText} onPress={() => Linking.openURL('https://www.crisistextline.org/')}>Text Crisis Line</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-
+            <TouchableOpacity style={styles.buttonContainer} onPress={() => Linking.openURL('https://www.teens4teenshelp.org/resources')}>
+                <Text style={styles.buttonText} >Teen4Teens</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer} onPress={() => Linking.openURL('https://www.therapistaid.com/')}>
+                <View style={styles.button}>
+                    <Text style={styles.buttonText}>Therapistaid</Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer} onPress={() => Linking.openURL('https://www.nami.org/Your-Journey/Kids-Teens-and-Young-Adults/Teens')}>
+                <View style={styles.button}>
+                    <Text style={styles.buttonText} >Nami Hotline</Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer} onPress={() => Linking.openURL('https://988lifeline.org/help-yourself/for-deaf-hard-of-hearing/')}>
+                <View style={styles.button}>
+                    <Text style={styles.buttonText} >988 suicide and crisis lifeline</Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer} onPress={() => Linking.openURL('https://www.crisistextline.org/')}>
+                <View style={styles.button}>
+                    <Text style={styles.buttonText}>Text Crisis Line</Text>
+                </View>
+            </TouchableOpacity>
         </ScrollView>
     );
 }
