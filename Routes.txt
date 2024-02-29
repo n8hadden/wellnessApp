@@ -11,7 +11,7 @@ User Routes:
 /user/verify (post)
 
 Chat routes:
-/chat/getMessages (get)
+/chat/getMessages (post)
 
 Affirmations routes: 
 /affirmation/get (get)

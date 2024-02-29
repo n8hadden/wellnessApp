@@ -29,7 +29,7 @@ async function removeTag(req, res) {
 
 // function that gets a userId and returns all the tags associated with the user
 async function getTags(req, res) {
-    const userId = req.body;
+    const { userId } = req.body;
 
     console.log(userId);
 

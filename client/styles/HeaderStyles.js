@@ -6,6 +6,7 @@ const windowHeight = Dimensions.get('window').height;
 export const styles = StyleSheet.create({
     contain: {
         height: windowHeight * 0.1,
+        // backgroundColor: 'rgba(51,92,129, 0.8)',
     },
     img_text_contain: {
         justifyContent: 'center',
