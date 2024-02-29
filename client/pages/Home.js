@@ -30,7 +30,6 @@ export default function Home({ route }) {
     const clearAsyncStorage = async () => {
         try {
             await AsyncStorage.clear();
-            console.log('AsyncStorage cleared successfully.');
         } catch (error) {
             console.error('Error clearing AsyncStorage:', error);
         }
@@ -168,21 +167,21 @@ export default function Home({ route }) {
                 iconColor="#ffffff"
                 text="Mood Quiz"
             />
-            <Btn 
-                onPress={() => { navigation.navigate('Home'); }}
-                iconImg="document-text"
-                iconColor="#ffffff"
-                text="Resources"
-            />
             { user ? 
-                <Btn 
-                    onPress={() => { 
-                        confirmLogOut();
-                    }}
-                    iconImg="log-out"
-                    iconColor="#ffffff"
-                    text="Log Out"
-                />
+                <>
+                    <Btn 
+                        onPress={() => { navigation.navigate('Home', {screen: 'UserProfileScreen'}) }}
+                        iconImg="person"
+                        iconColor="#ffffff"
+                        text="User Profile"
+                    />
+                    <Btn 
+                        onPress={() => { confirmLogOut(); }}
+                        iconImg="log-out"
+                        iconColor="#ffffff"
+                        text="Log Out"
+                    />
+                </>
                 :
                 <></>
             }

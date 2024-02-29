@@ -16,7 +16,7 @@ export default function SignIn({ navigation }) {
   const { setUser } = useUser();
 
   const handleSignIn = async () => {
-    console.log("Handle sign-in function called.");
+    // console.log("Handle sign-in function called.");
     try {
       // Make an HTTP request to the /user/login endpoint
       const response = await fetch('https://wellness-server.onrender.com/user/login', {
@@ -29,12 +29,12 @@ export default function SignIn({ navigation }) {
           password: password
         }),
       });
-      console.log("API Response:", response);
+      // console.log("API Response:", response);
 
       if (response.ok) {
         const userData = await response.json();
-        console.log("response.ok");
-        console.log(userData);
+        // console.log("response.ok");
+        // console.log(userData);
         if (userData && userData.user.user_id && userData.session) {
           // Save session key and user id in AsyncStorage
           await AsyncStorage.setItem('sessionKey', JSON.stringify(userData.session));

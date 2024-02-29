@@ -9,26 +9,77 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const SearchBar = ({ children }) => {
+
+    const [allTags, setAllTags] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
 
-    const searchData = (text) => {
+    const searchData = async (text) => {
+        // try {
+        //     fetch('https://wellness-server.onrender.com/tag/getTags', {
+        //         method: 'GET',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({
+        //
+        //         }),
+        //     })
+        //     .then(res => res.json())
+        //     .then(async res => {
+        //
+        //     })
+        //     .catch(err => console.error(err));
+        // } catch (error) {
+        //     console.error('Error:', error);
+        //     Alert.alert('Error', 'An error occurred. Please try again later.');
+        // }
         setSearchQuery(text);
-        const filteredData = dummyData.filter((item) =>
+        const filteredData = testingData.filter((item) =>
         item.toLowerCase().includes(text.toLowerCase())
         );
         setSearchResults(filteredData);
     };
 
-    const clearSearch = () => {
-        setSearchQuery('');
-        setSearchResults([]); // Clear search results when clearing the search query
-    };
+    // const clearSearch = () => {
+    //     setSearchQuery('');
+    //     setSearchResults([]); // Clear search results when clearing the search query
+    // };
 
-    const dummyData = [
-        'Artist',
-        'Artist',
-        'Artist',
+    // const findNameById = async () => { // AT LEAST THIS NEEDS TO GET DONE ASAP
+    //     try {
+    //         fetch('https://wellness-server.onrender.com/tag/getTagNameById', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({
+                    
+    //             }),
+    //         })
+    //         .then(res => res.json())
+    //         .then(async res => {
+        
+    //         })
+    //         .catch(err => console.error(err));
+    //     } catch (error) {
+    //         console.error('Error:', error);
+    //         Alert.alert('Error', 'An error occurred. Please try again later.');
+    //     }
+    // }
+
+    const testingData = [ 
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        '10',
+        '11',
     ];
 
     return (
@@ -47,7 +98,6 @@ const SearchBar = ({ children }) => {
                         width: windowWidth * 0.9,
                         backgroundColor: 'rgba(225,225,225,1)',
                         borderRadius: 8,
-                        // marginBottom: windowHeight * 0.01,
                         paddingHorizontal: windowWidth * 0.05,
                         fontSize: 16,
                     }}
@@ -59,10 +109,9 @@ const SearchBar = ({ children }) => {
                             <TagContainer
                                 search={true}
                                 tagName={item} // will add [info] to database
-                                tagColor="#64b6ac" // will add [info] to database
+                                // tagColor="#64b6ac" // will add [info] to database
                                 onPress={() => {
                                     console.log("pressed!");
-                                    
                                 }}
                             />
                         }
@@ -79,29 +128,5 @@ const SearchBar = ({ children }) => {
         </>
     );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    position: 'relative',
-    height: 10,
-  },
-
-  overlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'transparent',
-  },
-  textInput: {
-    height: windowHeight * 0.045,
-    borderColor: 'gray',
-    borderWidth: 1,
-    paddingHorizontal: 10,
-    marginTop: 10,
-  },
-});
 
 export default SearchBar;

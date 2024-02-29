@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Text } from 'react-native';
 
 // user context hook
 import { useUser } from '../context/UserContext';
@@ -16,27 +15,40 @@ import Header from './Header';
 const Stack = createStackNavigator();
 
 export default function ChatStack() {
-  const { user, setUser } = useUser();
+  const { user } = useUser();
   const [userTags, setUserTags] = useState([]);
 
-  const handleTags = () => {
+  const handleTags = async () => {
     if (user) {
-      setUserTags([
-        {
-          tag_id: x,
-          tag_name: "Bird Watching", //CAUSING PROBLEMS
-        },
-        {
-          tag_id: 5,
-          tag_name: "Computer Science",
-        },
-      ]);
+      try {
+        fetch('https://wellness-server.onrender.com/tag/getTags', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId: user.user_id,
+          }),
+        })
+        .then(res => res.json())
+        .then(async res => {
+          setUserTags(res.tags);
+        })
+        .catch(err => console.error(err));
+      } catch (error) {
+        console.error('Error:', error);
+        Alert.alert('Error', 'An error occurred. Please try again later.');
+      }
     }
   }
 
   useEffect(() => {
     handleTags();
   }, [user])
+
+  useEffect(() => {
+    handleTags();
+  }, [])
 
   return (
     <Stack.Navigator>
@@ -47,24 +59,18 @@ export default function ChatStack() {
           header: () => <Header headerName="Chat" navBtn={false} />
         }}
       />
-      { userTags && userTags.map((tag, index) => {
-        console.log("usertags causing problems, why '9'?");
-        console.log(userTags);
-        return (
-          <Stack.Screen 
-            key={`ChatRoomScreen_${tag.tag_id}`} 
-            name={`ChatRoomScreen_${tag.tag_id}`}
-            // component={ChatRoom}
-            options={{
-              header: () => <Header  headerName={tag.tag_name} />
-            }}
-          >
-            {({ route }) => (
-              <ChatRoom route={route} />
-            )}
-          </Stack.Screen>
-        )
-      })}
+      { userTags && userTags.map((tag, index) => (
+        <Stack.Screen 
+          key={`ChatRoom_${tag.tag_id}`}
+          name={`ChatRoom_${tag.tag_id}`}
+          // component={ChatRoom}
+          options={{
+            header: () => <Header headerName={tag.tag_name} isGroup={true} profileImg="https://sdzwildlifeexplorers.org/sites/default/files/2019-11/platypus-bill.jpg" />
+          }}
+        >
+          {(props) => <ChatRoom {...props} />}
+        </Stack.Screen>
+      ))}
     </Stack.Navigator>
   );
 }
