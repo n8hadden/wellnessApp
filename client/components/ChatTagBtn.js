@@ -12,15 +12,46 @@ export default function Btn({ onPress, tagName, tagId, tagColor, search, suggest
 
     const { user, setUser } = useUser();
 
-    useEffect(() => {
-        console.log("user data");
-        console.log(user)
-    }, [setUser]);
+    const updateUserTagsAdd = (newTagId) => {
+        if (!user.tags.includes(newTagId)) {
+            const updatedUser = { ...user };
+            updatedUser.tags.push(newTagId);
+            setUser(updatedUser);
+        } else {
+            console.log("Tag ID already exists in user tags.");
+        }
+        // const updatedUser = { ...user };
+        // updatedUser.tags.push(newTagId);
+        // setUser(updatedUser);
+    }
 
-    const updateUserTags = (newTagId) => {
-        const updatedUser = { ...user };
-        updatedUser.tags.push(newTagId);
+    const updateUserTagsRemove = (tagIdToRemove) => {
+        const updatedTags = user.tags.filter(tagId => tagId !== tagIdToRemove);
+        const updatedUser = { ...user, tags: updatedTags };
         setUser(updatedUser);
+    }
+
+    const removeTag = async (tag_id) => {
+        try {
+            fetch('https://wellness-server.onrender.com/tag/removeTag', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId: user.user_id,
+                    tagId: tag_id,
+                }),
+            })
+            .then(res => res.json())
+            .then(async res => {
+                updateUserTagsRemove(tag_id);
+            })
+            .catch(err => console.error(err));
+        } catch (error) {
+            console.error('Error:', error);
+            Alert.alert('Error', 'An error occurred. Please try again later.');
+        }
     }
 
     const addTag = async (tag_id) => {
@@ -37,7 +68,7 @@ export default function Btn({ onPress, tagName, tagId, tagColor, search, suggest
             })
             .then(res => res.json())
             .then(async res => {
-                updateUserTags(tag_id);
+                updateUserTagsAdd(tag_id);
             })
             .catch(err => console.error(err));
         } catch (error) {
@@ -45,6 +76,36 @@ export default function Btn({ onPress, tagName, tagId, tagColor, search, suggest
             Alert.alert('Error', 'An error occurred. Please try again later.');
         }
     }
+
+    // useEffect(() => {
+    //     console.log("user data");
+    //     console.log(user)
+    // }, [setUser]);
+
+    useEffect(() => {
+        console.log("user data");
+        console.log(user)
+    }, [user]);
+
+    useEffect(() => {
+        // addTag(1);
+        // addTag(2);
+        // addTag(3);
+        // addTag(4);
+        // addTag(5);
+        // addTag(6);
+        // addTag(7);
+        // addTag(8);
+        // addTag(9);
+        // addTag(10);
+        // addTag(11);
+        // addTag(12);
+        // addTag(13);
+        // addTag(14);
+        // addTag(15);
+        console.log("user data:");
+        console.log(user)
+    }, []);
 
     return (
         <>
@@ -110,7 +171,7 @@ export default function Btn({ onPress, tagName, tagId, tagColor, search, suggest
                             onPress={() => { 
                                 console.log("tag ID");
                                 console.log(tagId);
-                                addTag(tagId);
+                                removeTag(tagId);
                             }}
                             style={{
                                 width: '30%',

@@ -19,9 +19,27 @@ export default function ChatStack() {
   const { user } = useUser();
   const [userTags, setUserTags] = useState([]);
 
-  const handleTags = () => {
+  const handleTags = async () => {
     if (user) {
-      
+      try {
+        fetch('https://wellness-server.onrender.com/tag/getTags', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId: user.user_id,
+          }),
+        })
+        .then(res => res.json())
+        .then(async res => {
+          // setUserTags() // LEFT OFF HERE
+        })
+        .catch(err => console.error(err));
+      } catch (error) {
+        console.error('Error:', error);
+        Alert.alert('Error', 'An error occurred. Please try again later.');
+      }
       // setUserTags([
       //   {
       //     tag_id: 9,
@@ -38,6 +56,10 @@ export default function ChatStack() {
   useEffect(() => {
     handleTags();
   }, [user])
+
+  useEffect(() => {
+    handleTags();
+  }, [])
 
   return (
     <Stack.Navigator>

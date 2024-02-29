@@ -16,7 +16,7 @@ import { styles } from '../styles/ChatStyles';
 import ChatRoom from '../pages/ChatRoom';
 
 // component(s)
-import TagContainer from '../components/ChatTagBtn'; 
+import TagContainer from '../components/ChatTagBtn';
 import SearchBar from '../components/SearchBar';
 
 export default function ChatTag({route}) {
@@ -63,8 +63,9 @@ export default function ChatTag({route}) {
                 .then(async res => {
                     const tags = res;
                     setUserTags(tags.tags);
-                    console.log("tags: ")
-                    console.log(tags.tags) // ISSUE: Returning nothing in "tags"
+                    console.log(user.user_id);
+                    console.log("tags: ");
+                    console.log(tags.tags); 
                 })
                 .catch(err => console.error(err));
             } catch (error) {
@@ -77,6 +78,14 @@ export default function ChatTag({route}) {
     useEffect(() => {
         handleTags();
     }, [user]);
+
+    useEffect(() => {
+        handleTags();
+    }, []);
+
+    // useEffect(() => {
+    //     handleTags();
+    // }, [user]);
 
     // const suggestedTags = async () => {
     //     return (
@@ -97,7 +106,7 @@ export default function ChatTag({route}) {
             <SearchBar />
             { user ?
                 <ScrollView contentContainerStyle={styles.container}>
-                    {userTags != null &&
+                    {userTags != null && userTags.length !== 0 &&
                         userTags.map((tag, index) => (
                             <TagContainer
                                 key={index}
@@ -111,7 +120,17 @@ export default function ChatTag({route}) {
                                 }}
                             />
                     ))}
-
+                    {/* <TagContainer
+                        tagName={"Artist"}
+                        tagId={1}
+                        onPress={() => {
+                            console.log("HERE:")
+                            console.log(index, tag);
+                            socket.emit("join", {group: "Artist"});
+                            navigation.navigate(`ChatRoom_${1}`, { tagId: 1, tagName: "Artist" } );
+                        }}
+                    /> */}
+                    
                     {/* <TouchableOpacity 
                         onPress={() => showSuggestion ? setShowSuggestion(false) : setShowSuggestion(true) }
                     >

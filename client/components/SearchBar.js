@@ -126,3 +126,5 @@ const SearchBar = ({ children }) => {
         </>
     );
 };
+
+export default SearchBar;
