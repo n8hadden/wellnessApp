@@ -1,4 +1,5 @@
 SELECT * FROM users
+SELECT * FROM affirmations
 
 INSERT INTO users (username, email, password, tags) VALUES (
     'Jathan',
@@ -148,6 +149,12 @@ ALTER TABLE calendar_days ADD note VARCHAR(255)
 UPDATE moods
 SET mood_name = 'joyful'
 WHERE mood_id = 5
+
+UPDATE affirmations
+SET affirmation = 'Art is the way to happiness!'
+WHERE aff_id = 2
+
+SELECT * from affirmations
 
 INSERT INTO moods (mood_name, mood_color, mood_score, mood_type)
 VALUES ()

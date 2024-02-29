@@ -1,6 +1,20 @@
 // Importing the database utility module
 const database = require('../utils/database');
 
+async function getTagNameById(id) {
+    let query = `SELECT tag_name
+    WHERE tag_id = ${id}`;
+
+    return (await database.getData(query));
+}
+
+async function getTagIdByTagName(name) {
+    let query = `SELECT tag_id
+    WHERE tag_name LIKE ${name}`;
+
+    return (await database.getData(query));
+}
+
 async function getAllTags() {
     let query = `SELECT * FROM tags`;
 
@@ -49,6 +63,8 @@ async function getId(tagName){
 
 // Exporting the functions to be used by other modules
 module.exports = {
+    getTagIdByTagName,
+    getTagNameById,
     getTags,
     addTag,
     removeTag,

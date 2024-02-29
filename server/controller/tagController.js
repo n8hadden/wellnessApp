@@ -1,6 +1,30 @@
 // import the model from models
 const model = require('../models/tagModels');
 
+async function getTagNameById(req, res) {
+    const { id } = req.body;
+
+    try {
+        const name = await model.getTagNameById(id);
+        res.status(201).json({ name });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}
+
+async function getTagIdByTagName(req, res) {
+    const { name } = req.body;
+
+    try {
+        const id = await model.getTagIdByTagName(name);
+        res.status(201).json({ id });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}
+
 async function getAllTags(req, res) {
     
     try {
@@ -8,7 +32,7 @@ async function getAllTags(req, res) {
         res.status(201).json({ tags });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).json({ error: "Internal Server Error" });
     }
 }
 
@@ -56,6 +80,8 @@ async function getTags(req, res) {
 
 // export the methods to be used elsewhere
 module.exports = {
+    getTagNameById,
+    getTagIdByTagName,
     addTag,
     removeTag, 
     getTags,
