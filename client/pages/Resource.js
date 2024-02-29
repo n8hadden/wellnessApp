@@ -13,7 +13,7 @@ export default function Resources() {
     const [status1, setStatus1] = useState({});
 
     return (
-        <ScrollView contentContainerStyle={{ alignItems: "center" }}>
+        <ScrollView contentContainerStyle={{ alignItems: "center", paddingBottom: windowHeight * 0.04 }}>
             <Text style={styles.header}>Featured Videos</Text>
 
             <View >

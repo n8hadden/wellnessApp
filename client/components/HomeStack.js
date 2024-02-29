@@ -7,6 +7,7 @@ import MoodQuiz from '../pages/MoodQuiz';
 import MoodCalendar from '../pages/MoodCalendar';
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
+import Profile from '../pages/Profile';
 
 // component(s)
 import Header from './Header';
@@ -46,6 +47,11 @@ export default function HomeStack() {
         name="SignUpScreen"
         component={SignUp}
         options={{ headerTitle: 'Sign Up' }}
+      />
+      <Stack.Screen
+        name="UserProfileScreen"
+        component={Profile}
+        options={{ headerTitle: 'Profile' }}
       />
     </Stack.Navigator>
   );
