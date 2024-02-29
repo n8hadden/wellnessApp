@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { ScrollView, Text, View, TouchableOpacity, TextInput, StatusBar } from 'react-native';
-import { styles } from '../styles/MoodQuizStyles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Slider from '@react-native-community/slider';
 import { Dimensions } from 'react-native';
 
+// style(s)
+import { styles } from '../styles/MoodQuizStyles';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -18,7 +19,7 @@ const moodButtons = [
   { mood: 'awkward', bgColor: '#FFC0CB', label: 'Awkward' },
 ];
 
-export default function Page() {
+export default function MoodQuiz() {
   const [selectedMoods, setSelectedMoods] = useState([]);
   const [sliderValues, setSliderValues] = useState({});
   const [finalThoughts, setFinalThoughts] = useState('');
@@ -62,7 +63,7 @@ export default function Page() {
     };
 
     try {
-      console.log(data)
+      // console.log(data)
       const response = await fetch('https://wellness-server.onrender.com/calendar/addDay', {
         method: 'POST',
         headers: {

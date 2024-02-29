@@ -1,11 +1,9 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions } from 'react-native';
 
-const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-
 
 // Stack Navigations 
 import HomeStack from './HomeStack';
