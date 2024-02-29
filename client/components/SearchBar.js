@@ -9,12 +9,14 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const SearchBar = ({ children }) => {
+
+    const [allTags, setAllTags] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
 
     const searchData = async (text) => {
         // try {
-        //     fetch('https://wellness-server.onrender.com/tag/getAllTags', {
+        //     fetch('https://wellness-server.onrender.com/tag/getTags', {
         //         method: 'GET',
         //         headers: {
         //             'Content-Type': 'application/json',

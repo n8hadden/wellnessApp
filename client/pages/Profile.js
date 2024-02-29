@@ -22,7 +22,7 @@ export default function Profile() {
 
     const { user, setUser } = useUser();
 
-    const [userTags, setUserTags] = useState([{}]);
+    const [userTags, setUserTags] = useState([]);
     const [uniqueTags, setUniqueTags] = useState([]);
 
     const Tag = ({ text }) => {
@@ -55,7 +55,16 @@ export default function Profile() {
                 unique.push(tag.tag_name);
             }
         });
-        return unique;
+        setUniqueTags(unique); 
+        // const unique = [];
+        // userTags.forEach(tag => {
+        //     console.log('tag:');
+        //     console.log(tag.tag_name)
+        //     if (!unique.includes(tag.tag_name)) {
+        //         unique.push(tag.tag_name);
+        //     }
+        // });
+        // return unique;
     };
 
     const handleTags = async () => {
@@ -73,8 +82,10 @@ export default function Profile() {
             .then(async res => {
                 const tags = res;
                 setUserTags(tags.tags);
-                const uniqueTags = removeDuplicates();
-                setUniqueTags(uniqueTags);
+                removeDuplicates();
+                // const uniqueTags = removeDuplicates();
+                // setUniqueTags(uniqueTags);
+                // console.log(uniqueTags)
             })
             .catch(err => console.error(err));
         } catch (error) {
@@ -83,13 +94,16 @@ export default function Profile() {
         }
     }
 
+    // useEffect(() => {
+    //     handleTags();
+    // }, [uniqueTags]);
+
     useEffect(() => {
         handleTags();
     }, [user]);
 
     useEffect(() => {
         handleTags();
-        console.log(user);
     }, []);
 
     return (
@@ -134,9 +148,12 @@ export default function Profile() {
                         gap: 7,
                         justifyContent: 'center',
                     }}>
-                        {uniqueTags.map((tag, index) => (
-                            <Tag key={index} text={tag} />
-                        ))}
+                        {uniqueTags.length !== 0 || uniqueTags[0] !== undefined ? (
+                            uniqueTags.map((tag, index) => (
+                                <Tag key={index} text={tag} />
+                            ))
+                            ) : ( <></> )
+                        }
                         {/* <Tag text="Photography" />
                         <Tag text="Crocheting" />
                         <Tag text="Fitness Training" />
