@@ -1,16 +1,4 @@
-<<<<<<< HEAD
-import React, { useState, useEffect } from 'react';
-import { Calendar, LocaleConfig } from 'react-native-calendars';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Modal, StatusBar, Dimensions  } from 'react-native';
-import moment from 'moment';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
 
-// style(s)
-import { styles } from '../styles/CalendarStyles';
-
-LocaleConfig.locales['en'] = {
-=======
 import React, { useState, useEffect } from "react";
 import { Calendar, LocaleConfig } from "react-native-calendars";
 import {
@@ -29,7 +17,6 @@ import { styles } from "../styles/CalendarStyles";
 import { useNavigation } from "@react-navigation/native";
 
 LocaleConfig.locales["en"] = {
->>>>>>> mood_quiz
   monthNames: [
     "January",
     "February",
@@ -75,15 +62,11 @@ LocaleConfig.defaultLocale = "en";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-<<<<<<< HEAD
-export default function MoodCalender() {
-  const [selectedDate, setSelectedDate] = useState(moment().format('YYYY-MM-DD'));
-=======
 export default function Page() {
   const [selectedDate, setSelectedDate] = useState(
     moment().format("YYYY-MM-DD")
   );
->>>>>>> mood_quiz
+
   const [initialDate, setInitialDate] = useState(null);
   const [showNotesModal, setShowNotesModal] = useState(false);
   const [note, setNote] = useState("");
