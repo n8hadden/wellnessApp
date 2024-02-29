@@ -1,6 +1,12 @@
 // Importing the database utility module
 const database = require('../utils/database');
 
+async function getAllTags() {
+    let query = `SELECT * FROM tags`;
+
+    return (await database.getData(query));
+}
+
 // Function to retrieve tags associated with a user
 async function getTags(userId){
     // Constructing the SQL query to select tags associated with the user
@@ -46,5 +52,6 @@ module.exports = {
     getTags,
     addTag,
     removeTag,
-    getId
+    getId, 
+    getAllTags
 }

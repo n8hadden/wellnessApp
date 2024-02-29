@@ -1,6 +1,17 @@
 // import the model from models
 const model = require('../models/tagModels');
 
+async function getAllTags(req, res) {
+    
+    try {
+        const tags = await model.getAllTags();
+        res.status(201).json({ tags });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+}
+
 // function that gets a user and a tag and adds it to that user in the database
 async function addTag(req, res) {
     const { userId, tagId } = req.body;
@@ -48,4 +59,5 @@ module.exports = {
     addTag,
     removeTag, 
     getTags,
+    getAllTags
 }

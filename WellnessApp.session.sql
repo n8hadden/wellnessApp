@@ -161,3 +161,5 @@ SELECT * FROM tags
 
 INSERT INTO tags(tag_name)
 VALUES ("Crocheting", "Bird Watching", "Gardening", "Hiking", "Cooking", "Yoga", "Photography", "Traveling", "Knitting", "Musician", "Video Games", "Cycling", "Running", "Podcasts", "Communal Activism", "Fitness Training")
+
+SELECT * from tags
