@@ -19,7 +19,7 @@
       "infoPlist": {
         "NSCalendarsUsageDescription": "Can PVOC access your calendar?"
       }
-    },
+    },  
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
