@@ -1,14 +1,12 @@
+
+
+
 import React, { useState } from 'react';
 import { ScrollView, Text, View, TouchableOpacity, TextInput, StatusBar } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Slider from '@react-native-community/slider';
-import { Dimensions } from 'react-native';
 
-// style(s)
 import { styles } from '../styles/MoodQuizStyles';
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+import Slider from '@react-native-community/slider';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const moodButtons = [
   { mood: 'happy', bgColor: '#FFD700', label: 'Happy' },
@@ -55,34 +53,23 @@ export default function MoodQuiz() {
   const handleSave = async () => {
     const trimmedFinalThoughts = finalThoughts.trim();
     const currentDate = new Date().toISOString(); // Get the current date and format as ISO string
-    const data = {
-      day: currentDate, // Assuming "day" in your database corresponds to the date
-      user_id: 1, // Assuming you have a user ID, replace with actual user ID
-      mood_id: 1,
-      note: trimmedFinalThoughts,
+  
+    const moodData = {
+      day: currentDate,
+      mood: selectedMoods,
+      moodValue: sliderValues,
+      finalThoughts: trimmedFinalThoughts,
     };
-
+  
     try {
-      // console.log(data)
-      const response = await fetch('https://wellness-server.onrender.com/calendar/addDay', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({data}),
-      });
-      console.log(await response.json())
-      // console.log(await response.ok)
-      // if (response.ok) {
-      //   console.log('Data saved successfully for date:', currentDate);
-      //   console.log('Data saved:', data);
-      // } else {
-      //   console.error('Failed to save data:', response);
-      // }
-    } catch (error) {
-      console.error('Error saving data:', error);
-    }
 
+      await AsyncStorage.setItem('moodData', JSON.stringify(moodData));
+      console.log('Mood data saved successfully!');
+
+    } catch (error) {
+      console.error('Error saving mood data:', error);
+    }
+  
     setSelectedMoods([]);
     setSliderValues({});
     setFinalThoughts('');
