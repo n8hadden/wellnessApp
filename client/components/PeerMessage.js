@@ -2,7 +2,7 @@ import { Text, View, Image } from 'react-native';
 import React from 'react';
 import { styles } from '../styles/ChatStyles';
 
-export default function Message({ message, username, profileImg }) {
+export default function Message({ message, username, profileImg, sameUser }) {
 
     return (
         <>

@@ -20,7 +20,6 @@ export default function Profile() {
 
             <ScrollView style={styles.mainContainer} >
                 <Grid container columns={3} style={styles.cardContainer}>
-
                     <Grid item>
                         <Avatar style={styles.userAvatar} alt="User's Avatar" sx={{ width: 100, height: 100 }} />
                     </Grid>
@@ -45,7 +44,6 @@ export default function Profile() {
 
                         </View>
                     </Grid>
-
                 </Grid>
             </ScrollView>
 
