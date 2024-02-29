@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Linking, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { styles } from "../styles/SignUpStyles";
 import { Ionicons } from '@expo/vector-icons';
+
+// style(s)
+import { styles } from "../styles/SignUpStyles";
 
 export default function SignUp({ navigation }) {
   const [username, setUsername] = useState('');
@@ -33,7 +35,6 @@ export default function SignUp({ navigation }) {
       console.error('Error occurred during SignUp:', error);
     }
   };
-
 
   const handleOpenURL = (url) => {
     Linking.openURL(url);

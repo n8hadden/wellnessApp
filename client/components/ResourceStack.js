@@ -2,9 +2,10 @@ import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Dimensions } from 'react-native';
 
-const windowHeight = Dimensions.get('window').height;
-
+// component(s)
 import Header from './Header';
+
+// page(s)
 import Resource from '../pages/Resource';
 
 const Stack = createStackNavigator();

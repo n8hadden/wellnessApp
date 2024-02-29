@@ -8,13 +8,14 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         rowGap: 10,
         paddingBottom: 30,
+        paddingTop: 10,
     },
     /* ChatTagScreen Styles */
     tagContainer: {
         height: 75,
         width: windowWidth * 0.90,
         padding: windowWidth * 0.05,
-        backgroundColor: '#4b4e6d', // default tag container color
+        backgroundColor: '#145c9e', // default tag container color
         borderRadius: 5, 
         flexDirection: 'row',
         alignItems: 'center',
@@ -22,6 +23,7 @@ export const styles = StyleSheet.create({
     tagText: {
         color: 'white',
         fontSize: 20,
+        width: '70%',
     },
     suggestText: {
         color: 'black',
@@ -39,7 +41,6 @@ export const styles = StyleSheet.create({
         height: 200,
     },
     inputContain : {
-        
         position: 'absolute',
         height: windowHeight * 0.1,
         width: windowWidth,
@@ -68,7 +69,7 @@ export const styles = StyleSheet.create({
         marginTop: 10,
         alignSelf: 'center',
         flexDirection: 'column',
-        rowGap: 10,
+        rowGap: 7,
         marginBottom: windowHeight * 0.1,
     },  
     /* Peer Message Styles */
@@ -108,6 +109,36 @@ export const styles = StyleSheet.create({
         alignSelf:"left",
     },
     peer_message_text: {
+        // flex: 1,
+        fontSize: 14,
+    },
+    /* Peer Message Styles (sameUser) */
+    peer_container_su: {
+        flex: 2,
+        flexDirection: 'row',
+        columnGap: 10,
+        width: windowWidth * 0.9
+    },
+    peer_messages_su: {
+        rowGap: 7,
+        marginLeft: windowWidth * 0.125 + 10, 
+        // flex-basis isn't avaiable to directly solve this problem of (peer_message: width) being as large as (peer_username: width)
+        maxWidth: windowWidth * (0.9 - 0.125) - 10 - windowWidth * 0.1, // windowWidth * [(peer_container: width) - (profileImg: width)] - (peer_container: columnGap) - (white space)
+    },
+    peer_username_text_su: {
+        color: 'black',
+        fontSize: 14,
+        fontWeight: '500',
+    },
+    peer_message_su: {
+        backgroundColor: '#64b6ac',
+        padding: 10,
+        borderTopRightRadius: 20,
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
+        alignSelf:"left",
+    },
+    peer_message_text_su: {
         // flex: 1,
         fontSize: 14,
     },

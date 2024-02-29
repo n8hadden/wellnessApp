@@ -2,14 +2,21 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Linking, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// style(s)
 import { styles } from "../styles/SignInStyles";
+
+// user context hook
+import { useUser } from '../context/UserContext'
 
 export default function SignIn({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const { setUser } = useUser();
+
   const handleSignIn = async () => {
-    console.log("Handle sign-in function called.");
+    // console.log("Handle sign-in function called.");
     try {
       // Make an HTTP request to the /user/login endpoint
       const response = await fetch('https://wellness-server.onrender.com/user/login', {
@@ -22,15 +29,17 @@ export default function SignIn({ navigation }) {
           password: password
         }),
       });
-      console.log("API Response:", response);
+      // console.log("API Response:", response);
 
       if (response.ok) {
         const userData = await response.json();
-        console.log(userData);
+        // console.log("response.ok");
+        // console.log(userData);
         if (userData && userData.user.user_id && userData.session) {
           // Save session key and user id in AsyncStorage
           await AsyncStorage.setItem('sessionKey', JSON.stringify(userData.session));
           await AsyncStorage.setItem('userId', JSON.stringify(userData.user.user_id));
+          setUser(userData.user) // adds user information to user useState and useContext
           navigation.navigate('Home', { screen: "HomeScreen" });
         }
       } else {

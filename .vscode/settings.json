@@ -4,7 +4,6 @@
             "previewLimit": 50,
             "server": "mahmud.db.elephantsql.com",
             "port": 5432,
-	    
             "driver": "PostgreSQL",
             "name": "WellnessApp",
             "database": "gkqdfqqj",
