@@ -48,10 +48,12 @@ async function joinChat(io, socket, data){
 async function getMessages(req, res){
     try{
         // Extracting group from request body
-        const {group} = req.body;
+        console.log(req.body)
+
+        const { group } = req.body;
 
         // Retrieving messages for the specified group
-        let chats = models.getMessages(group);
+        let chats = (await models.getMessages(group));
 
         // Sending the messages along with the group identifier as a response
         res.status(200).json({
