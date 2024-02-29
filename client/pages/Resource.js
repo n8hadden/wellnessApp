@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import YoutubePlayer from 'react-native-youtube-iframe';
 
 // style(s)
-import { styles } from '../styles/ResourcesStyles'
+import { styles } from '../styles/ResourceStyles'
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
