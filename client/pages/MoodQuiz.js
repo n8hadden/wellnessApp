@@ -63,7 +63,7 @@ export default function MoodQuiz() {
     };
 
     try {
-      console.log(data)
+      // console.log(data)
       const response = await fetch('https://wellness-server.onrender.com/calendar/addDay', {
         method: 'POST',
         headers: {

@@ -62,7 +62,6 @@ const SearchBar = ({ children }) => {
                                 tagColor="#64b6ac" // will add [info] to database
                                 onPress={() => {
                                     console.log("pressed!");
-                                    
                                 }}
                             />
                         }

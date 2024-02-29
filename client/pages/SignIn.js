@@ -29,7 +29,7 @@ export default function SignIn({ navigation }) {
           password: password
         }),
       });
-      console.log("API Response:", response);
+      // console.log("API Response:", response);
 
       if (response.ok) {
         const userData = await response.json();

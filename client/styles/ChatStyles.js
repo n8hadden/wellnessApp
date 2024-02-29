@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
         height: 75,
         width: windowWidth * 0.90,
         padding: windowWidth * 0.05,
-        backgroundColor: '#4b4e6d', // default tag container color
+        backgroundColor: '#145c9e', // default tag container color
         borderRadius: 5, 
         flexDirection: 'row',
         alignItems: 'center',

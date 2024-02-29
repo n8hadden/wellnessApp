@@ -30,7 +30,6 @@ export default function Home({ route }) {
     const clearAsyncStorage = async () => {
         try {
             await AsyncStorage.clear();
-            console.log('AsyncStorage cleared successfully.');
         } catch (error) {
             console.error('Error clearing AsyncStorage:', error);
         }

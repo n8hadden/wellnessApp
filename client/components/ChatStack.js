@@ -16,21 +16,22 @@ import Header from './Header';
 const Stack = createStackNavigator();
 
 export default function ChatStack() {
-  const { user, setUser } = useUser();
+  const { user } = useUser();
   const [userTags, setUserTags] = useState([]);
 
   const handleTags = () => {
     if (user) {
-      setUserTags([
-        {
-          tag_id: 9,
-          tag_name: "Bird Watching",
-        },
-        {
-          tag_id: 5,
-          tag_name: "Computer Science",
-        },
-      ]);
+      
+      // setUserTags([
+      //   {
+      //     tag_id: 9,
+      //     tag_name: "Bird Watching",
+      //   },
+      //   {
+      //     tag_id: 5,
+      //     tag_name: "Computer Science",
+      //   },
+      // ]);
     }
   }
 
@@ -57,9 +58,6 @@ export default function ChatStack() {
           }}
         >
           {(props) => <ChatRoom {...props} />}
-          {/* {({routes}) => {
-            <ChatRoom key={index} route={routes} />
-          }} */}
         </Stack.Screen>
       ))}
     </Stack.Navigator>
