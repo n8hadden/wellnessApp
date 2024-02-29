@@ -6,10 +6,7 @@ import {
     StyleSheet,
     Text,
     Platform,
-    TouchableWithoutFeedback,
     TouchableOpacity,
-    Button,
-    Keyboard,
     Dimensions,
     ScrollView,
 } from 'react-native';
@@ -23,6 +20,7 @@ import { styles } from '../styles/ChatStyles';
 import socket from '../components/socket';
 import PeerMessage from '../components/PeerMessage';
 import UserMessage from '../components/UserMessage';
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 
 const windowHeight = Dimensions.get('window').height;
 
@@ -37,10 +35,38 @@ export default function ChatRoom({ route }) {
         setInputValue(text);
     };
 
+    const getGroupMessages = async () => {
+        try {
+            fetch('https://wellness-server.onrender.com/chat/getMessages', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    group: tagId,
+                }),
+            })
+            .then(res => res.json())
+            .then(async res => {
+                console.log("response:")
+                console.log(res);
+            })  
+            .catch(err => console.error(err));
+        } catch (error) {
+            console.error('Error:', error);
+            Alert.alert('Error', 'An error occurred. Please try again later.');
+        }
+    }
+
+    useEffect(() => {
+        getGroupMessages();
+    }, [])
+
     useEffect(() => {        
-        socket.on("new_chat", (data) => {
+        socket.on("new_chat", (data) => { // The "new_chat" socket event recieves all messages from the room
             const {content, sender, group} = data;
-            console.log(content + " new chat");
+            console.log(content + " - new chat"); // LEFT OFF HERE, this seems to only be the most recent message
+            // TRYING TO FIGURE OUT HOW TO GET CHAT MESSAGES DATA
         })
     }, [socket]);
 
@@ -53,6 +79,7 @@ export default function ChatRoom({ route }) {
         >
             <ScrollView style={styles.cr_contain}>
                 <View style={styles.messages}>
+                    {  }
                     <PeerMessage
                         message="abc" //{tagId} // "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         username="A Platypus"
@@ -61,7 +88,7 @@ export default function ChatRoom({ route }) {
                     <UserMessage
                         message="*platypus noises*"
                     />
-                    <PeerMessage
+                    {/* <PeerMessage
                         message="The platypus is one of the few mammals that lays eggs instead of giving birth to live young, making it a monotreme, along with echidnas."
                         username="Dr. Doofenshmirtz "
                         profileImg="https://i.pinimg.com/550x/c4/82/c8/c482c8c448b458fb7358710c341981dc.jpg"
@@ -76,7 +103,7 @@ export default function ChatRoom({ route }) {
                         message="Chrrr chrrr chrrr"
                         username="Perry the Platypus"
                         profileImg="https://openseauserdata.com/files/eb24512ed311ea7826de01337a4e52ad.jpg"
-                    />
+                    /> */}
                 </View>
                 <StatusBar style="auto" />
             </ScrollView>
@@ -96,7 +123,7 @@ export default function ChatRoom({ route }) {
                         sender: 1,
                         group: tagName,
                     }
-                    socket.emit("chat", userObject);
+                    socket.emit("chat", userObject); // The "chat" socket event adds a new message to a room
                     console.log(userObject);
                 }}>
                     <Ionicons 
