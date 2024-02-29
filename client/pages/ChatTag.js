@@ -112,7 +112,7 @@ export default function ChatTag({route}) {
                             />
                     ))}
 
-                    <TouchableOpacity 
+                    {/* <TouchableOpacity 
                         onPress={() => showSuggestion ? setShowSuggestion(false) : setShowSuggestion(true) }
                     >
                         <Text style={styles.suggestText}>{ showSuggestion ? "Do not show suggestions" : "Show suggestions" }</Text> 
@@ -121,7 +121,7 @@ export default function ChatTag({route}) {
                         suggestedTags()
                         : 
                         <></> 
-                    }
+                    } */}
                     <StatusBar style="auto" />
                 </ScrollView>
                 :
