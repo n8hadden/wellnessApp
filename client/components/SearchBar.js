@@ -15,28 +15,27 @@ const SearchBar = ({ children }) => {
     const [searchResults, setSearchResults] = useState([]);
 
     const searchData = async (text) => {
-        // try {
-        //     fetch('https://wellness-server.onrender.com/tag/getTags', {
-        //         method: 'GET',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //
-        //         }),
-        //     })
-        //     .then(res => res.json())
-        //     .then(async res => {
-        //
-        //     })
-        //     .catch(err => console.error(err));
-        // } catch (error) {
-        //     console.error('Error:', error);
-        //     Alert.alert('Error', 'An error occurred. Please try again later.');
-        // }
+        try {
+            fetch('https://wellness-server.onrender.com/tag/getAllTags  ', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(res => res.json())
+            .then(async res => {
+                console.log("SEARCH:")
+                console.log(res.tags);
+                
+            })
+            .catch(err => console.error(err));
+        } catch (error) {
+            console.error('Error:', error);
+            Alert.alert('Error', 'An error occurred. Please try again later.');
+        }
         setSearchQuery(text);
         const filteredData = testingData.filter((item) =>
-        item.toLowerCase().includes(text.toLowerCase())
+            item.toLowerCase().includes(text.toLowerCase())
         );
         setSearchResults(filteredData);
     };
@@ -68,19 +67,19 @@ const SearchBar = ({ children }) => {
     //     }
     // }
 
-    const testingData = [ 
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6',
-        '7',
-        '8',
-        '9',
-        '10',
-        '11',
-    ];
+    // const testingData = [ 
+    //     '1',
+    //     '2',
+    //     '3',
+    //     '4',
+    //     '5',
+    //     '6',
+    //     '7',
+    //     '8',
+    //     '9',
+    //     '10',
+    //     '11',
+    // ];
 
     return (
         <>

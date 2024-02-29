@@ -8,11 +8,16 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { CardStyleInterpolators } from '@react-navigation/stack';
 import { color } from 'react-native-elements/dist/helpers';
+import YoutubePlayer from 'react-native-youtube-iframe';
+
 
 import { io } from 'socket.io-client';
 import { baseURL } from '../util';
 
 import axios from 'axios';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 // style(s)
 import { styles } from '../styles/HomeStyles';
@@ -22,8 +27,6 @@ import Btn from '../components/HomeBtn';
 
 // user context hook
 import { useUser } from '../context/UserContext';
-
-const windowWidth = Dimensions.get('window').width;
 
 export default function Home({ route }) {
 
@@ -132,9 +135,13 @@ export default function Home({ route }) {
             <TouchableOpacity 
                 onPress={() => {  }}
             >
-                <View style={styles.tempvidContainer}>
-                    <Text style={{ color: "#f9fbfd"}}>Video Placeholder</Text>
-                </View>
+                <YoutubePlayer
+                    style={[styles.tempvidContainer, {  }]}
+                    height={windowHeight * .25}
+                    width={windowWidth * .9}
+                    // play={playing}
+                    videoId={'Up5Isb-U7Ow'}
+                />
             </TouchableOpacity>
             
             { !user ? 
