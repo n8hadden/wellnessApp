@@ -15,7 +15,10 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCalendarsUsageDescription": "Can PVOC access your calendar?"
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -24,18 +27,13 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+    
     },
     "expo": {
       "android": {
         "permissions": [
           "CALENDAR"
         ]
-      }
-    },
-    "ios": {
-      "infoPlist": {
-        "NSCalendarsUsageDescription": "Can PVOC access your calendar?"
       }
     }
   }
