@@ -20,6 +20,7 @@ export default function Btn({ onPress, tagName, tagId, tagColor, search, suggest
         } else {
             console.log("Tag ID already exists in user tags.");
         }
+        // if the function above doesn't work, use the one below
         // const updatedUser = { ...user };
         // updatedUser.tags.push(newTagId);
         // setUser(updatedUser);
@@ -77,17 +78,27 @@ export default function Btn({ onPress, tagName, tagId, tagColor, search, suggest
         }
     }
 
-    // useEffect(() => {
-    //     console.log("user data");
-    //     console.log(user)
-    // }, [setUser]);
-
-    useEffect(() => {
+    /* useEffect(() => {
         console.log("user data");
         console.log(user)
-    }, [user]);
+    }, [user]); */
 
     useEffect(() => {
+        // removeTag(1);
+        // removeTag(2);
+        // removeTag(3);
+        // removeTag(4);
+        // removeTag(5);
+        // removeTag(6);
+        // removeTag(7);
+        // removeTag(8);
+        // removeTag(9);
+        // removeTag(10);
+        // removeTag(11);
+        // removeTag(12);
+        // removeTag(13);
+        // removeTag(14);
+        // removeTag(15);
         // addTag(1);
         // addTag(2);
         // addTag(3);
@@ -103,8 +114,8 @@ export default function Btn({ onPress, tagName, tagId, tagColor, search, suggest
         // addTag(13);
         // addTag(14);
         // addTag(15);
-        console.log("user data:");
-        console.log(user)
+        // console.log("user data:");
+        // console.log(user)
     }, []);
 
     return (
@@ -142,8 +153,6 @@ export default function Btn({ onPress, tagName, tagId, tagColor, search, suggest
                         <Text style={styles.tagText}>{tagName}</Text> 
                         <TouchableOpacity 
                             onPress={async() => { 
-                                console.log("tag ID")
-                                console.log(tagId)
                                 addTag(tagId);
                             }}
                             style={{
@@ -169,8 +178,6 @@ export default function Btn({ onPress, tagName, tagId, tagColor, search, suggest
                         <Text style={styles.tagText}>{tagName}</Text> 
                         <TouchableOpacity 
                             onPress={() => { 
-                                console.log("tag ID");
-                                console.log(tagId);
                                 removeTag(tagId);
                             }}
                             style={{

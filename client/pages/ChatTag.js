@@ -63,9 +63,9 @@ export default function ChatTag({route}) {
                 .then(async res => {
                     const tags = res;
                     setUserTags(tags.tags);
-                    console.log(user.user_id);
-                    console.log("tags: ");
-                    console.log(tags.tags); 
+                    // console.log(user.user_id);
+                    // console.log("tags: ");
+                    // console.log(tags.tags); 
                 })
                 .catch(err => console.error(err));
             } catch (error) {

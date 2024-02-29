@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Text } from 'react-native';
 
 // user context hook
 import { useUser } from '../context/UserContext';
@@ -33,23 +32,13 @@ export default function ChatStack() {
         })
         .then(res => res.json())
         .then(async res => {
-          // setUserTags() // LEFT OFF HERE
+          setUserTags(res.tags);
         })
         .catch(err => console.error(err));
       } catch (error) {
         console.error('Error:', error);
         Alert.alert('Error', 'An error occurred. Please try again later.');
       }
-      // setUserTags([
-      //   {
-      //     tag_id: 9,
-      //     tag_name: "Bird Watching",
-      //   },
-      //   {
-      //     tag_id: 5,
-      //     tag_name: "Computer Science",
-      //   },
-      // ]);
     }
   }
 
