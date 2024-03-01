@@ -162,20 +162,20 @@ export default function Home({ route }) {
                 : 
                 <></>
             }
-            <Btn 
-                onPress={() => { navigation.navigate('Home', {screen: 'MoodCalendarScreen'}); }}
-                iconImg="calendar"
-                iconColor="#ffffff"
-                text="Mood Calender"
-            />
-            <Btn 
-                onPress={() => { navigation.navigate('Home', {screen: 'MoodQuizScreen'}); }}
-                iconImg="school"
-                iconColor="#ffffff"
-                text="Mood Quiz"
-            />
             { user ? 
                 <>
+                    <Btn 
+                        onPress={() => { navigation.navigate('Home', {screen: 'MoodCalendarScreen'}); }}
+                        iconImg="calendar"
+                        iconColor="#ffffff"
+                        text="Mood Calender"
+                    />
+                    <Btn 
+                        onPress={() => { navigation.navigate('Home', {screen: 'MoodQuizScreen'}); }}
+                        iconImg="school"
+                        iconColor="#ffffff"
+                        text="Mood Quiz"
+                    />
                     <Btn 
                         onPress={() => { navigation.navigate('Home', {screen: 'UserProfileScreen'}) }}
                         iconImg="person"

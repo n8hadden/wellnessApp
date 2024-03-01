@@ -42,17 +42,6 @@ export default function ChatRoom({ route }) {
         setInputValue(text);
     };
 
-    const addToCustom = (userObject) => { // temp func 
-        const updatedChat = [...chats];
-        updatedChat.push(userObject);
-        setChats(updatedChat);
-    }
-
-    const show = () => { // temp func
-        console.log("testingArray");
-        console.log(chats);
-    }
-
     // const getMsgId = async () => {
     //     try {
     //         fetch('https://wellness-server.onrender.com/user/getUserById', { // Problem with getMessages
@@ -76,7 +65,6 @@ export default function ChatRoom({ route }) {
     // }
 
     const addToSender = async (sender) => {
-        //userObject.sender
         try {
             fetch('https://wellness-server.onrender.com/user/getUserById', { // Problem with getMessages
                 method: 'POST',
@@ -93,8 +81,8 @@ export default function ChatRoom({ route }) {
                 updatedSender.push({ username: res.user.username, sender: sender, msg_id: msgId });
                 setMsgId(prev => prev + 1);
                 setSenderInfo(updatedSender)
-                console.log("senderData:") 
-                console.log(senderInfo); 
+                // console.log("senderData:") 
+                // console.log(senderInfo); 
             })  
             .catch(err => console.error(err));
         } catch (error) {
@@ -110,7 +98,7 @@ export default function ChatRoom({ route }) {
 
     const getGroupMessages = async () => {
         try {
-            fetch('https://wellness-server.onrender.com/chat/getMessages', { // Problem with getMessages
+            fetch('https://wellness-server.onrender.com/chat/getMessages', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -121,7 +109,8 @@ export default function ChatRoom({ route }) {
             })
             .then(res => res.json())
             .then(async res => {
-                console.log(res.chats)
+                // console.log("getGroupMessages:")
+                // console.log(res.chats)
                 setChats(res.chats)
             })  
             .catch(err => console.error(err));
@@ -138,8 +127,7 @@ export default function ChatRoom({ route }) {
     useEffect(() => {        
         socket.on("new_chat", (data) => { // The "new_chat" socket event recieves all messages from the room
             const {content, sender, group, msg_id} = data;
-            console.log(content + " - new chat"); // LEFT OFF HERE, this seems to only be the most recent message
-            // TRYING TO FIGURE OUT HOW TO GET CHAT MESSAGES DATA
+            console.log(data + " - new chat"); 
         })
     }, [socket]);
 
@@ -154,20 +142,32 @@ export default function ChatRoom({ route }) {
                 <View style={styles.messages}>
                     {chats.length !== 0 &&
                         chats.map((messageData, index) => {
-                            const msgUserName = findNameById(messageData.sender);
-                            console.log("msgUserName:", msgUserName, messageData);
+                            const msgUserName = findNameById(messageData.sender_id);
 
                             const isDifferentSender =
-                                index === 0 || chats[index - 1].sender !== messageData.sender;
+                                index === 0 || chats[index - 1].sender_id !== messageData.sender_id;
 
-                            const isCurrentUser = messageData.sender === user.user_id;
+                            const isCurrentUser = messageData.sender_id === user.user_id;
 
                             return (
                                 <React.Fragment key={index}>
-                                    {!isCurrentUser && (
+                                    {!isCurrentUser && isDifferentSender && (
                                         <>
-                                            <UserMessage
+                                            <PeerMessage
                                                 message={messageData.content}
+                                                username={msgUserName}
+                                                profileImg="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/aca833f9-1f8b-40c7-801c-7859070fd37b/d3cx2fp-8d2aaf7b-7fd9-4945-b360-abca60d772e3.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2FjYTgzM2Y5LTFmOGItNDBjNy04MDFjLTc4NTkwNzBmZDM3YlwvZDNjeDJmcC04ZDJhYWY3Yi03ZmQ5LTQ5NDUtYjM2MC1hYmNhNjBkNzcyZTMuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.GCedvmkI-ftUz8P3IUk4TEc46eYovARAJ-EDEl7vvDQ"
+                                            />
+                                        </>
+                                    )}
+
+                                    {!isCurrentUser && !isDifferentSender && (
+                                        <>
+                                            <PeerMessage
+                                                message={messageData.content}
+                                                username={msgUserName}
+                                                sameUser={true}
+                                                profileImg="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/aca833f9-1f8b-40c7-801c-7859070fd37b/d3cx2fp-8d2aaf7b-7fd9-4945-b360-abca60d772e3.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2FjYTgzM2Y5LTFmOGItNDBjNy04MDFjLTc4NTkwNzBmZDM3YlwvZDNjeDJmcC04ZDJhYWY3Yi03ZmQ5LTQ5NDUtYjM2MC1hYmNhNjBkNzcyZTMuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.GCedvmkI-ftUz8P3IUk4TEc46eYovARAJ-EDEl7vvDQ"
                                             />
                                         </>
                                     )}
@@ -177,12 +177,6 @@ export default function ChatRoom({ route }) {
                                             <UserMessage
                                                 message={messageData.content}
                                             />
-                                            {/* <PeerMessage
-                                                message={messageData.content}
-                                                username={msgUserName}
-                                                sameUser={!isDifferentSender}
-                                                profileImg="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/aca833f9-1f8b-40c7-801c-7859070fd37b/d3cx2fp-8d2aaf7b-7fd9-4945-b360-abca60d772e3.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2FjYTgzM2Y5LTFmOGItNDBjNy04MDFjLTc4NTkwNzBmZDM3YlwvZDNjeDJmcC04ZDJhYWY3Yi03ZmQ5LTQ5NDUtYjM2MC1hYmNhNjBkNzcyZTMuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.GCedvmkI-ftUz8P3IUk4TEc46eYovARAJ-EDEl7vvDQ"
-                                            /> */}
                                         </>
                                     )}
                                 </React.Fragment>
@@ -211,9 +205,7 @@ export default function ChatRoom({ route }) {
                     socket.emit("chat", userObject); // The "chat" socket event adds a new message to a room
                     console.log(userObject);
                     getGroupMessages();
-                    addToCustom(userObject);
                     addToSender(userObject.sender);
-                    show();
                 }}>
                     <Ionicons 
                         name="chevron-up-circle" 
