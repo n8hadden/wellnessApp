@@ -1,0 +1,26 @@
+Base URL: 
+https://wellness-server.onrender.com
+
+User Routes: 
+/user/getUsers (get)
+/user/createUser (post)
+/user/getUserById (post)
+/user/getUserByEmail (post)
+/user/getUserByUsername (post)
+/user/login (post)
+/user/verify (post)
+
+Chat routes:
+/chat/getMessages (post)
+
+Affirmations routes: 
+/affirmation/get (get)
+
+Tag routes: 
+/tag/getTags (post)
+/tag/addTag (post)
+/tag/removeTag (post)
+
+Chat sockets stuff: 
+The "chat" socket event adds a new message to a room
+The "new_chat" socket event recieves all messages from the room
