@@ -5,10 +5,15 @@ import { Dimensions } from 'react-native';
 // component(s)
 import TagContainer from '../components/ChatTagBtn'; 
 
+// user context hook
+import { useUser } from '../context/UserContext';
+
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const SearchBar = ({ children }) => {
+
+    const { user } = useUser();
 
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
@@ -24,14 +29,19 @@ const SearchBar = ({ children }) => {
             });
             const data = await response.json(); 
             // console.log('Response:', data); 
-            
+            // console.log('users tags', user.tags)
             const filteredTags = data.tags.filter(tag => tag.tag_name.includes(text));
-            const firstFiveResults = filteredTags.map(tag => tag.tag_name).slice(0, 5);
+            const uniqueTags = filteredTags.filter(tag => !user.tags.includes(tag.tag_id));
+            const firstFiveResults = uniqueTags.slice(0, 5).map(tag => tag.tag_name);
             setSearchResults(firstFiveResults); 
         } catch (error) {
             console.error('Error:', error);
             Alert.alert('Error', 'An error occurred. Please try again later.');
         }
+    };
+
+    const handleBlur = () => {
+        setSearchResults([]); // Clear search results when TextInput loses focus
     };
 
     useEffect(() => {
@@ -53,6 +63,7 @@ const SearchBar = ({ children }) => {
                     placeholder="Search..."
                     value={searchQuery}
                     onChangeText={searchData}
+                    onBlur={handleBlur} // Call handleBlur function when TextInput loses focus
                     style={{
                         height: windowHeight * 0.07,
                         width: windowWidth * 0.9,
@@ -81,28 +92,6 @@ const SearchBar = ({ children }) => {
                         }}
                     />
                 )}
-                {/* { searchQuery !== '' && ( // Render the clear button if searchQuery is not empty
-                    <FlatList
-                        data={searchResults}
-                        renderItem={({ item }) => 
-                            <TagContainer
-                                search={true}
-                                tagName={item} // will add [info] to database
-                                // tagColor="#64b6ac" // will add [info] to database
-                                onPress={() => {
-                                    console.log("pressed!");
-                                }}
-                            />
-                        }
-                        keyExtractor={(item, index) => index.toString()}
-                        initialNumToRender={5}
-                        maxToRenderPerBatch={5}
-                        // windowSize={5}
-                        style={{
-                            width: windowWidth * 0.9,
-                        }}
-                    />
-                )} */}
             </View>
         </>
     );
