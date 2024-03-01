@@ -47,7 +47,8 @@ async function createUser(username, email, password){
         VALUES ('${username}', '${email}', '${password}')`;
 
     // Executing the SQL query using the database utility function
-    await database.setData(query);
+    let user = await database.setData(query);
+    console.log(user)
 }
 
 // Function to retrieve user information by their session key from the database

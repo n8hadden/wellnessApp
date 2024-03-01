@@ -76,14 +76,20 @@ async function getUsers(req, res) {
 // Create a user
 async function createUser(req, res)  {
     let { username, email, password } = req.body;
-
+    console.log("check 1")
+    console.log(username, email, password)
     await bcrypt.hash(password, saltRounds).then(hash => {
         password = hash;
     }) 
 
+    console.log("check 2")
+    console.log(password)
+
     try {
+
         await model.createUser(username, email, password);
         res.status(200).json({ message: "user added" });
+
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Internal Server Error" });
