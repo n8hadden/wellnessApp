@@ -82,7 +82,8 @@ const SearchBar = ({ children }) => {
                                 tagName={item} // will add [info] to database
                                 // tagColor="#64b6ac" // will add [info] to database
                                 onPress={() => {
-                                    console.log("pressed!");
+                                    // addTag(tagId);
+                                    console.log("item:", item);
                                 }}
                             />
                         }
