@@ -65,7 +65,7 @@ export default function ChatStack() {
           name={`ChatRoom_${tag.tag_id}`}
           // component={ChatRoom}
           options={{
-            header: () => <Header headerName={tag.tag_name} isGroup={true} profileImg="https://sdzwildlifeexplorers.org/sites/default/files/2019-11/platypus-bill.jpg" />
+            header: () => <Header headerName={tag.tag_name} isGroup={true} />
           }}
         >
           {(props) => <ChatRoom {...props} />}
