@@ -41,6 +41,7 @@ export const styles = StyleSheet.create({
         height: 200,
     },
     inputContain : {
+        
         position: 'absolute',
         height: windowHeight * 0.1,
         width: windowWidth,

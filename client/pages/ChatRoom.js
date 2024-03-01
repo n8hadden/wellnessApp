@@ -149,6 +149,8 @@ export default function ChatRoom({ route }) {
                                 index === 0 || chats[index - 1].sender_id !== messageData.sender_id;
 
                             const isCurrentUser = messageData.sender_id === user.user_id;
+                            console.log("isCurrentUser:", isCurrentUser);
+                            console.log("messageData.sender_id:", messageData.sender_id)
 
                             return (
                                 <React.Fragment key={index}>
@@ -175,7 +177,7 @@ export default function ChatRoom({ route }) {
 
                                     {isCurrentUser && (
                                         <>
-                                            <PeerMessage
+                                            <UserMessage
                                                 message={messageData.content}
                                             />
                                         </>

@@ -24,17 +24,13 @@ export default function Profile() {
     }, [user]);
 
     useEffect(() => {
-        console.log("Unique Tags:")
-        console.log(uniqueTags);
+        // console.log("Unique Tags:")
+        // console.log(uniqueTags);
     }, [uniqueTags]);
 
     const removeDuplicates = (tags) => {
         const unique = [];
-        console.log("userTags:")
-        console.log(tags)
         tags.forEach(tag => {
-            console.log('tag:');
-            console.log(tag.tag_name)
             if (!unique.includes(tag.tag_name)) {
                 unique.push(tag.tag_name);
             }
