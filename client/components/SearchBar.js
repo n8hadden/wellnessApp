@@ -40,8 +40,56 @@ const SearchBar = ({ children }) => {
         }
     };
 
+    const findTagId = async (tagName) => {
+        try { 
+            fetch('https://wellness-server.onrender.com/tag/getTagIdByTagName', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: tagName,
+                }),
+            })
+            .then(res => res.json())
+            .then(async res => {
+                const thisId = res;
+                console.log("thisId:",thisId);
+                // addTag(user.user_id, thisId) // uncomment when res.id gives a value (in general) & not an array (something's wrong with backend)
+            })
+            .catch(err => console.error(err));
+        } catch (error) {
+            console.error('Error:', error);
+            Alert.alert('Error', 'An error occurred. Please try again later.');
+        }
+    }
+
+    const addTag = async (userId, tagId) => {
+        try { 
+            fetch('https://wellness-server.onrender.com/tag/addTag', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId: userId,
+                    tagId: tagId,
+                }),
+            })
+            .then(res => res.json())
+            .then(async res => {
+                console.log(res.message); // will say if tag was successfully added
+            })
+            .catch(err => console.error(err));
+        } catch (error) {
+            console.error('Error:', error);
+            Alert.alert('Error', 'An error occurred. Please try again later.');
+        }
+    }
+
     const clearSearchResults = () => {
         setSearchResults([]);
+        setSearchQuery('');
     };
 
     useEffect(() => {
@@ -82,8 +130,12 @@ const SearchBar = ({ children }) => {
                                     tagName={item} // will add [info] to database
                                     // tagColor="#64b6ac" // will add [info] to database
                                     onPress={() => {
-                                        // addTag(tagId);
+                                        /* 
+                                         * getTagIdByTagName fetch
+                                         * then addTag(tagId); 
+                                         */
                                         console.log("item:", item);
+                                        findTagId(item)
                                     }}
                                 />
                             }
@@ -92,7 +144,9 @@ const SearchBar = ({ children }) => {
                                 width: windowWidth * 0.9,
                             }}
                         />
-                        <TouchableOpacity onPress={clearSearchResults}>
+                        <TouchableOpacity onPress={() => {
+                            clearSearchResults()
+                        }}>
                             <Text style={{ paddingTop: 10, }}>Clear Results</Text>
                         </TouchableOpacity>
                     </>
