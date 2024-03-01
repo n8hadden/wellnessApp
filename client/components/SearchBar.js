@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, FlatList, StyleSheet } from 'react-native';
+import { View, TextInput, FlatList, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { Dimensions } from 'react-native';
 
 // component(s)
@@ -40,8 +40,8 @@ const SearchBar = ({ children }) => {
         }
     };
 
-    const handleBlur = () => {
-        setSearchResults([]); // Clear search results when TextInput loses focus
+    const clearSearchResults = () => {
+        setSearchResults([]);
     };
 
     useEffect(() => {
@@ -63,7 +63,6 @@ const SearchBar = ({ children }) => {
                     placeholder="Search..."
                     value={searchQuery}
                     onChangeText={searchData}
-                    onBlur={handleBlur} // Call handleBlur function when TextInput loses focus
                     style={{
                         height: windowHeight * 0.07,
                         width: windowWidth * 0.9,
@@ -74,24 +73,29 @@ const SearchBar = ({ children }) => {
                     }}
                 />
                 { searchResults.length > 0 && (
-                    <FlatList
-                        data={searchResults}
-                        renderItem={({ item }) => 
-                            <TagContainer
-                                search={true}
-                                tagName={item} // will add [info] to database
-                                // tagColor="#64b6ac" // will add [info] to database
-                                onPress={() => {
-                                    // addTag(tagId);
-                                    console.log("item:", item);
-                                }}
-                            />
-                        }
-                        keyExtractor={(item, index) => index.toString()}
-                        style={{
-                            width: windowWidth * 0.9,
-                        }}
-                    />
+                    <>
+                        <FlatList
+                            data={searchResults}
+                            renderItem={({ item }) => 
+                                <TagContainer
+                                    search={true}
+                                    tagName={item} // will add [info] to database
+                                    // tagColor="#64b6ac" // will add [info] to database
+                                    onPress={() => {
+                                        // addTag(tagId);
+                                        console.log("item:", item);
+                                    }}
+                                />
+                            }
+                            keyExtractor={(item, index) => index.toString()}
+                            style={{
+                                width: windowWidth * 0.9,
+                            }}
+                        />
+                        <TouchableOpacity onPress={clearSearchResults}>
+                            <Text style={{ paddingTop: 10, }}>Clear Results</Text>
+                        </TouchableOpacity>
+                    </>
                 )}
             </View>
         </>
