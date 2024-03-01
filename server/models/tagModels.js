@@ -9,10 +9,10 @@ async function getTagNameById(id) {
 }
 
 async function getTagIdByTagName(name) {
-    let query = `SELECT tag_id
-    WHERE tag_name LIKE ${name}`;
+    let query = `SELECT tag_id FROM tags
+    WHERE tag_name LIKE '${name}'`;
 
-    return (await database.getData(query));
+    return (await database.getData(query))[0];
 }
 
 async function getAllTags() {

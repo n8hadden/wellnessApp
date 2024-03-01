@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
     },
     tagText: {
         color: 'white',
-        fontSize: 20,
+        fontSize: 18,
         width: '70%',
     },
     suggestText: {
@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
     cr_contain: {
         flex: 2,
         flexDirection: 'column',
-        backgroundColor: 'rgb(51,92,129)', // #335c81',
+        backgroundColor: '#9297c4', // options: 'rgb(51,92,129)', #8acb88, #5171a5, #c0a9b0, #decbb7, #9297c4 // default tag room color
         height: windowHeight * 0.8, // height excluding header/footer
     },
     scrollContain: {
@@ -41,6 +41,7 @@ export const styles = StyleSheet.create({
         height: 200,
     },
     inputContain : {
+        
         position: 'absolute',
         height: windowHeight * 0.1,
         width: windowWidth,

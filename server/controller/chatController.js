@@ -25,7 +25,7 @@ async function OnChat(io, socket, data){
         console.log(content + " chat content");
 
         // Emitting the new chat event to all sockets in the group
-        io.to(group).emit("new_chat", {content, sender, group});
+        io.to(group).emit("new_chat", {content, sender, group, });
     }
     catch(e){
         console.log(e);

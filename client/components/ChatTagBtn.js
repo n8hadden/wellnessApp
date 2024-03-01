@@ -126,11 +126,7 @@ export default function Btn({ onPress, tagName, tagId, tagColor, search, suggest
                 >
                     <Text style={styles.tagText}>{tagName}</Text> 
                     <TouchableOpacity 
-                        onPress={() => { 
-                            console.log("tag ID");
-                            console.log(tagId);
-                            addTag(tagId);
-                        }}
+                        onPress={onPress}
                         style={{
                             width: '30%',
                         }}

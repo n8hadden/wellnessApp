@@ -1,86 +1,104 @@
-import React, { useState } from 'react';
-import { View, TextInput, FlatList, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, TextInput, FlatList, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { Dimensions } from 'react-native';
 
 // component(s)
 import TagContainer from '../components/ChatTagBtn'; 
+
+// user context hook
+import { useUser } from '../context/UserContext';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const SearchBar = ({ children }) => {
 
-    const [allTags, setAllTags] = useState([]);
+    const { user } = useUser();
+
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
 
     const searchData = async (text) => {
-        // try {
-        //     fetch('https://wellness-server.onrender.com/tag/getTags', {
-        //         method: 'GET',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //
-        //         }),
-        //     })
-        //     .then(res => res.json())
-        //     .then(async res => {
-        //
-        //     })
-        //     .catch(err => console.error(err));
-        // } catch (error) {
-        //     console.error('Error:', error);
-        //     Alert.alert('Error', 'An error occurred. Please try again later.');
-        // }
-        setSearchQuery(text);
-        const filteredData = testingData.filter((item) =>
-        item.toLowerCase().includes(text.toLowerCase())
-        );
-        setSearchResults(filteredData);
+        setSearchQuery(text); 
+        try {
+            const response = await fetch('https://wellness-server.onrender.com/tag/getAllTags', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const data = await response.json(); 
+            // console.log('Response:', data); 
+            // console.log('users tags', user.tags)
+            const filteredTags = data.tags.filter(tag => tag.tag_name.includes(text));
+            const uniqueTags = filteredTags.filter(tag => !user.tags.includes(tag.tag_id));
+            const firstFiveResults = uniqueTags.slice(0, 5).map(tag => tag.tag_name);
+            setSearchResults(firstFiveResults); 
+        } catch (error) {
+            console.error('Error:', error);
+            Alert.alert('Error', 'An error occurred. Please try again later.');
+        }
     };
 
-    // const clearSearch = () => {
-    //     setSearchQuery('');
-    //     setSearchResults([]); // Clear search results when clearing the search query
-    // };
+    const findTagId = async (tagName) => {
+        try { 
+            fetch('https://wellness-server.onrender.com/tag/getTagIdByTagName', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: tagName,
+                }),
+            })
+            .then(res => res.json())
+            .then(async res => {
+                const thisId = res;
+                console.log("thisId:",thisId);
+                // addTag(user.user_id, thisId) // uncomment when res.id gives a value (in general) & not an array (something's wrong with backend)
+            })
+            .catch(err => console.error(err));
+        } catch (error) {
+            console.error('Error:', error);
+            Alert.alert('Error', 'An error occurred. Please try again later.');
+        }
+    }
 
-    // const findNameById = async () => { // AT LEAST THIS NEEDS TO GET DONE ASAP
-    //     try {
-    //         fetch('https://wellness-server.onrender.com/tag/getTagNameById', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify({
-                    
-    //             }),
-    //         })
-    //         .then(res => res.json())
-    //         .then(async res => {
-        
-    //         })
-    //         .catch(err => console.error(err));
-    //     } catch (error) {
-    //         console.error('Error:', error);
-    //         Alert.alert('Error', 'An error occurred. Please try again later.');
-    //     }
-    // }
+    const addTag = async (userId, tagId) => {
+        try { 
+            fetch('https://wellness-server.onrender.com/tag/addTag', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId: userId,
+                    tagId: tagId,
+                }),
+            })
+            .then(res => res.json())
+            .then(async res => {
+                console.log(res.message); // will say if tag was successfully added
+            })
+            .catch(err => console.error(err));
+        } catch (error) {
+            console.error('Error:', error);
+            Alert.alert('Error', 'An error occurred. Please try again later.');
+        }
+    }
 
-    const testingData = [ 
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6',
-        '7',
-        '8',
-        '9',
-        '10',
-        '11',
-    ];
+    const clearSearchResults = () => {
+        setSearchResults([]);
+        setSearchQuery('');
+    };
+
+    useEffect(() => {
+        // console.log('searchQuery: ', searchQuery);
+    }, [searchQuery]);
+
+    useEffect(() => {
+        // console.log('searchResults: ', searchResults);
+    }, [searchResults]);
 
     return (
         <>
@@ -102,27 +120,36 @@ const SearchBar = ({ children }) => {
                         fontSize: 16,
                     }}
                 />
-                { searchQuery !== '' && ( // Render the clear button if searchQuery is not empty
-                    <FlatList
-                        data={searchResults}
-                        renderItem={({ item }) => 
-                            <TagContainer
-                                search={true}
-                                tagName={item} // will add [info] to database
-                                // tagColor="#64b6ac" // will add [info] to database
-                                onPress={() => {
-                                    console.log("pressed!");
-                                }}
-                            />
-                        }
-                        keyExtractor={(item, index) => index.toString()}
-                        initialNumToRender={5}
-                        maxToRenderPerBatch={5}
-                        // windowSize={5}
-                        style={{
-                            width: windowWidth * 0.9,
-                        }}
-                    />
+                { searchResults.length > 0 && (
+                    <>
+                        <FlatList
+                            data={searchResults}
+                            renderItem={({ item }) => 
+                                <TagContainer
+                                    search={true}
+                                    tagName={item} // will add [info] to database
+                                    // tagColor="#64b6ac" // will add [info] to database
+                                    onPress={() => {
+                                        /* 
+                                         * getTagIdByTagName fetch
+                                         * then addTag(tagId); 
+                                         */
+                                        console.log("item:", item);
+                                        findTagId(item)
+                                    }}
+                                />
+                            }
+                            keyExtractor={(item, index) => index.toString()}
+                            style={{
+                                width: windowWidth * 0.9,
+                            }}
+                        />
+                        <TouchableOpacity onPress={() => {
+                            clearSearchResults()
+                        }}>
+                            <Text style={{ paddingTop: 10, }}>Clear Results</Text>
+                        </TouchableOpacity>
+                    </>
                 )}
             </View>
         </>
