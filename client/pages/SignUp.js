@@ -11,6 +11,8 @@ export default function SignUp({ navigation }) {
   const [password, setPassword] = useState('');
 
   const handleSignUp = async () => {
+
+    console.log(username, email, password)
     try {
       const response = await fetch('https://wellness-server.onrender.com/user/createUser', {
         method: 'POST',
@@ -19,9 +21,8 @@ export default function SignUp({ navigation }) {
         },
         body: JSON.stringify({ username, email, password }),
       });
-
       const data = await response.json();
-
+      console.log(data)
       if (response.ok) {
         // SignUp successful
         console.log('SignUp successful');
@@ -48,7 +49,7 @@ export default function SignUp({ navigation }) {
           style={styles.input}
           placeholder="Username"
           value={username}
-          onChangeText={setUsername}
+          onChangeText={text => setUsername(text)}
         />
         <TextInput
           style={styles.input}

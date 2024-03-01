@@ -45,7 +45,6 @@ export default function Home({ route }) {
             [
               {
                 text: 'Cancel',
-                onPress: () => console.log('Cancel Pressed'),
                 style: 'cancel'
               },
               { text: 'Yes', onPress: () => {
@@ -68,6 +67,7 @@ export default function Home({ route }) {
 
     const handleaffirmation = async () => {      
         const id = await AsyncStorage.getItem('userId');
+        // console.log(id)
         if(id == undefined)
             return;
         try { 

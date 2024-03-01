@@ -13,7 +13,7 @@ const windowHeight = Dimensions.get('window').height;
 
 const SearchBar = ({ children }) => {
 
-    const { user } = useUser();
+    const { user, setUser } = useUser();
 
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
@@ -28,8 +28,6 @@ const SearchBar = ({ children }) => {
                 },
             });
             const data = await response.json(); 
-            // console.log('Response:', data); 
-            // console.log('users tags', user.tags)
             const filteredTags = data.tags.filter(tag => tag.tag_name.includes(text));
             const uniqueTags = filteredTags.filter(tag => !user.tags.includes(tag.tag_id));
             const firstFiveResults = uniqueTags.slice(0, 5).map(tag => tag.tag_name);
@@ -39,6 +37,33 @@ const SearchBar = ({ children }) => {
             Alert.alert('Error', 'An error occurred. Please try again later.');
         }
     };
+
+    const updateUserTagsAdd = (tagIdToAdd) => {
+        const updatedUser = { ...user, tags: tagIdToAdd };
+        setUser(updatedUser);
+    }    
+
+    const updateLocally = async () => {
+        try {
+            fetch('https://wellness-server.onrender.com/tag/getTags', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                userId: user.user_id,
+                }),
+            })
+            .then(res => res.json())
+            .then(async res => {
+                updateUserTagsAdd(res.tags);
+            })
+            .catch(err => console.error(err));
+        } catch (error) {
+            console.error('Error:', error);
+            Alert.alert('Error', 'An error occurred. Please try again later.');
+        }
+    }
 
     const findTagId = async (tagName) => {
         try { 
@@ -53,9 +78,9 @@ const SearchBar = ({ children }) => {
             })
             .then(res => res.json())
             .then(async res => {
-                const thisId = res;
-                console.log("thisId:",thisId);
-                // addTag(user.user_id, thisId) // uncomment when res.id gives a value (in general) & not an array (something's wrong with backend)
+                console.log(tagName)
+                updateLocally();
+                addTag(user.user_id, res.id.tag_id) // uncomment when res.id gives a value (in general) & not an array (something's wrong with backend)
             })
             .catch(err => console.error(err));
         } catch (error) {
@@ -79,6 +104,8 @@ const SearchBar = ({ children }) => {
             .then(res => res.json())
             .then(async res => {
                 console.log(res.message); // will say if tag was successfully added
+                clearSearchResults()
+
             })
             .catch(err => console.error(err));
         } catch (error) {
@@ -130,11 +157,7 @@ const SearchBar = ({ children }) => {
                                     tagName={item} // will add [info] to database
                                     // tagColor="#64b6ac" // will add [info] to database
                                     onPress={() => {
-                                        /* 
-                                         * getTagIdByTagName fetch
-                                         * then addTag(tagId); 
-                                         */
-                                        console.log("item:", item);
+                                        console.log("SavePoint1");
                                         findTagId(item)
                                     }}
                                 />

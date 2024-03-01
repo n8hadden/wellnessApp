@@ -41,28 +41,6 @@ export default function ChatRoom({ route }) {
         setInputValue(text);
     };
 
-    // const getMsgId = async () => {
-    //     try {
-    //         fetch('https://wellness-server.onrender.com/user/getUserById', { // Problem with getMessages
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify({
-    //                 _id: sender,
-    //             }),
-    //         })
-    //         .then(res => res.json())
-    //         .then(async res => {
-
-    //         })  
-    //         .catch(err => console.error(err));
-    //     } catch (error) {
-    //         console.error('Error:', error);
-    //         Alert.alert('Error', 'An error occurred. Please try again later.');
-    //     }
-    // }
-
     const addToSender = async (sender) => {
         try {
             fetch('https://wellness-server.onrender.com/user/getUserById', { // Problem with getMessages
@@ -79,8 +57,6 @@ export default function ChatRoom({ route }) {
                 const updatedSender = [...senderInfo];
                 updatedSender.push({ username: res.user.username, sender: sender, msg_id: msgId });
                 setMsgId(prev => prev + 1);
-                console.log("MsgId:");
-                console.log(msgId)
                 setSenderInfo(updatedSender)
                 // console.log("senderData:") 
                 // console.log(senderInfo); 
@@ -110,8 +86,6 @@ export default function ChatRoom({ route }) {
             })
             .then(res => res.json())
             .then(async res => {
-                // console.log("getGroupMessages:")
-                // console.log(res.chats)
                 setChats(res.chats)
             })  
             .catch(err => console.error(err));
@@ -128,8 +102,8 @@ export default function ChatRoom({ route }) {
     useEffect(() => {        
         socket.on("new_chat", (data) => { // The "new_chat" socket event recieves all messages from the room
             const {content, sender, group, msg_id} = data;
-            console.log(data + " - new chat"); 
-        })
+            // console.log(data + " - new chat"); 
+        });
     }, [socket]);
 
     return (
@@ -149,9 +123,6 @@ export default function ChatRoom({ route }) {
                                 index === 0 || chats[index - 1].sender_id !== messageData.sender_id;
 
                             const isCurrentUser = messageData.sender_id === user.user_id;
-                            // console.log("isCurrentUser:", isCurrentUser);
-                            // console.log("messageData.sender_id:", messageData.sender_id)
-
                             return (
                                 <React.Fragment key={index}>
                                     {!isCurrentUser && isDifferentSender && (
@@ -206,7 +177,6 @@ export default function ChatRoom({ route }) {
                         group: tagName,
                     }
                     socket.emit("chat", userObject); // The "chat" socket event adds a new message to a room
-                    console.log(userObject);
                     getGroupMessages();
                     addToSender(userObject.sender);
                 }}>

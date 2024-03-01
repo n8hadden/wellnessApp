@@ -118,7 +118,7 @@ export default function Page() {
           setSubmittedData({});
         }
       } else {
-        console.error('No mood data found in AsyncStorage');
+        console.log('No mood data found in AsyncStorage');
         setNote("");
         setSubmittedData({});
       }
@@ -151,7 +151,7 @@ export default function Page() {
           }
           setShowNotesModal(true);
         } else {
-          console.error('No mood data found for the selected day');
+          console.log('No mood data found for the selected day');
         }
       } catch (error) {
         console.error("Error fetching mood data from AsyncStorage:", error);

@@ -47,7 +47,7 @@ export default function ChatTag({route}) {
         }, [user, navigation]) // Make sure to include user and navigation in the dependencies array
     );
 
-    const getTagIdByTagName = async (tagName) => {
+    /* const getTagIdByTagName = async (tagName) => {
         if (user) {
             try {
                 fetch('https://wellness-server.onrender.com/tag/getTagIdByTagName', {
@@ -70,9 +70,9 @@ export default function ChatTag({route}) {
                 Alert.alert('Error', 'An error occurred. Please try again later.');
             }
         }
-    }
+    } */
 
-    const getTagNameById = async (tagId_) => {
+    /* const getTagNameById = async (tagId_) => {
         if (user) {
             try {
                 fetch('https://wellness-server.onrender.com/tag/getTagNameById', {
@@ -95,7 +95,7 @@ export default function ChatTag({route}) {
                 Alert.alert('Error', 'An error occurred. Please try again later.');
             }
         }
-    }
+    } */
 
     const handleTags = async () => {
         if (user) {
@@ -113,9 +113,6 @@ export default function ChatTag({route}) {
                 .then(async res => {
                     const tags = res;
                     setUserTags(tags.tags);
-                    // console.log(user.user_id);
-                    // console.log("tags: ");
-                    // console.log(tags.tags); 
                 })
                 .catch(err => console.error(err));
             } catch (error) {
