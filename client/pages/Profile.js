@@ -1,12 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { Dimensions, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Ionicons from 'react-native-vector-icons/Ionicons';
-// import Avatar from '@mui/material/Avatar';
-// import Divider from '@mui/material/Divider';
-// import Chip from '@mui/material/Chip';
-// import Grid from '@mui/material/Grid'; // Grid version 1
+import { Dimensions, StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 
 // style(s)
 import { styles } from '../styles/ProfileStyles';
@@ -20,7 +14,7 @@ const windowHeight = Dimensions.get('window').height;
 
 export default function Profile() {
 
-    const { user, setUser } = useUser();
+    const { user } = useUser();
 
     const [userTags, setUserTags] = useState([]);
     const [uniqueTags, setUniqueTags] = useState([]);

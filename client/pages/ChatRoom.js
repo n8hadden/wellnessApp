@@ -29,14 +29,13 @@ const windowHeight = Dimensions.get('window').height;
 
 export default function ChatRoom({ route }) {
     const { user, setUser } = useUser();
-
     const { tagName, tagId } = route.params;
     const myInputRef = useRef(null);
 
     const [inputValue, setInputValue] = useState('');
     const [chats, setChats] = useState([]);
     const [senderInfo, setSenderInfo] = useState([]);
-    const [msgId, setMsgId] = useState(); // update manually each run until database is connected
+    const [msgId, setMsgId] = useState(); // update manually each run until database is connected // currently set to undefined
 
     const handleInputChange = (text) => {
         setInputValue(text);
@@ -80,6 +79,8 @@ export default function ChatRoom({ route }) {
                 const updatedSender = [...senderInfo];
                 updatedSender.push({ username: res.user.username, sender: sender, msg_id: msgId });
                 setMsgId(prev => prev + 1);
+                console.log("MsgId:");
+                console.log(msgId)
                 setSenderInfo(updatedSender)
                 // console.log("senderData:") 
                 // console.log(senderInfo); 
@@ -174,7 +175,7 @@ export default function ChatRoom({ route }) {
 
                                     {isCurrentUser && (
                                         <>
-                                            <UserMessage
+                                            <PeerMessage
                                                 message={messageData.content}
                                             />
                                         </>

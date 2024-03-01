@@ -15,35 +15,22 @@ const SearchBar = ({ children }) => {
     const [searchResults, setSearchResults] = useState([]);
 
     const searchData = async (text) => {
+        console.log('searchData called')
         try {
-            fetch('https://wellness-server.onrender.com/tag/getAllTags  ', {
+            const response = await fetch('https://wellness-server.onrender.com/tag/getAllTags', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-            })
-            .then(res => res.json())
-            .then(async res => {
-                console.log("SEARCH:")
-                console.log(res.tags);
-                
-            })
-            .catch(err => console.error(err));
+            });
+            const data = await response.text();
+            console.log('Response:', data); // Log the response
+            console.log('searchQuery:', searchQuery)
         } catch (error) {
             console.error('Error:', error);
             Alert.alert('Error', 'An error occurred. Please try again later.');
         }
-        setSearchQuery(text);
-        const filteredData = testingData.filter((item) =>
-            item.toLowerCase().includes(text.toLowerCase())
-        );
-        setSearchResults(filteredData);
     };
-
-    // const clearSearch = () => {
-    //     setSearchQuery('');
-    //     setSearchResults([]); // Clear search results when clearing the search query
-    // };
 
     // const findNameById = async () => { // AT LEAST THIS NEEDS TO GET DONE ASAP
     //     try {
