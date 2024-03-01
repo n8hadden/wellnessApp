@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
     },
     tagText: {
         color: 'white',
-        fontSize: 20,
+        fontSize: 18,
         width: '70%',
     },
     suggestText: {

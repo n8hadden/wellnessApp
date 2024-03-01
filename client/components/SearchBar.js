@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TextInput, FlatList, StyleSheet } from 'react-native';
 import { Dimensions } from 'react-native';
 
@@ -10,12 +10,11 @@ const windowHeight = Dimensions.get('window').height;
 
 const SearchBar = ({ children }) => {
 
-    const [allTags, setAllTags] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
 
     const searchData = async (text) => {
-        console.log('searchData called')
+        setSearchQuery(text); 
         try {
             const response = await fetch('https://wellness-server.onrender.com/tag/getAllTags', {
                 method: 'GET',
@@ -23,50 +22,25 @@ const SearchBar = ({ children }) => {
                     'Content-Type': 'application/json',
                 },
             });
-            const data = await response.text();
-            console.log('Response:', data); // Log the response
-            console.log('searchQuery:', searchQuery)
+            const data = await response.json(); 
+            // console.log('Response:', data); 
+            
+            const filteredTags = data.tags.filter(tag => tag.tag_name.includes(text));
+            const firstFiveResults = filteredTags.map(tag => tag.tag_name).slice(0, 5);
+            setSearchResults(firstFiveResults); 
         } catch (error) {
             console.error('Error:', error);
             Alert.alert('Error', 'An error occurred. Please try again later.');
         }
     };
 
-    // const findNameById = async () => { // AT LEAST THIS NEEDS TO GET DONE ASAP
-    //     try {
-    //         fetch('https://wellness-server.onrender.com/tag/getTagNameById', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify({
-                    
-    //             }),
-    //         })
-    //         .then(res => res.json())
-    //         .then(async res => {
-        
-    //         })
-    //         .catch(err => console.error(err));
-    //     } catch (error) {
-    //         console.error('Error:', error);
-    //         Alert.alert('Error', 'An error occurred. Please try again later.');
-    //     }
-    // }
+    useEffect(() => {
+        // console.log('searchQuery: ', searchQuery);
+    }, [searchQuery]);
 
-    // const testingData = [ 
-    //     '1',
-    //     '2',
-    //     '3',
-    //     '4',
-    //     '5',
-    //     '6',
-    //     '7',
-    //     '8',
-    //     '9',
-    //     '10',
-    //     '11',
-    // ];
+    useEffect(() => {
+        // console.log('searchResults: ', searchResults);
+    }, [searchResults]);
 
     return (
         <>
@@ -88,7 +62,26 @@ const SearchBar = ({ children }) => {
                         fontSize: 16,
                     }}
                 />
-                { searchQuery !== '' && ( // Render the clear button if searchQuery is not empty
+                { searchResults.length > 0 && (
+                    <FlatList
+                        data={searchResults}
+                        renderItem={({ item }) => 
+                            <TagContainer
+                                search={true}
+                                tagName={item} // will add [info] to database
+                                // tagColor="#64b6ac" // will add [info] to database
+                                onPress={() => {
+                                    console.log("pressed!");
+                                }}
+                            />
+                        }
+                        keyExtractor={(item, index) => index.toString()}
+                        style={{
+                            width: windowWidth * 0.9,
+                        }}
+                    />
+                )}
+                {/* { searchQuery !== '' && ( // Render the clear button if searchQuery is not empty
                     <FlatList
                         data={searchResults}
                         renderItem={({ item }) => 
@@ -109,7 +102,7 @@ const SearchBar = ({ children }) => {
                             width: windowWidth * 0.9,
                         }}
                     />
-                )}
+                )} */}
             </View>
         </>
     );
