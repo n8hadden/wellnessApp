@@ -28,33 +28,42 @@ import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 const windowHeight = Dimensions.get('window').height;
 
 export default function ChatRoom({ route }) {
-
     const { user, setUser } = useUser();
-
     const { tagName, tagId } = route.params;
     const myInputRef = useRef(null);
 
     const [inputValue, setInputValue] = useState('');
     const [chats, setChats] = useState([]);
     const [senderInfo, setSenderInfo] = useState([]);
-    const [msgId, setMsgId] = useState(80); // update manually each run until database is connected
+    const [msgId, setMsgId] = useState(); // update manually each run until database is connected // currently set to undefined
 
     const handleInputChange = (text) => {
         setInputValue(text);
     };
 
-    const addToCustom = (userObject) => { // temp func 
-        const updatedChat = [...chats];
-        updatedChat.push(userObject);
-        setChats(updatedChat);
-    }
+    // const getMsgId = async () => {
+    //     try {
+    //         fetch('https://wellness-server.onrender.com/user/getUserById', { // Problem with getMessages
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({
+    //                 _id: sender,
+    //             }),
+    //         })
+    //         .then(res => res.json())
+    //         .then(async res => {
 
-    const show = () => { // temp func
-        console.log("testingArray");
-        console.log(chats)
-    }
+    //         })  
+    //         .catch(err => console.error(err));
+    //     } catch (error) {
+    //         console.error('Error:', error);
+    //         Alert.alert('Error', 'An error occurred. Please try again later.');
+    //     }
+    // }
 
-    const addToSender = (sender) => {
+    const addToSender = async (sender) => {
         try {
             fetch('https://wellness-server.onrender.com/user/getUserById', { // Problem with getMessages
                 method: 'POST',
@@ -70,9 +79,11 @@ export default function ChatRoom({ route }) {
                 const updatedSender = [...senderInfo];
                 updatedSender.push({ username: res.user.username, sender: sender, msg_id: msgId });
                 setMsgId(prev => prev + 1);
+                console.log("MsgId:");
+                console.log(msgId)
                 setSenderInfo(updatedSender)
-                console.log("senderData:") 
-                console.log(senderInfo); 
+                // console.log("senderData:") 
+                // console.log(senderInfo); 
             })  
             .catch(err => console.error(err));
         } catch (error) {
@@ -88,19 +99,20 @@ export default function ChatRoom({ route }) {
 
     const getGroupMessages = async () => {
         try {
-            fetch('https://wellness-server.onrender.com/chat/getMessages', { // Problem with getMessages
+            fetch('https://wellness-server.onrender.com/chat/getMessages', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    group: 1,
+                    group: tagId,
                 }),
             })
             .then(res => res.json())
             .then(async res => {
-                console.log("response:")
-                console.log(res); // "chats" is empty // BIG ISSUE 
+                // console.log("getGroupMessages:")
+                // console.log(res.chats)
+                setChats(res.chats)
             })  
             .catch(err => console.error(err));
         } catch (error) {
@@ -110,14 +122,13 @@ export default function ChatRoom({ route }) {
     }
 
     useEffect(() => {
-        // getGroupMessages();
+        getGroupMessages();
     }, [])
 
     useEffect(() => {        
         socket.on("new_chat", (data) => { // The "new_chat" socket event recieves all messages from the room
-            const {content, sender, group} = data;
-            console.log(content + " - new chat"); // LEFT OFF HERE, this seems to only be the most recent message
-            // TRYING TO FIGURE OUT HOW TO GET CHAT MESSAGES DATA
+            const {content, sender, group, msg_id} = data;
+            console.log(data + " - new chat"); 
         })
     }, [socket]);
 
@@ -132,23 +143,36 @@ export default function ChatRoom({ route }) {
                 <View style={styles.messages}>
                     {chats.length !== 0 &&
                         chats.map((messageData, index) => {
-                            const msgUserName = findNameById(messageData.sender);
-                            console.log("msgUserName:", msgUserName, messageData);
+                            const msgUserName = findNameById(messageData.sender_id);
 
                             const isDifferentSender =
-                                index === 0 || chats[index - 1].sender !== messageData.sender;
+                                index === 0 || chats[index - 1].sender_id !== messageData.sender_id;
 
-                            const isCurrentUser = messageData.sender === user.user_id;
+                            const isCurrentUser = messageData.sender_id === user.user_id;
+                            // console.log("isCurrentUser:", isCurrentUser);
+                            // console.log("messageData.sender_id:", messageData.sender_id)
 
                             return (
                                 <React.Fragment key={index}>
-                                    {!isCurrentUser && (
-                                        <PeerMessage
-                                            message={messageData.content}
-                                            username={msgUserName}
-                                            sameUser={!isDifferentSender}
-                                            profileImg="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/aca833f9-1f8b-40c7-801c-7859070fd37b/d3cx2fp-8d2aaf7b-7fd9-4945-b360-abca60d772e3.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2FjYTgzM2Y5LTFmOGItNDBjNy04MDFjLTc4NTkwNzBmZDM3YlwvZDNjeDJmcC04ZDJhYWY3Yi03ZmQ5LTQ5NDUtYjM2MC1hYmNhNjBkNzcyZTMuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.GCedvmkI-ftUz8P3IUk4TEc46eYovARAJ-EDEl7vvDQ"
-                                        />
+                                    {!isCurrentUser && isDifferentSender && (
+                                        <>
+                                            <PeerMessage
+                                                message={messageData.content}
+                                                username={msgUserName}
+                                                profileImg="https://media.istockphoto.com/id/1332100919/vector/man-icon-black-icon-person-symbol.jpg?s=612x612&w=0&k=20&c=AVVJkvxQQCuBhawHrUhDRTCeNQ3Jgt0K1tXjJsFy1eg="
+                                            />
+                                        </>
+                                    )}
+
+                                    {!isCurrentUser && !isDifferentSender && (
+                                        <>
+                                            <PeerMessage
+                                                message={messageData.content}
+                                                username={msgUserName}
+                                                sameUser={true}
+                                                profileImg="https://media.istockphoto.com/id/1332100919/vector/man-icon-black-icon-person-symbol.jpg?s=612x612&w=0&k=20&c=AVVJkvxQQCuBhawHrUhDRTCeNQ3Jgt0K1tXjJsFy1eg="
+                                            />
+                                        </>
                                     )}
 
                                     {isCurrentUser && (
@@ -156,72 +180,12 @@ export default function ChatRoom({ route }) {
                                             <UserMessage
                                                 message={messageData.content}
                                             />
-                                            <PeerMessage // temp component for testing
-                                                message={messageData.content}
-                                                username={msgUserName}
-                                                profileImg="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/aca833f9-1f8b-40c7-801c-7859070fd37b/d3cx2fp-8d2aaf7b-7fd9-4945-b360-abca60d772e3.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2FjYTgzM2Y5LTFmOGItNDBjNy04MDFjLTc4NTkwNzBmZDM3YlwvZDNjeDJmcC04ZDJhYWY3Yi03ZmQ5LTQ5NDUtYjM2MC1hYmNhNjBkNzcyZTMuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.GCedvmkI-ftUz8P3IUk4TEc46eYovARAJ-EDEl7vvDQ"
-                                            />
-                                            <PeerMessage // temp component for testing
-                                                message={messageData.content}
-                                                username={msgUserName}
-                                                sameUser={true}
-                                                profileImg="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/aca833f9-1f8b-40c7-801c-7859070fd37b/d3cx2fp-8d2aaf7b-7fd9-4945-b360-abca60d772e3.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2FjYTgzM2Y5LTFmOGItNDBjNy04MDFjLTc4NTkwNzBmZDM3YlwvZDNjeDJmcC04ZDJhYWY3Yi03ZmQ5LTQ5NDUtYjM2MC1hYmNhNjBkNzcyZTMuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.GCedvmkI-ftUz8P3IUk4TEc46eYovARAJ-EDEl7vvDQ"
-                                            />
-                                            <PeerMessage // temp component for testing
-                                                message={messageData.content}
-                                                username={msgUserName}
-                                                profileImg="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/aca833f9-1f8b-40c7-801c-7859070fd37b/d3cx2fp-8d2aaf7b-7fd9-4945-b360-abca60d772e3.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2FjYTgzM2Y5LTFmOGItNDBjNy04MDFjLTc4NTkwNzBmZDM3YlwvZDNjeDJmcC04ZDJhYWY3Yi03ZmQ5LTQ5NDUtYjM2MC1hYmNhNjBkNzcyZTMuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.GCedvmkI-ftUz8P3IUk4TEc46eYovARAJ-EDEl7vvDQ"
-                                            />
                                         </>
                                     )}
                                 </React.Fragment>
                             );
                         })
                     }
-                    {/* {chats.length !== 0 &&
-                        chats.map((messageData, index) => {
-                            const msgUserName = findNameById(messageData.sender);
-                            console.log("msgUserName:", msgUserName, messageData);
-                            return messageData.sender == user.user_id ? ( // return messageData.sender !== user.user_id ? (
-                                <PeerMessage
-                                    key={index}
-                                    message={messageData.content}
-                                    username={msgUserName}
-                                    sameUser={true}
-                                    profileImg="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/aca833f9-1f8b-40c7-801c-7859070fd37b/d3cx2fp-8d2aaf7b-7fd9-4945-b360-abca60d772e3.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2FjYTgzM2Y5LTFmOGItNDBjNy04MDFjLTc4NTkwNzBmZDM3YlwvZDNjeDJmcC04ZDJhYWY3Yi03ZmQ5LTQ5NDUtYjM2MC1hYmNhNjBkNzcyZTMuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.GCedvmkI-ftUz8P3IUk4TEc46eYovARAJ-EDEl7vvDQ"
-                                />
-                            ) : (
-                                <UserMessage
-                                    key={index}
-                                    message={messageData.content}
-                                />
-                            );
-                        })
-                    } */}
-                    {/* <PeerMessage
-                        message="abc" //{tagId} // "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                        username="A Platypus"
-                        profileImg="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/aca833f9-1f8b-40c7-801c-7859070fd37b/d3cx2fp-8d2aaf7b-7fd9-4945-b360-abca60d772e3.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2FjYTgzM2Y5LTFmOGItNDBjNy04MDFjLTc4NTkwNzBmZDM3YlwvZDNjeDJmcC04ZDJhYWY3Yi03ZmQ5LTQ5NDUtYjM2MC1hYmNhNjBkNzcyZTMuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.GCedvmkI-ftUz8P3IUk4TEc46eYovARAJ-EDEl7vvDQ"
-                    />
-                    <UserMessage
-                        message="*platypus noises*"
-                    /> */}
-                    {/* <PeerMessage
-                        message="The platypus is one of the few mammals that lays eggs instead of giving birth to live young, making it a monotreme, along with echidnas."
-                        username="Dr. Doofenshmirtz "
-                        profileImg="https://i.pinimg.com/550x/c4/82/c8/c482c8c448b458fb7358710c341981dc.jpg"
-                    />
-                    <UserMessage
-                        message="Platypus eggs are leathery and about the size of a marble. They are excellent swimmers and spend much of their time in freshwater streams and rivers in eastern Australia, where they use their webbed feet and flat tail to propel themselves through the water."
-                    />
-                    <UserMessage
-                        message="Despite their cuddly appearance, male platypuses have venomous spurs on their hind legs. While not lethal to humans, their venom can cause severe pain and swelling. Platypuses are nocturnal and primarily feed on aquatic invertebrates such as insects, worms, and shrimp. They use their sensitive bills to detect electrical signals produced by their prey in the water."
-                    />
-                    <PeerMessage
-                        message="Chrrr chrrr chrrr"
-                        username="Perry the Platypus"
-                        profileImg="https://openseauserdata.com/files/eb24512ed311ea7826de01337a4e52ad.jpg"
-                    /> */}
                 </View>
                 <StatusBar style="auto" />
             </ScrollView>
@@ -244,18 +208,12 @@ export default function ChatRoom({ route }) {
                     socket.emit("chat", userObject); // The "chat" socket event adds a new message to a room
                     console.log(userObject);
                     getGroupMessages();
-                    addToCustom(userObject);
                     addToSender(userObject.sender);
-                    show();
                 }}>
                     <Ionicons 
                         name="chevron-up-circle" 
                         size={windowHeight * 0.055} 
                         color="#3d3b3c" 
-                        style={{ 
-                            flex: 1,
-                            justifyContent: 'center',
-                        }}
                     />
                 </TouchableOpacity> 
             </View>

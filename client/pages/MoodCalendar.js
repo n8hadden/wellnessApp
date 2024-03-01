@@ -107,7 +107,7 @@ export default function Page() {
           console.error('Error parsing mood data from AsyncStorage:', error);
           moodData = null;
         }
-        // console.log('Mood Data:', moodData);
+        console.log('Mood Data:', moodData);
         if (moodData && typeof moodData === 'object' && moodData.day.slice(0, 10) === date) {
           // console.log('Date matched:', date);
           setNote(moodData.finalThoughts || "");

@@ -22,7 +22,7 @@ import SearchBar from '../components/SearchBar';
 export default function ChatTag({route}) {
 
     const navigation = useNavigation();
-    const [showSuggestion, setShowSuggestion] = useState(false);
+    // const [showSuggestion, setShowSuggestion] = useState(false);
     const [userTags, setUserTags] = useState([{}]);
 
     const { user } = useUser();
@@ -46,6 +46,56 @@ export default function ChatTag({route}) {
             }
         }, [user, navigation]) // Make sure to include user and navigation in the dependencies array
     );
+
+    const getTagIdByTagName = async (tagName) => {
+        if (user) {
+            try {
+                fetch('https://wellness-server.onrender.com/tag/getTagIdByTagName', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: tagName,
+                    }),
+                })
+                .then(res => res.json())
+                .then(async res => {
+                    console.log("getTagIdByTagName")
+                    console.log(res)
+                })
+                .catch(err => console.error(err));
+            } catch (error) {
+                console.error('Error:', error);
+                Alert.alert('Error', 'An error occurred. Please try again later.');
+            }
+        }
+    }
+
+    const getTagNameById = async (tagId_) => {
+        if (user) {
+            try {
+                fetch('https://wellness-server.onrender.com/tag/getTagNameById', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        id: tagId_
+                    }),
+                })
+                .then(res => res.json())
+                .then(async res => {
+                    console.log("getTagNameById");
+                    console.log(res);
+                })
+                .catch(err => console.error(err));
+            } catch (error) {
+                console.error('Error:', error);
+                Alert.alert('Error', 'An error occurred. Please try again later.');
+            }
+        }
+    }
 
     const handleTags = async () => {
         if (user) {
@@ -113,8 +163,10 @@ export default function ChatTag({route}) {
                                 tagName={tag.tag_name}
                                 tagId={tag.tag_id}
                                 onPress={() => {
-                                    console.log("HERE:")
-                                    console.log(index, tag);
+                                    // console.log("HERE:")
+                                    // console.log(index, tag);
+                                    getTagIdByTagName(tag.tag_name);
+                                    getTagNameById(tag.tag_id);
                                     socket.emit("join", {group: tag.tag_name});
                                     navigation.navigate(`ChatRoom_${tag.tag_id}`, { tagId: tag.tag_id, tagName: tag.tag_name } );
                                 }}
