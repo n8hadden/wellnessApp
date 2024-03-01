@@ -22,7 +22,7 @@ import SearchBar from '../components/SearchBar';
 export default function ChatTag({route}) {
 
     const navigation = useNavigation();
-    const [showSuggestion, setShowSuggestion] = useState(false);
+    // const [showSuggestion, setShowSuggestion] = useState(false);
     const [userTags, setUserTags] = useState([{}]);
 
     const { user } = useUser();

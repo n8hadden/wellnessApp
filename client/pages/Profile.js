@@ -25,6 +25,49 @@ export default function Profile() {
     const [userTags, setUserTags] = useState([]);
     const [uniqueTags, setUniqueTags] = useState([]);
 
+    useEffect(() => {
+        handleTags();
+    }, [user]);
+
+    useEffect(() => {
+        console.log("Unique Tags:")
+        console.log(uniqueTags);
+    }, [uniqueTags]);
+
+    const removeDuplicates = (tags) => {
+        const unique = [];
+        console.log("userTags:")
+        console.log(tags)
+        tags.forEach(tag => {
+            console.log('tag:');
+            console.log(tag.tag_name)
+            if (!unique.includes(tag.tag_name)) {
+                unique.push(tag.tag_name);
+            }
+        });
+        return unique; 
+    };
+
+    const handleTags = async () => {
+        try {
+            const response = await fetch('https://wellness-server.onrender.com/tag/getTags', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId: user.user_id,
+                }),
+            });
+            const res = await response.json();
+            setUserTags(res.tags);
+            setUniqueTags(removeDuplicates(res.tags));
+        } catch (error) {
+            console.error('Error:', error);
+            Alert.alert('Error', 'An error occurred. Please try again later.');
+        }
+    };
+    
     const Tag = ({ text }) => {
         const [boxWidth, setBoxWidth] = useState(null);
       
@@ -45,62 +88,6 @@ export default function Profile() {
             </View>
         );
     };
-
-    const removeDuplicates = () => {
-        const unique = [];
-        userTags.forEach(tag => {
-            console.log('tag:');
-            console.log(tag.tag_name)
-            if (!unique.includes(tag.tag_name)) {
-                unique.push(tag.tag_name);
-            }
-        });
-        setUniqueTags(unique); 
-        // const unique = [];
-        // userTags.forEach(tag => {
-        //     console.log('tag:');
-        //     console.log(tag.tag_name)
-        //     if (!unique.includes(tag.tag_name)) {
-        //         unique.push(tag.tag_name);
-        //     }
-        // });
-        // return unique;
-    };
-
-    const handleTags = async () => {
-        try {
-            fetch('https://wellness-server.onrender.com/tag/getTags', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    userId: user.user_id,
-                }),
-            })
-            .then(res => res.json())
-            .then(async res => {
-                const tags = res;
-                setUserTags(tags.tags);
-                removeDuplicates();
-                // const uniqueTags = removeDuplicates();
-                // setUniqueTags(uniqueTags);
-                // console.log(uniqueTags)
-            })
-            .catch(err => console.error(err));
-        } catch (error) {
-            console.error('Error:', error);
-            Alert.alert('Error', 'An error occurred. Please try again later.');
-        }
-    }
-
-    // useEffect(() => {
-    //     handleTags();
-    // }, [uniqueTags]);
-
-    useEffect(() => {
-        handleTags();
-    }, [user]);
 
     useEffect(() => {
         handleTags();
@@ -154,8 +141,8 @@ export default function Profile() {
                             ))
                             ) : ( <></> )
                         }
-                        {/* <Tag text="Photography" />
-                        <Tag text="Crocheting" />
+                        {/* <Tag text="Photography" /> */}
+                        {/* <Tag text="Crocheting" />
                         <Tag text="Fitness Training" />
                         <Tag text="Yoga" />
                         <Tag text="Podcasts" />
@@ -185,34 +172,6 @@ export default function Profile() {
                     </ScrollView>
                 </View>
             </View>
-            {/* <View style={styles.container}>
-                <ScrollView style={styles.mainContainer} >
-                    <Grid container columns={3} style={styles.cardContainer}>
-                        <Grid item>
-                            <Avatar style={styles.userAvatar} alt="User's Avatar" sx={{ width: 100, height: 100 }} />
-                        </Grid>
-                        <Grid item xs={2} style={styles.nameStyle}>
-                            <p style={styles.name}>User's Display Name</p>
-                            <Divider variant="middle" />
-                        </Grid>
-                        <Grid item gridRow="span 2">
-                            <View style={styles.aboutContent}>
-                                <p style={styles.bio}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                <View style={styles.tagArea}>
-                                    <Chip style={styles.chips} label="Baking" variant="outlined" color="info" clickable />
-                                    <Chip style={styles.chips} label="Reading" variant="outlined" color="info" clickable />
-                                    <Chip style={styles.chips} label="Gardening" variant="outlined" color="info" clickable />
-                                    <Chip style={styles.chips} label="Travel" variant="outlined" color="info" clickable />
-                                    <Chip style={styles.chips} label="Photography" variant="outlined" color="info" clickable
-                                    // component="a" href="/" 
-                                    // Components and href can both be added to Chips to make them redirect upon click. 
-                                    />
-                                </View>
-                            </View>
-                        </Grid>
-                    </Grid>
-                </ScrollView>
-            </View> */}
         </>
     );
 }
