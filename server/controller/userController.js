@@ -76,13 +76,19 @@ async function getUsers(req, res) {
 // Create a user
 async function createUser(req, res)  {
     let { username, email, password } = req.body;
-
+    console.log("check 1")
+    console.log(username, email, password)
     await bcrypt.hash(password, saltRounds).then(hash => {
         password = hash;
     }) 
 
+    console.log("check 2")
+    console.log(password)
+
     try {
         const newUser = await model.createUser(username, email, password);
+        console.log("check 3")
+        console.log(newUser)
         res.status(201).json({ newUser });
     } catch (err) {
         console.error(err);
