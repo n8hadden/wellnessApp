@@ -82,8 +82,8 @@ async function createUser(req, res)  {
     }) 
 
     try {
-        const newUser = await model.createUser(username, email, password);
-        res.status(201).json({ newUser });
+        await model.createUser(username, email, password);
+        res.status(200).json({ message: "user added" });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Internal Server Error" });
