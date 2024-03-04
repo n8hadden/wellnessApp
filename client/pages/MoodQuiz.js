@@ -52,23 +52,41 @@ export default function MoodQuiz() {
 
   const handleSave = async () => {
     const trimmedFinalThoughts = finalThoughts.trim();
-    const currentDate = new Date().toISOString(); // Get the current date and format as ISO string
-  
+    // format desired: 2024-03-03 (year, month, day)
+    const date = new Date().toLocaleString('en-US')
+      .split(',')[0] // Remove the time part
+      .split('/')
+      .map((datePart, index) => {
+        if (index === 0) {
+          // For the first part (month), add leading zero if necessary
+          return datePart.padStart(2, '0');
+        } else if (index === 1) {
+          // For the second part (day), add leading zero if necessary
+          return datePart.padStart(2, '0');
+        } else {
+          // For the third part (year), remove leading zeros
+          return datePart.replace(/^0+/, ''); // Remove leading zeros
+        }
+      })
+      .join('-'); // Join the parts with dashes
+
+    const currentDate = date.slice(6) + "-" + date.slice(0,2) + "-" + date.slice(3,5);
+
     const moodData = {
       day: currentDate,
       mood: selectedMoods,
       moodValue: sliderValues,
       finalThoughts: trimmedFinalThoughts,
     };
+    console.log("current date (locally):", currentDate) 
   
     try {
-
       await AsyncStorage.setItem('moodData', JSON.stringify(moodData));
       console.log('Mood data saved successfully!');
-
     } catch (error) {
       console.error('Error saving mood data:', error);
     }
+    console.log("Async mood data1:", AsyncStorage.getItem('moodData'))
   
     setSelectedMoods([]);
     setSliderValues({});

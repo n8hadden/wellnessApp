@@ -95,7 +95,8 @@ export default function Page() {
   };
 
   const loadSubmittedData = async (date) => {
-    // console.log("loadSubmittedData called with date:", date);
+    console.log("Async mood data2:", AsyncStorage.getItem('moodData'))
+    console.log("loadSubmittedData called with date:", date);
     try {
       const response = await AsyncStorage.getItem('moodData');
       console.log('Response from AsyncStorage:', response);
@@ -103,13 +104,15 @@ export default function Page() {
         let moodData;
         try {
           moodData = JSON.parse(response);
+          console.log("moodData parsed:", moodData)
         } catch (error) {
           console.error('Error parsing mood data from AsyncStorage:', error);
           moodData = null;
         }
         console.log('Mood Data:', moodData);
+        console.log('Mood Data type of:', typeof moodData);
         if (moodData && typeof moodData === 'object' && moodData.day.slice(0, 10) === date) {
-          // console.log('Date matched:', date);
+          console.log('Date matched:', date);
           setNote(moodData.finalThoughts || "");
           setSubmittedData({ mood: moodData.mood, moodValue: moodData.moodValue });
         } else {

@@ -162,8 +162,8 @@ export default function ChatTag({route}) {
                                 onPress={() => {
                                     // console.log("HERE:")
                                     // console.log(index, tag);
-                                    getTagIdByTagName(tag.tag_name);
-                                    getTagNameById(tag.tag_id);
+                                    // getTagIdByTagName(tag.tag_name);
+                                    // getTagNameById(tag.tag_id);
                                     socket.emit("join", {group: tag.tag_name});
                                     navigation.navigate(`ChatRoom_${tag.tag_id}`, { tagId: tag.tag_id, tagName: tag.tag_name } );
                                 }}
