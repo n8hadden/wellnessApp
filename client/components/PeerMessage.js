@@ -10,7 +10,7 @@ export default function Message({ message, username, profileImg, sameUser }) {
                 <View style={styles.peer_container_su}>
                     <View style={styles.peer_messages_su}>
                         <View style={styles.peer_message_su}>
-                            <Text style={styles.peer_message_text_su}>{message}, sameUser:{sameUser}</Text>
+                            <Text style={styles.peer_message_text_su}>{message}</Text>
                         </View>
                     </View>
                 </View>

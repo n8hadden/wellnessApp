@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, FlatList, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, TextInput, FlatList, StyleSheet, TouchableOpacity, Text, Alert } from 'react-native';
 import { Dimensions } from 'react-native';
 
 // component(s)
@@ -18,6 +18,26 @@ const SearchBar = ({ children }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
 
+    // const searchData = async (text) => {
+    //     setSearchQuery(text); 
+    //     try {
+    //         const response = await fetch('https://wellness-server.onrender.com/tag/getAllTags', {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //         });
+    //         const data = await response.json(); 
+    //         const filteredTags = data.tags.filter(tag => tag.tag_name.includes(text));
+    //         const uniqueTags = filteredTags.filter(tag => !user.tags.includes(tag.tag_id));
+    //         const firstFiveResults = uniqueTags.slice(0, 5).map(tag => tag.tag_name);
+    //         setSearchResults(firstFiveResults); 
+    //     } catch (error) {
+    //         console.error('Error:', error);
+    //         Alert.alert('Error', 'An error occurred. Please try again later.');
+    //     }
+    // };
+
     const searchData = async (text) => {
         setSearchQuery(text); 
         try {
@@ -28,8 +48,15 @@ const SearchBar = ({ children }) => {
                 },
             });
             const data = await response.json(); 
+    
+            // Check if user.tags is null, if so, assign an empty array
+            const userTags = user.tags || [];
+    
             const filteredTags = data.tags.filter(tag => tag.tag_name.includes(text));
-            const uniqueTags = filteredTags.filter(tag => !user.tags.includes(tag.tag_id));
+            
+            // Check if userTags is an array before using includes method
+            const uniqueTags = filteredTags.filter(tag => !userTags.includes(tag.tag_id));
+            
             const firstFiveResults = uniqueTags.slice(0, 5).map(tag => tag.tag_name);
             setSearchResults(firstFiveResults); 
         } catch (error) {
@@ -39,6 +66,11 @@ const SearchBar = ({ children }) => {
     };
 
     const updateUserTagsAdd = (tagIdToAdd) => {
+        if(user.tags == null) {
+            console.log("user : ", user)
+            const updatedUser = { ...user, tags: [] };
+            setUser(updatedUser);
+        }
         const updatedUser = { ...user, tags: tagIdToAdd };
         setUser(updatedUser);
     }    
@@ -51,7 +83,7 @@ const SearchBar = ({ children }) => {
                 'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                userId: user.user_id,
+                    userId: user.user_id,
                 }),
             })
             .then(res => res.json())
@@ -74,7 +106,7 @@ const SearchBar = ({ children }) => {
                 },
                 body: JSON.stringify({
                     name: tagName,
-                }),
+                }), 
             })
             .then(res => res.json())
             .then(async res => {

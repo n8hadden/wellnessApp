@@ -68,9 +68,13 @@ export default function ChatRoom({ route }) {
         }
     }
 
+    // const findNameById = (senderId) => {
+    //     const sender = senderInfo.find(e => e.sender === senderId);
+    //     return sender ? sender.username : null;
+    // }
     const findNameById = (senderId) => {
         const sender = senderInfo.find(e => e.sender === senderId);
-        return sender ? sender.username : null;
+        return sender ? sender.username : "User";
     }
 
     const getGroupMessages = async () => {
@@ -139,7 +143,6 @@ export default function ChatRoom({ route }) {
                                         <>
                                             <PeerMessage
                                                 message={messageData.content}
-                                                username={msgUserName}
                                                 sameUser={true}
                                                 profileImg="https://media.istockphoto.com/id/1332100919/vector/man-icon-black-icon-person-symbol.jpg?s=612x612&w=0&k=20&c=AVVJkvxQQCuBhawHrUhDRTCeNQ3Jgt0K1tXjJsFy1eg="
                                             />

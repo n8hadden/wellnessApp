@@ -95,6 +95,10 @@ export default function Home({ route }) {
     handleaffirmation();
 
     useEffect(() => {
+        console.log("user:", user)
+    }, [])
+
+    useEffect(() => {
         // console.log("Affirmation: " + affirmation);
     }, [affirmation]);
     
