@@ -43,8 +43,8 @@ async function getUserByEmail(email){
 // Function to create a new user in the database
 async function createUser(username, email, password){
     // Constructing the SQL query to insert a new user
-    let query = `INSERT INTO users (username, email, password, tags)
-        VALUES ('${username}', '${email}', '${password}', [])`;
+    let query = `INSERT INTO users (username, email, password)
+        VALUES ('${username}', '${email}', '${password}')`;
 
     // Executing the SQL query using the database utility function
     let user = await database.setData(query);
